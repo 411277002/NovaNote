@@ -4,7 +4,9 @@ import { useAuthStore } from '../stores/auth';
 // 頁面組件引入
 import LandingView from '../views/LandingView.vue';
 import UniverseView from '../views/UniverseView.vue';
-import EditorView from '../views/EditorView.vue'; // 確保引入了編輯器
+import EditorView from '../views/EditorView.vue';
+import ProfileView from '../views/ProfileView.vue'
+import StarOverviewView from '../views/StarOverviewView.vue'
 
 const routes = [
   { 
@@ -19,10 +21,25 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    // :id 可以是 'new' 或是 數字 ID
     path: '/editor/:id',
     name: 'Editor',
     component: EditorView,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/trash',
+    name: 'Trash',
+    component: () => import('../views/TrashView.vue')
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: ProfileView
+  },
+  {
+    path: '/star-overview',
+    name: 'StarOverview',
+    component: StarOverviewView,
     meta: { requiresAuth: true }
   }
 ];

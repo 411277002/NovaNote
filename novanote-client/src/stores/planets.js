@@ -1,87 +1,238 @@
-import { defineStore } from 'pinia';
-import { ref } from 'vue';
-import { planetAPI } from '../api'; // 確保這裡引入的是你在 index.js 定義的封裝
+import { defineStore } from 'pinia'
+import api from '../services/api'
 
-export const usePlanetsStore = defineStore('planets', () => {
-  // --- 狀態 (State) ---
-  const planets = ref([]);
-  const loading = ref(false);
+export const usePlanetsStore = defineStore('planets', {
+  state: () => ({
+    planets: [],
+    loading: false,
+    error: null
+  }),
 
-  // --- 行動 (Actions) ---
-
-  // 1. 抓取所有星球：初始化宇宙時調用
-  const fetchPlanets = async () => {
-    loading.value = true;
-    try {
-      const res = await planetAPI.getAll();
-      planets.value = res.data;
-    } catch (err) {
-      console.error("星球同步失敗:", err);
-    } finally {
-      loading.value = false;
-    }
-  };
-
-  // 2. 誕生新星球 (修正：解決新增後不即時顯示與紋路遺失問題)
-  const createPlanet = async (planetData) => {
-    try {
-      const res = await planetAPI.create(planetData);
-      
-      // 核心修正邏輯：
-      // 由於你的後端回傳格式為 { msg: '...', planetId: 15 }
-      // 如果直接 push(res.data)，陣列裡會缺少名稱、顏色與最重要的 texture_type。
-      // 我們在這裡手動「組合」前端原本的資料與後端發放的 ID。
-      const completeNewPlanet = {
-        ...planetData, // 包含 name, color, texture_type, x_pos, y_pos
-        id: res.data.planetId || res.data.id // 結合後端生成的 ID
-      };
-
-      // 只要推入響應式陣列，UniverseView 的 v-for 就會立刻感知並渲染
-      planets.value.push(completeNewPlanet); 
-      
-      return completeNewPlanet;
-    } catch (err) {
-      console.error("星球誕生失敗:", err);
-      throw err;
-    }
-  };
-
-  // 3. 更新星球座標 (修正：解決 ReferenceError: api is not defined)
-  const updatePlanetPosition = async (id, x_pos, y_pos) => {
-    try {
-      // 修正：必須使用你 import 進來的 planetAPI，而非直接寫 api.put
-      // 這會對應到你 index.js 裡的 updatePosition 定義
-      await planetAPI.updatePosition(id, { x_pos, y_pos }); 
-      
-      // 同步本地 Pinia 狀態，確保拖曳後的座標保存在記憶體中，不因組件重繪而跑位
-      const planet = planets.value.find(p => p.id === id);
-      if (planet) {
-        planet.x_pos = x_pos;
-        planet.y_pos = y_pos;
+  actions: {
+    normalizePlanet(planet) {
+      return {
+        ...planet,
+        name: planet.name || '未命名星球',
+        color: planet.color || '#646cff',
+        texture_type: planet.texture_type || 'rocky'
       }
-    } catch (err) {
-      console.error("星球軌道偏移失敗:", err);
-    }
-  };
+    },
 
-  // 4. 抹除星球
-  const deletePlanet = async (id) => {
-    try {
-      await planetAPI.delete(id);
-      // 透過過濾掉該 ID 來從畫面移除，不需要刷新頁面
-      planets.value = planets.value.filter(p => p.id !== id);
-    } catch (err) {
-      console.error("星球毀滅失敗:", err);
-      throw err;
-    }
-  };
+    async fetchPlanets() {
+      this.loading = true
+      this.error = null
 
-  return {
-    planets,
-    loading,
-    fetchPlanets,
-    createPlanet,
-    updatePlanetPosition,
-    deletePlanet
-  };
-});
+      try {
+        const res = await api.get('/planets')
+
+        const planets = Array.isArray(res.data)
+          ? res.data
+          : res.data.planets || []
+
+        this.planets = planets.map(this.normalizePlanet)
+
+        return this.planets
+      } catch (err) {
+        console.error('讀取星球失敗:', err)
+        this.error = err
+        throw err
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async createPlanet(payload) {
+      this.loading = true
+      this.error = null
+
+      try {
+        const res = await api.post('/planets', {
+          name: payload.name || '未命名星球',
+          color: payload.color || '#646cff',
+          texture_type: payload.texture_type || 'rocky',
+          user_id: payload.user_id || null,
+          x_pos: payload.x_pos,
+          y_pos: payload.y_pos
+        })
+
+        const newPlanet = this.normalizePlanet(res.data.planet || res.data)
+
+        this.planets.push(newPlanet)
+
+        return newPlanet
+      } catch (err) {
+        console.error('新增星球失敗:', err)
+        this.error = err
+        throw err
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async updatePlanet(id, payload) {
+      this.loading = true
+      this.error = null
+
+      try {
+        const res = await api.put(`/planets/${id}`, {
+          name: payload.name || '未命名星球',
+          color: payload.color || '#646cff',
+          texture_type: payload.texture_type || 'rocky'
+        })
+
+        const updatedPlanet = this.normalizePlanet(res.data.planet || res.data)
+
+        const index = this.planets.findIndex(
+          planet => String(planet.id) === String(id)
+        )
+
+        if (index !== -1) {
+          this.planets[index] = {
+            ...this.planets[index],
+            ...updatedPlanet
+          }
+        }
+
+        return updatedPlanet
+      } catch (err) {
+        console.error('更新星球失敗:', err)
+        this.error = err
+        throw err
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async updatePlanetPosition(id, xPos, yPos) {
+      this.error = null
+
+      try {
+        const res = await api.put(`/planets/${id}/position`, {
+          x_pos: xPos,
+          y_pos: yPos
+        })
+
+        const updatedPlanet = res.data.planet || res.data
+
+        const index = this.planets.findIndex(
+          planet => String(planet.id) === String(id)
+        )
+
+        if (index !== -1) {
+          this.planets[index] = {
+            ...this.planets[index],
+            x_pos: xPos,
+            y_pos: yPos,
+            ...updatedPlanet
+          }
+        }
+
+        return updatedPlanet
+      } catch (err) {
+        console.error('更新星球位置失敗:', err)
+        this.error = err
+        throw err
+      }
+    },
+
+    // 移到垃圾桶，不是真的永久刪除
+    async deletePlanet(id) {
+      this.loading = true
+      this.error = null
+
+      try {
+        await api.delete(`/planets/${id}`)
+
+        this.planets = this.planets.filter(
+          planet => String(planet.id) !== String(id)
+        )
+
+        return true
+      } catch (err) {
+        console.error('刪除星球失敗:', err)
+        this.error = err
+        throw err
+      } finally {
+        this.loading = false
+      }
+    },
+
+    // 取得垃圾桶星球
+    async fetchTrashPlanets() {
+      this.loading = true
+      this.error = null
+
+      try {
+        const res = await api.get('/planets/trash')
+
+        const planets = Array.isArray(res.data)
+          ? res.data
+          : res.data.planets || []
+
+        return planets.map(this.normalizePlanet)
+      } catch (err) {
+        console.error('取得垃圾桶星球失敗:', err)
+        this.error = err
+        throw err
+      } finally {
+        this.loading = false
+      }
+    },
+
+    // 復原星球
+    async restorePlanet(id) {
+      this.loading = true
+      this.error = null
+
+      try {
+        const res = await api.put(`/planets/${id}/restore`)
+
+        const restoredPlanet = res.data.planet
+          ? this.normalizePlanet(res.data.planet)
+          : null
+
+        if (restoredPlanet) {
+          const exists = this.planets.some(
+            planet => String(planet.id) === String(restoredPlanet.id)
+          )
+
+          if (!exists) {
+            this.planets.push(restoredPlanet)
+          }
+        }
+
+        await this.fetchPlanets()
+
+        return res.data
+      } catch (err) {
+        console.error('復原星球失敗:', err)
+        this.error = err
+        throw err
+      } finally {
+        this.loading = false
+      }
+    },
+
+    // 永久刪除星球
+    async permanentDeletePlanet(id) {
+      this.loading = true
+      this.error = null
+
+      try {
+        const res = await api.delete(`/planets/${id}/permanent`)
+
+        this.planets = this.planets.filter(
+          planet => String(planet.id) !== String(id)
+        )
+
+        return res.data
+      } catch (err) {
+        console.error('永久刪除星球失敗:', err)
+        this.error = err
+        throw err
+      } finally {
+        this.loading = false
+      }
+    }
+  }
+})

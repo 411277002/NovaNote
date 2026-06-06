@@ -1,22 +1,730 @@
-:root {
-  /* 宇宙畫布專用 - 永遠不變 */
-  --universe-bg: #050508; 
+/* =========================================================
+   NovaNote Global Theme Variables
+   全域主題變數
+========================================================= */
 
-  /* 元件專用變數 - 預設深色 */
-  --sidebar-bg: rgba(15, 15, 25, 0.9);
-  --text-color: #ffffff;
-  --editor-bg: #1e1e1e;
+:root {
+  color-scheme: dark;
+
+  /* =========================
+     Base
+  ========================= */
+  --font-main: 'Inter', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+
+  --universe-bg: #050508;
+
+  --text-color: #f5f7ff;
+  --heading-color: #ffffff;
+  --muted-text: rgba(255, 255, 255, 0.52);
+  --disabled-text: rgba(255, 255, 255, 0.22);
+
   --border-color: rgba(255, 255, 255, 0.1);
   --search-bg: rgba(255, 255, 255, 0.05);
-  --accent-color: #646cff;
+
+  --accent-color: #8f7cff;
+  --accent-color-hover: #a58cff;
+  --accent-text: #ffffff;
+  --accent-soft: rgba(126, 94, 255, 0.18);
+  --accent-border: rgba(165, 140, 255, 0.46);
+  --accent-gradient: linear-gradient(135deg, #646cff, #9b8cff);
+
+  --link-color: #8fc5ff;
+
+  --danger-color: #ff7777;
+  --danger-bg: rgba(255, 80, 120, 0.25);
+  --danger-soft: #ff9b9b;
+
+  /* =========================
+     Common Surface
+  ========================= */
+  --surface-bg: rgba(24, 27, 40, 0.98);
+  --surface-bg-soft: rgba(255, 255, 255, 0.055);
+  --surface-border: rgba(255, 255, 255, 0.1);
+  --surface-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+
+  --button-bg: rgba(255, 255, 255, 0.06);
+  --button-hover-bg: rgba(255, 255, 255, 0.11);
+  --button-border: rgba(255, 255, 255, 0.12);
+
+  --input-bg: rgba(255, 255, 255, 0.06);
+  --input-border: rgba(255, 255, 255, 0.16);
+  --input-text: #f5f7ff;
+  --input-placeholder: rgba(245, 247, 255, 0.48);
+
+  --select-option-bg: #191c2a;
+  --select-option-text: #f5f6ff;
+
+  --fab-main-bg: #8f7cff;
+  --fab-main-bg-hover: #a58cff;
+  --fab-main-bg-open: #222b3d;
+  --fab-main-text: #101522;
+
+  --fab-sub-bg: #151b2b;
+  --fab-sub-bg-hover: #202a40;
+  --fab-sub-border: #2b3650;
+  --fab-sub-text: #cbd5e1;
+  --fab-sub-text-hover: #b7c6ff;
+
+  --fab-shadow: 0 18px 34px rgba(0, 0, 0, 0.34);
+  --fab-shadow-soft: 0 10px 22px rgba(0, 0, 0, 0.28);
+
+  --fab-ring: rgba(142, 167, 255, 0.22);
+
+  /* =========================
+     Sidebar / App Shell
+  ========================= */
+  --sidebar-bg: #101522;
+  --sidebar-surface: #151b2b;
+  --sidebar-surface-soft: #1b2335;
+  --sidebar-surface-hover: #202a40;
+
+  --sidebar-border: #273248;
+  --sidebar-border-strong: #3a4762;
+
+  --sidebar-text: #e5eaf5;
+  --sidebar-heading: #f8fafc;
+  --sidebar-muted: #9aa7bd;
+  --sidebar-muted-soft: #69758c;
+
+  --sidebar-accent: #8ea7ff;
+  --sidebar-accent-hover: #a8b8ff;
+  --sidebar-accent-soft: #26345f;
+  --sidebar-accent-border: #566da8;
+
+  --sidebar-search-bg: #151b2b;
+  --sidebar-item-bg: transparent;
+  --sidebar-item-hover-bg: #1d2638;
+  --sidebar-item-active-bg: #24304a;
+
+  --sidebar-icon-bg: #1b2335;
+  --sidebar-icon-color: #a7b3c8;
+  --sidebar-icon-hover-bg: #26345f;
+  --sidebar-icon-hover-color: #b7c6ff;
+
+  --sidebar-count-bg: #1b2335;
+  --sidebar-count-color: #9aa7bd;
+  --sidebar-count-hover-bg: #26345f;
+  --sidebar-count-hover-color: #c7d2ff;
+
+  --sidebar-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.22);
+  --sidebar-shadow-md: 0 14px 32px rgba(0, 0, 0, 0.28);
+
+  /* =========================
+     Profile
+  ========================= */
+  --profile-bg: #070914;
+  --profile-bg-radial-1: rgba(100, 108, 255, 0.2);
+  --profile-bg-radial-2: rgba(81, 186, 252, 0.12);
+
+  --profile-sidebar-bg: #0d1120;
+  --profile-sidebar-border: #222a3d;
+
+  --profile-panel-bg: #151a2a;
+  --profile-panel-bg-soft: #1b2235;
+  --profile-panel-border: #2b344a;
+
+  --profile-text: #dbe4f3;
+  --profile-heading: #f8fafc;
+  --profile-muted: #9aa7bd;
+  --profile-muted-soft: #69758c;
+
+  --profile-accent: #8ea7ff;
+  --profile-accent-hover: #a8b8ff;
+  --profile-accent-soft: #26345f;
+  --profile-accent-border: #566da8;
+
+  --profile-input-bg: #101626;
+  --profile-input-border: #303a52;
+  --profile-input-disabled-bg: #121827;
+  --profile-input-disabled-text: #7b8499;
+
+  --profile-menu-hover-bg: #1b253a;
+  --profile-menu-active-bg: #24304a;
+
+  --profile-danger: #ff8f8f;
+  --profile-danger-bg: #351c26;
+  --profile-danger-bg-hover: #45232f;
+
+  --profile-success: #34d399;
+  --profile-error: #f87171;
+
+  --profile-button-bg: #7477d9;
+  --profile-button-bg-hover: #8b8ef0;
+  --profile-button-text: #ffffff;
+
+  --profile-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.24);
+  --profile-shadow-md: 0 14px 32px rgba(0, 0, 0, 0.28);
+  --profile-shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.34);
+  /* =========================
+     EditorView
+  ========================= */
+  --editor-bg: #1e1e1e;
+
+  --editor-page-bg:
+    radial-gradient(circle at 18% 8%, rgba(100, 108, 255, 0.13), transparent 30%),
+    linear-gradient(180deg, #080a14 0%, #0d101b 100%);
+
+  --editor-header-bg: rgba(20, 22, 34, 0.94);
+  --editor-header-border: rgba(255, 255, 255, 0.08);
+
+  --toolbar-bg: rgba(20, 22, 34, 0.94);
+  --toolbar-inner-bg: rgba(255, 255, 255, 0.025);
+
+  --document-bg: #1b1e29;
+  --document-border: rgba(255, 255, 255, 0.09);
+
+  --editor-content-text: #f5f7ff;
+  --editor-title-text: #f5f7ff;
+  --editor-heading-text: #ffffff;
+
+  --title-input-focus-bg: rgba(255, 255, 255, 0.07);
+
+  --header-shadow: none;
+
+  --toolbar-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.24),
+    0 2px 8px rgba(0, 0, 0, 0.18);
+
+  --document-shadow:
+    0 24px 80px rgba(0, 0, 0, 0.32),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.025);
+
+  /* =========================
+     Floating UI / Bubble Menu
+  ========================= */
+  --floating-bg: rgba(24, 27, 40, 0.98);
+  --floating-border: rgba(255, 255, 255, 0.1);
+  --floating-text: #f4f1ff;
+  --floating-muted: rgba(244, 241, 255, 0.58);
+
+  --floating-hover-bg: rgba(126, 94, 255, 0.13);
+  --floating-active-bg: linear-gradient(
+    135deg,
+    rgba(126, 94, 255, 0.28),
+    rgba(173, 139, 255, 0.12)
+  );
+  --floating-active-border: rgba(165, 140, 255, 0.48);
+  --floating-active-text: #cfc4ff;
+
+  /* =========================
+     Slash Command Menu
+  ========================= */
+  --slash-bg: rgba(18, 20, 32, 0.98);
+  --slash-border: rgba(255, 255, 255, 0.12);
+  --slash-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
+  --slash-inner-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+
+  --slash-item-text: #f5f7ff;
+  --slash-item-hover-bg: rgba(126, 94, 255, 0.18);
+  --slash-item-hover-border: rgba(165, 140, 255, 0.42);
+
+  --slash-icon-bg: rgba(126, 94, 255, 0.18);
+  --slash-icon-color: #cfc4ff;
+
+  --slash-title-color: #f7f8ff;
+  --slash-desc-color: #a6aec4;
+  --slash-empty-color: #a6aec4;
+
+  --slash-scrollbar: rgba(160, 175, 210, 0.24);
+  --slash-scrollbar-hover: rgba(160, 175, 210, 0.42);
+
+  /* =========================
+     Modal
+  ========================= */
+  --modal-mask-bg: rgba(0, 0, 0, 0.56);
+  --modal-bg: #202029;
+  --modal-border: rgba(255, 255, 255, 0.1);
+  --modal-shadow:
+    0 28px 90px rgba(0, 0, 0, 0.46),
+    0 8px 24px rgba(0, 0, 0, 0.28);
+
+  /* =========================
+     Tags
+  ========================= */
+  --tag-bg: rgba(126, 94, 255, 0.22);
+  --tag-border: rgba(165, 140, 255, 0.42);
+  --tag-text: #cfc4ff;
+
+  /* =========================
+     Media
+  ========================= */
+  --media-accent: #8f7cff;
+  --media-accent-hover: #a58cff;
+  --media-accent-outline: rgba(165, 140, 255, 0.78);
+  --media-accent-shadow: rgba(126, 94, 255, 0.38);
+  --media-dot-border: #1b1e29;
+
+  /* =========================
+     Planet / Universe Panel
+  ========================= */
+  --nav-pill-bg: rgba(10, 12, 25, 0.55);
+  --logo-shadow: 0 0 22px rgba(124, 140, 255, 0.8);
+
+  --panel-bg: rgba(15, 17, 30, 0.88);
+  --panel-border: rgba(255, 255, 255, 0.1);
+  --panel-shadow:
+    0 28px 90px rgba(0, 0, 0, 0.6),
+    0 0 70px rgba(124, 140, 255, 0.13);
+
+  --inner-card-bg: rgba(255, 255, 255, 0.055);
+  --inner-card-hover-bg: rgba(255, 255, 255, 0.08);
+  --inner-card-hover-shadow: 0 18px 42px rgba(0, 0, 0, 0.35);
+
+  --context-menu-bg: rgba(18, 20, 32, 0.95);
+  --context-menu-border: rgba(255, 255, 255, 0.1);
+  --context-menu-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+
+  /* =========================
+     Highlight / Link Glow
+  ========================= */
+  --highlight-glow: rgba(124, 140, 255, 0.95);
+  --primary-glow-soft: rgba(255, 255, 255, 0.32);
+  --primary-glow: rgba(124, 140, 255, 0.28);
+  --related-glow-soft: rgba(124, 190, 255, 0.24);
+  --related-glow: rgba(124, 140, 255, 0.16);
 }
 
-/* 淺色模式切換時：只動這些變數 */
+/* =========================================================
+   Light Theme
+   淺色模式
+========================================================= */
+
 html[data-theme='light'] {
-  --sidebar-bg: rgba(245, 245, 250, 0.95);
+  color-scheme: light;
+
+  /* =========================
+     Base
+  ========================= */
+  --universe-bg: #f4f7fb;
+
   --text-color: #1a1a1a;
-  --editor-bg: #ffffff;
+  --heading-color: #1f2430;
+  --muted-text: #8d93a1;
+  --disabled-text: rgba(0, 0, 0, 0.16);
+
   --border-color: rgba(0, 0, 0, 0.1);
   --search-bg: rgba(0, 0, 0, 0.05);
+
   --accent-color: #51bafc;
+  --accent-color-hover: #73d3ff;
+  --accent-text: #ffffff;
+  --accent-soft: rgba(81, 186, 252, 0.16);
+  --accent-border: rgba(81, 186, 252, 0.38);
+  --accent-gradient: linear-gradient(135deg, #51bafc, #73d3ff);
+
+  --link-color: #4d86ed;
+
+  --danger-color: #d64f4f;
+  --danger-bg: rgba(255, 80, 120, 0.16);
+  --danger-soft: #e8a4a4;
+
+  /* =========================
+     Common Surface
+  ========================= */
+  --surface-bg: rgba(255, 255, 255, 0.98);
+  --surface-bg-soft: rgba(0, 0, 0, 0.035);
+  --surface-border: rgba(160, 170, 190, 0.24);
+  --surface-shadow: 0 24px 70px rgba(25, 32, 48, 0.18);
+
+  --button-bg: #f5f6f8;
+  --button-hover-bg: #ebedf1;
+  --button-border: rgba(0, 0, 0, 0.12);
+
+  --input-bg: #ffffff;
+  --input-border: rgba(0, 0, 0, 0.16);
+  --input-text: #1f2430;
+  --input-placeholder: #9aa2b3;
+
+  --select-option-bg: #ffffff;
+  --select-option-text: #1a1a1a;
+
+  --fab-main-bg: #3b82f6;
+  --fab-main-bg-hover: #1d4ed8;
+  --fab-main-bg-open: #334155;
+  --fab-main-text: #ffffff;
+
+  --fab-sub-bg: #ffffff;
+  --fab-sub-bg-hover: #eef4ff;
+  --fab-sub-border: #dbe3ef;
+  --fab-sub-text: #475569;
+  --fab-sub-text-hover: #2563eb;
+
+  --fab-shadow: 0 14px 30px rgba(15, 23, 42, 0.18);
+  --fab-shadow-soft: 0 8px 18px rgba(15, 23, 42, 0.12);
+
+  --fab-ring: rgba(37, 99, 235, 0.18);
+
+  /* =========================
+     Sidebar / App Shell
+  ========================= */
+  --sidebar-bg: #f8fafc;
+  --sidebar-surface: #ffffff;
+  --sidebar-surface-soft: #f1f5f9;
+  --sidebar-surface-hover: #eef4ff;
+
+  --sidebar-border: #e2e8f0;
+  --sidebar-border-strong: #cbd5e1;
+
+  --sidebar-text: #172033;
+  --sidebar-heading: #0f172a;
+  --sidebar-muted: #64748b;
+  --sidebar-muted-soft: #94a3b8;
+
+  --sidebar-accent: #3b82f6;
+  --sidebar-accent-hover: #2563eb;
+  --sidebar-accent-soft: #dbeafe;
+  --sidebar-accent-border: #93c5fd;
+
+  --sidebar-search-bg: #ffffff;
+  --sidebar-item-bg: transparent;
+  --sidebar-item-hover-bg: #eef4ff;
+  --sidebar-item-active-bg: #e0ecff;
+
+  --sidebar-icon-bg: #f1f5f9;
+  --sidebar-icon-color: #64748b;
+  --sidebar-icon-hover-bg: #dbeafe;
+  --sidebar-icon-hover-color: #2563eb;
+
+  --sidebar-count-bg: #f1f5f9;
+  --sidebar-count-color: #64748b;
+  --sidebar-count-hover-bg: #dbeafe;
+  --sidebar-count-hover-color: #2563eb;
+
+  --sidebar-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --sidebar-shadow-md: 0 10px 24px rgba(15, 23, 42, 0.08);
+
+  /* =========================
+     Profile
+  ========================= */
+  --profile-bg: #f5f7fb;
+  --profile-bg-radial-1: rgba(79, 120, 255, 0.12);
+  --profile-bg-radial-2: rgba(81, 186, 252, 0.1);
+
+  --profile-sidebar-bg: #ffffff;
+  --profile-sidebar-border: #e2e8f0;
+
+  --profile-panel-bg: #ffffff;
+  --profile-panel-bg-soft: #f8fafc;
+  --profile-panel-border: #e2e8f0;
+
+  --profile-text: #172033;
+  --profile-heading: #0f172a;
+  --profile-muted: #64748b;
+  --profile-muted-soft: #94a3b8;
+
+  --profile-accent: #3b82f6;
+  --profile-accent-hover: #2563eb;
+  --profile-accent-soft: #dbeafe;
+  --profile-accent-border: #93c5fd;
+
+  --profile-input-bg: #ffffff;
+  --profile-input-border: #cbd5e1;
+  --profile-input-disabled-bg: #f1f5f9;
+  --profile-input-disabled-text: #94a3b8;
+
+  --profile-menu-hover-bg: #eef4ff;
+  --profile-menu-active-bg: #e0ecff;
+
+  --profile-danger: #dc2626;
+  --profile-danger-bg: #fee2e2;
+  --profile-danger-bg-hover: #fecaca;
+
+  --profile-success: #10b981;
+  --profile-error: #ef4444;
+
+  --profile-button-bg: #6366f1;
+  --profile-button-bg-hover: #4f46e5;
+  --profile-button-text: #ffffff;
+
+  --profile-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --profile-shadow-md: 0 12px 28px rgba(15, 23, 42, 0.1);
+  --profile-shadow-lg: 0 22px 50px rgba(15, 23, 42, 0.12);
+  
+  /* =========================
+     EditorView
+  ========================= */
+  --editor-bg: #ffffff;
+
+  --editor-page-bg: linear-gradient(180deg, #f7f8fb 0%, #eef1f6 100%);
+
+  --editor-header-bg: rgba(255, 255, 255, 0.96);
+  --editor-header-border: #e2e6ee;
+
+  --toolbar-bg: rgba(255, 255, 255, 0.94);
+  --toolbar-inner-bg: rgba(255, 255, 255, 0.58);
+
+  --document-bg: #ffffff;
+  --document-border: #dfe4ec;
+
+  --editor-content-text: #161b25;
+  --editor-title-text: #151922;
+  --editor-heading-text: #121722;
+
+  --title-input-focus-bg: #ffffff;
+
+  --header-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.7),
+    0 12px 26px rgba(25, 32, 48, 0.035);
+
+  --toolbar-shadow:
+    0 12px 26px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04);
+
+  --document-shadow:
+    0 24px 70px rgba(42, 51, 72, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+
+  /* =========================
+     Floating UI / Bubble Menu
+  ========================= */
+  --floating-bg: rgba(255, 255, 255, 0.98);
+  --floating-border: rgba(160, 170, 190, 0.24);
+  --floating-text: #1f2430;
+  --floating-muted: #8c93a5;
+
+  --floating-hover-bg: #f0f3f8;
+  --floating-active-bg: #eaf2ff;
+  --floating-active-border: #bcd7ff;
+  --floating-active-text: #2f74c0;
+
+  /* =========================
+     Slash Command Menu
+  ========================= */
+  --slash-bg: rgba(255, 255, 255, 0.98);
+  --slash-border: rgba(160, 170, 190, 0.24);
+  --slash-shadow: 0 18px 44px rgba(30, 40, 60, 0.18);
+  --slash-inner-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+
+  --slash-item-text: #1f2430;
+  --slash-item-hover-bg: #eef5ff;
+  --slash-item-hover-border: #cfe2ff;
+
+  --slash-icon-bg: #e9f2ff;
+  --slash-icon-color: #2f74c0;
+
+  --slash-title-color: #151922;
+  --slash-desc-color: #7d8495;
+  --slash-empty-color: #8c93a5;
+
+  --slash-scrollbar: rgba(130, 145, 170, 0.35);
+  --slash-scrollbar-hover: rgba(130, 145, 170, 0.55);
+
+  /* =========================
+     Modal
+  ========================= */
+  --modal-mask-bg: rgba(0, 0, 0, 0.36);
+  --modal-bg: #ffffff;
+  --modal-border: #dde3ed;
+  --modal-shadow:
+    0 28px 90px rgba(0, 0, 0, 0.22),
+    0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* =========================
+     Tags
+  ========================= */
+  --tag-bg: rgba(81, 186, 252, 0.18);
+  --tag-border: rgba(81, 186, 252, 0.26);
+  --tag-text: #267ab0;
+
+  /* =========================
+     Media
+  ========================= */
+  --media-accent: #3d74d8;
+  --media-accent-hover: #5b8def;
+  --media-accent-outline: rgba(61, 116, 216, 0.62);
+  --media-accent-shadow: rgba(61, 116, 216, 0.32);
+  --media-dot-border: #ffffff;
+
+  /* =========================
+     Planet / Universe Panel
+  ========================= */
+  --nav-pill-bg: rgba(255, 255, 255, 0.78);
+  --logo-shadow: 0 0 18px rgba(81, 186, 252, 0.32);
+
+  --panel-bg: rgba(255, 255, 255, 0.88);
+  --panel-border: rgba(0, 0, 0, 0.08);
+  --panel-shadow:
+    0 28px 80px rgba(30, 50, 80, 0.16),
+    0 0 60px rgba(81, 186, 252, 0.12);
+
+  --inner-card-bg: rgba(0, 0, 0, 0.035);
+  --inner-card-hover-bg: rgba(0, 0, 0, 0.055);
+  --inner-card-hover-shadow: 0 18px 42px rgba(30, 50, 80, 0.16);
+
+  --context-menu-bg: rgba(255, 255, 255, 0.96);
+  --context-menu-border: rgba(0, 0, 0, 0.08);
+  --context-menu-shadow: 0 18px 50px rgba(30, 50, 80, 0.18);
+
+  /* =========================
+     Highlight / Link Glow
+  ========================= */
+  --highlight-glow: rgba(81, 186, 252, 0.72);
+  --primary-glow-soft: rgba(255, 255, 255, 0.4);
+  --primary-glow: rgba(81, 186, 252, 0.28);
+  --related-glow-soft: rgba(81, 186, 252, 0.22);
+  --related-glow: rgba(81, 186, 252, 0.14);
+}
+
+/* =========================================================
+   Dark Theme Explicit Selector
+========================================================= */
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+/* =========================================================
+   Global Reset
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
+html,
+body {
+  background: var(--universe-bg);
+  color: var(--text-color);
+  font-family: var(--font-main);
+  letter-spacing: 0.02em;
+}
+
+body {
+  overflow: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: var(--link-color);
+}
+
+/* =========================================================
+   Selection
+========================================================= */
+
+::selection {
+  background: var(--accent-soft);
+  color: var(--text-color);
+}
+
+/* =========================================================
+   Scrollbar Global
+========================================================= */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(150, 160, 190, 0.28);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(150, 160, 190, 0.46);
+}
+
+html[data-theme='light'] ::-webkit-scrollbar-thumb {
+  background: rgba(120, 135, 160, 0.28);
+}
+
+html[data-theme='light'] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(120, 135, 160, 0.46);
+}
+
+/* =========================================================
+   Tippy Global Fix
+   TipTap Slash Menu / Floating Popup
+========================================================= */
+
+.tippy-box {
+  max-width: none !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.tippy-content {
+  padding: 0 !important;
+}
+
+.tippy-arrow {
+  color: var(--slash-bg) !important;
+}
+
+.tippy-box[data-theme~='light'],
+.tippy-box[data-theme~='dark'] {
+  background: transparent !important;
+}
+
+/* =========================================================
+   Slash Command Menu Global Variables Fallback
+   如果 SlashCommandList 被 Tippy 掛到 body，仍可吃到 html 的變數
+========================================================= */
+
+.slash-menu {
+  background: var(--slash-bg);
+  border-color: var(--slash-border);
+  color: var(--slash-item-text);
+  box-shadow:
+    var(--slash-shadow),
+    var(--slash-inner-shadow);
+}
+
+/* =========================================================
+   Native Select / Option
+========================================================= */
+
+select option {
+  background: var(--select-option-bg);
+  color: var(--select-option-text);
+}
+
+/* =========================================================
+   Utility Classes
+========================================================= */
+
+.no-scroll {
+  overflow: hidden !important;
+}
+
+.glass-surface {
+  background: var(--surface-bg);
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--surface-shadow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.theme-transition,
+.theme-transition * {
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
 }

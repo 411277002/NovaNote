@@ -1,22 +1,13 @@
 <template>
   <div id="app-container">
-    <router-view v-slot="{ Component }">
-      <transition name="fade" mode="out-in">
-        <component :is="Component" />
-      </transition>
-    </router-view>
+    <RouterView :key="$route.fullPath" />
   </div>
 </template>
 
 <script setup>
-/**
- * App.vue 保持精簡。
- * 大部分的初始化邏輯（如 authStore.initAuth）已經在 main.js 處理。
- */
 </script>
 
 <style>
-/* 1. 全域重置與基礎樣式 */
 * {
   margin: 0;
   padding: 0;
