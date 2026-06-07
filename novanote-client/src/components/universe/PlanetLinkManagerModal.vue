@@ -3,10 +3,6 @@
     <div class="modal-card planet-link-manager" @mousedown.stop>
       <h3>管理星球連結</h3>
 
-      <p class="modal-subtitle">
-        {{ sourcePlanet?.name || '未命名星球' }} 的星球關聯
-      </p>
-
       <div class="link-create-box">
         <div class="modal-field">
           <label>來源星球</label>
@@ -117,14 +113,16 @@ const onCreateLink = () => {
   padding: 28px;
 
   background:
-    radial-gradient(circle at 24% 18%, rgba(145, 120, 255, 0.16), transparent 34%),
-    radial-gradient(circle at 78% 72%, rgba(105, 130, 255, 0.12), transparent 36%),
-    rgba(2, 4, 14, 0.74);
+    radial-gradient(circle at 24% 18%, var(--profile-accent-soft), transparent 34%),
+    radial-gradient(circle at 78% 72%, rgba(81, 186, 252, 0.07), transparent 36%),
+    rgba(2, 4, 14, 0.76);
 
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 
   z-index: 3000;
+
+  font-family: 'Orbitron', 'Rajdhani', 'Noto Sans TC', sans-serif;
 }
 
 /* =========================
@@ -139,14 +137,13 @@ const onCreateLink = () => {
 
   padding: 34px 36px 30px;
 
-  color: #eef0ff;
-
+  color: var(--profile-text);
   background:
-    radial-gradient(circle at 18% 0%, rgba(165, 140, 255, 0.16), transparent 28%),
-    radial-gradient(circle at 86% 20%, rgba(105, 130, 255, 0.1), transparent 30%),
-    linear-gradient(145deg, rgba(20, 22, 48, 0.96), rgba(7, 9, 26, 0.98));
+    radial-gradient(circle at 18% 0%, var(--profile-accent-soft), transparent 28%),
+    radial-gradient(circle at 86% 20%, rgba(81, 186, 252, 0.06), transparent 30%),
+    var(--profile-panel-bg);
 
-  border: 1px solid rgba(165, 150, 245, 0.32);
+  border: 1px solid var(--profile-panel-border);
   border-radius: 24px;
 
   clip-path: polygon(
@@ -161,18 +158,14 @@ const onCreateLink = () => {
   );
 
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.035),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    inset 0 0 42px rgba(120, 110, 255, 0.05),
-    0 0 0 1px rgba(165, 140, 255, 0.12),
-    0 0 34px rgba(145, 120, 255, 0.16),
-    0 30px 86px rgba(0, 0, 0, 0.56);
+    var(--profile-shadow-lg),
+    0 0 34px rgba(143, 124, 255, 0.14);
 
   overflow-y: auto;
   overflow-x: hidden;
 
   scrollbar-width: thin;
-  scrollbar-color: rgba(165, 140, 255, 0.38) transparent;
+  scrollbar-color: var(--profile-accent-border) transparent;
 }
 
 .modal-card::before {
@@ -182,8 +175,8 @@ const onCreateLink = () => {
   inset: 0;
 
   background:
-    linear-gradient(rgba(165, 140, 255, 0.024) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(165, 140, 255, 0.024) 1px, transparent 1px),
+    linear-gradient(rgba(143, 124, 255, 0.024) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(143, 124, 255, 0.024) 1px, transparent 1px),
     radial-gradient(circle, rgba(255, 255, 255, 0.13) 1px, transparent 1.5px);
 
   background-size:
@@ -192,7 +185,6 @@ const onCreateLink = () => {
     86px 86px;
 
   opacity: 0.44;
-
   pointer-events: none;
 }
 
@@ -206,12 +198,12 @@ const onCreateLink = () => {
   width: 38px;
   height: 38px;
 
-  border-top: 2px solid rgba(190, 180, 255, 0.72);
-  border-right: 2px solid rgba(190, 180, 255, 0.72);
+  border-top: 2px solid var(--profile-accent-border);
+  border-right: 2px solid var(--profile-accent-border);
 
   filter:
-    drop-shadow(0 0 8px rgba(165, 140, 255, 0.45))
-    drop-shadow(0 0 16px rgba(105, 130, 255, 0.16));
+    drop-shadow(0 0 8px rgba(143, 124, 255, 0.42))
+    drop-shadow(0 0 16px rgba(81, 186, 252, 0.14));
 
   pointer-events: none;
 }
@@ -226,31 +218,19 @@ const onCreateLink = () => {
 ========================= */
 
 .modal-card h3 {
-  margin: 0;
+  margin: 0 0 20px 0;
 
   text-align: center;
 
-  color: #ffffff;
+  color: var(--profile-heading);
 
   font-size: 1.7rem;
   font-weight: 950;
   letter-spacing: 0.04em;
 
   text-shadow:
-    0 0 12px rgba(255, 255, 255, 0.16),
-    0 0 26px rgba(145, 120, 255, 0.22);
-}
-
-.modal-subtitle {
-  margin: 10px 0 26px;
-
-  text-align: center;
-
-  color: rgba(190, 198, 230, 0.72);
-
-  font-size: 0.94rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
+    0 0 12px rgba(255, 255, 255, 0.14),
+    0 0 26px rgba(143, 124, 255, 0.2);
 }
 
 /* =========================
@@ -266,15 +246,16 @@ const onCreateLink = () => {
   padding: 24px;
 
   background:
-    radial-gradient(circle at 16% 0%, rgba(165, 140, 255, 0.12), transparent 32%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018));
+    radial-gradient(circle at 16% 0%, var(--profile-accent-soft), transparent 32%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018)),
+    var(--profile-panel-bg-soft);
 
-  border: 1px solid rgba(165, 150, 245, 0.22);
+  border: 1px solid var(--profile-panel-border);
   border-radius: 18px;
 
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.025),
-    0 0 18px rgba(145, 120, 255, 0.08);
+    0 0 18px rgba(143, 124, 255, 0.08);
 }
 
 .modal-field {
@@ -286,7 +267,7 @@ const onCreateLink = () => {
 }
 
 .modal-field label {
-  color: #f4f1ff;
+  color: var(--profile-heading);
 
   font-size: 0.9rem;
   font-weight: 900;
@@ -305,12 +286,12 @@ const onCreateLink = () => {
 
   padding: 0 15px;
 
-  color: #f4f6ff;
+  color: var(--profile-text);
   background:
-    radial-gradient(circle at 12% 0%, rgba(165, 140, 255, 0.08), transparent 42%),
-    linear-gradient(145deg, rgba(8, 11, 30, 0.88), rgba(5, 8, 24, 0.94));
+    radial-gradient(circle at 12% 0%, var(--profile-accent-soft), transparent 42%),
+    var(--profile-panel-bg-soft);
 
-  border: 1px solid rgba(165, 150, 245, 0.26);
+  border: 1px solid var(--profile-panel-border);
   border-radius: 12px;
 
   outline: none;
@@ -321,7 +302,7 @@ const onCreateLink = () => {
 
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.018),
-    inset 0 0 18px rgba(165, 140, 255, 0.035);
+    inset 0 0 18px rgba(143, 124, 255, 0.035);
 
   transition:
     border-color 0.18s ease,
@@ -333,22 +314,22 @@ const onCreateLink = () => {
   display: flex;
   align-items: center;
 
-  color: #ffffff;
+  color: var(--profile-heading);
   font-weight: 900;
 }
 
 .modal-input::placeholder {
-  color: rgba(170, 178, 215, 0.58);
+  color: var(--profile-muted-soft);
 }
 
 .modal-input:focus,
 .modal-select:focus {
-  border-color: rgba(180, 165, 255, 0.68);
+  border-color: var(--profile-accent-border);
 
   box-shadow:
-    0 0 0 3px rgba(165, 140, 255, 0.12),
-    0 0 20px rgba(145, 120, 255, 0.16),
-    inset 0 0 18px rgba(165, 140, 255, 0.05);
+    0 0 0 3px var(--profile-accent-soft),
+    0 0 20px rgba(143, 124, 255, 0.16),
+    inset 0 0 18px rgba(143, 124, 255, 0.05);
 }
 
 .modal-select {
@@ -356,8 +337,8 @@ const onCreateLink = () => {
 }
 
 .modal-select option {
-  color: #f4f6ff;
-  background: #11152e;
+  color: var(--profile-text);
+  background: var(--surface-bg);
 }
 
 /* =========================
@@ -373,12 +354,10 @@ const onCreateLink = () => {
   margin-top: 4px;
   padding: 0 18px;
 
-  color: #ffffff;
-  background:
-    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.18), transparent 54%),
-    linear-gradient(135deg, #6f6cff, #9a7cff);
+  color: var(--profile-button-text);
+  background: var(--profile-button-bg);
 
-  border: 1px solid rgba(220, 210, 255, 0.38);
+  border: 1px solid var(--profile-accent-border);
   border-radius: 14px;
 
   cursor: pointer;
@@ -389,8 +368,8 @@ const onCreateLink = () => {
   letter-spacing: 0.03em;
 
   box-shadow:
-    0 0 0 1px rgba(165, 140, 255, 0.18),
-    0 0 22px rgba(145, 120, 255, 0.28),
+    0 0 0 1px rgba(143, 124, 255, 0.18),
+    0 0 22px rgba(143, 124, 255, 0.28),
     0 12px 28px rgba(0, 0, 0, 0.26);
 
   overflow: hidden;
@@ -398,6 +377,7 @@ const onCreateLink = () => {
   transition:
     transform 0.18s ease,
     filter 0.18s ease,
+    background 0.18s ease,
     box-shadow 0.18s ease;
 }
 
@@ -427,9 +407,11 @@ const onCreateLink = () => {
   transform: translateY(-2px);
   filter: brightness(1.06);
 
+  background: var(--profile-button-bg-hover);
+
   box-shadow:
-    0 0 0 1px rgba(220, 210, 255, 0.25),
-    0 0 30px rgba(145, 120, 255, 0.38),
+    0 0 0 1px var(--profile-accent-border),
+    0 0 30px rgba(143, 124, 255, 0.38),
     0 16px 34px rgba(0, 0, 0, 0.32);
 }
 
@@ -448,7 +430,7 @@ const onCreateLink = () => {
 
   margin: 24px 0 12px;
 
-  color: #ffffff;
+  color: var(--profile-heading);
 
   font-size: 0.95rem;
   font-weight: 950;
@@ -465,19 +447,19 @@ const onCreateLink = () => {
 
   padding: 0 9px;
 
-  color: #d9d3ff;
+  color: var(--tag-text);
   background:
-    radial-gradient(circle at 50% 30%, rgba(165, 140, 255, 0.22), transparent 58%),
-    rgba(145, 120, 255, 0.12);
+    radial-gradient(circle at 50% 30%, var(--profile-accent-soft), transparent 58%),
+    var(--tag-bg);
 
-  border: 1px solid rgba(165, 150, 245, 0.3);
+  border: 1px solid var(--tag-border);
   border-radius: 8px;
 
   font-size: 0.78rem;
   font-weight: 950;
 
   box-shadow:
-    inset 0 0 10px rgba(165, 140, 255, 0.06);
+    inset 0 0 10px rgba(143, 124, 255, 0.06);
 }
 
 .empty-link-state {
@@ -491,11 +473,12 @@ const onCreateLink = () => {
 
   text-align: center;
 
-  color: rgba(190, 198, 230, 0.68);
+  color: var(--profile-muted);
   background:
-    linear-gradient(145deg, rgba(8, 12, 32, 0.46), rgba(5, 8, 24, 0.64));
+    linear-gradient(145deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012)),
+    var(--profile-panel-bg-soft);
 
-  border: 1px dashed rgba(165, 150, 245, 0.26);
+  border: 1px dashed var(--profile-panel-border);
   border-radius: 16px;
 
   font-size: 0.94rem;
@@ -515,15 +498,14 @@ const onCreateLink = () => {
   gap: 16px;
 
   padding: 14px 14px;
-
   margin-top: 10px;
 
-  color: #eef0ff;
+  color: var(--profile-text);
   background:
-    radial-gradient(circle at 12% 50%, rgba(165, 140, 255, 0.08), transparent 34%),
-    linear-gradient(145deg, rgba(10, 14, 36, 0.72), rgba(5, 8, 24, 0.86));
+    radial-gradient(circle at 12% 50%, var(--profile-accent-soft), transparent 34%),
+    var(--profile-panel-bg-soft);
 
-  border: 1px solid rgba(165, 150, 245, 0.18);
+  border: 1px solid var(--profile-panel-border);
   border-radius: 14px;
 
   overflow: hidden;
@@ -545,25 +527,25 @@ const onCreateLink = () => {
 
   width: 3px;
 
-  background: rgba(165, 140, 255, 0.7);
+  background: var(--accent-color);
   border-radius: 999px;
 
   box-shadow:
-    0 0 10px rgba(165, 140, 255, 0.56);
+    0 0 10px rgba(143, 124, 255, 0.56);
 }
 
 .planet-link-row:hover {
   transform: translateX(3px);
 
-  border-color: rgba(180, 165, 255, 0.44);
+  border-color: var(--profile-accent-border);
 
   background:
-    radial-gradient(circle at 12% 50%, rgba(165, 140, 255, 0.15), transparent 36%),
-    linear-gradient(145deg, rgba(16, 20, 48, 0.82), rgba(7, 10, 30, 0.92));
+    radial-gradient(circle at 12% 50%, var(--profile-accent-soft), transparent 36%),
+    var(--profile-menu-hover-bg);
 
   box-shadow:
-    0 0 20px rgba(145, 120, 255, 0.14),
-    inset 0 0 18px rgba(165, 140, 255, 0.035);
+    0 0 20px rgba(143, 124, 255, 0.14),
+    inset 0 0 18px rgba(143, 124, 255, 0.035);
 }
 
 .planet-link-info {
@@ -584,25 +566,25 @@ const onCreateLink = () => {
 
   flex-shrink: 0;
 
-  color: #b9aaff;
+  color: var(--accent-color);
   background:
-    radial-gradient(circle at 50% 30%, rgba(165, 140, 255, 0.3), transparent 58%),
-    rgba(145, 120, 255, 0.12);
+    radial-gradient(circle at 50% 30%, var(--profile-accent-soft), transparent 58%),
+    var(--tag-bg);
 
-  border: 1px solid rgba(165, 140, 255, 0.26);
+  border: 1px solid var(--tag-border);
   border-radius: 12px;
 
   font-size: 1.05rem;
 
   box-shadow:
-    inset 0 0 14px rgba(165, 140, 255, 0.08),
-    0 0 14px rgba(145, 120, 255, 0.12);
+    inset 0 0 14px rgba(143, 124, 255, 0.08),
+    0 0 14px rgba(143, 124, 255, 0.12);
 }
 
 .planet-link-name {
   max-width: 340px;
 
-  color: #ffffff;
+  color: var(--profile-heading);
 
   font-size: 0.98rem;
   font-weight: 950;
@@ -617,7 +599,7 @@ const onCreateLink = () => {
 
   margin-top: 4px;
 
-  color: rgba(190, 198, 230, 0.68);
+  color: var(--profile-muted);
 
   font-size: 0.82rem;
   font-weight: 750;
@@ -637,12 +619,10 @@ const onCreateLink = () => {
   min-height: 36px;
   padding: 0 13px;
 
-  color: #ff9daa;
-  background:
-    radial-gradient(circle at 50% 0%, rgba(255, 120, 150, 0.16), transparent 60%),
-    rgba(255, 90, 130, 0.08);
+  color: var(--danger-color);
+  background: var(--danger-bg);
 
-  border: 1px solid rgba(255, 120, 150, 0.2);
+  border: 1px solid rgba(255, 119, 119, 0.3);
   border-radius: 10px;
 
   cursor: pointer;
@@ -661,11 +641,9 @@ const onCreateLink = () => {
 
 .remove-link-btn:hover {
   color: #ffc4cc;
-  background:
-    radial-gradient(circle at 50% 0%, rgba(255, 120, 150, 0.24), transparent 62%),
-    rgba(255, 90, 130, 0.14);
+  background: rgba(255, 90, 150, 0.14);
 
-  border-color: rgba(255, 130, 160, 0.42);
+  border-color: var(--danger-color);
 
   transform: translateY(-1px);
 
@@ -690,11 +668,12 @@ const onCreateLink = () => {
 
   padding: 0 18px;
 
-  color: rgba(226, 230, 255, 0.86);
+  color: var(--profile-text);
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018));
+    linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018)),
+    var(--profile-panel-bg-soft);
 
-  border: 1px solid rgba(165, 150, 245, 0.24);
+  border: 1px solid var(--profile-panel-border);
   border-radius: 12px;
 
   cursor: pointer;
@@ -712,18 +691,18 @@ const onCreateLink = () => {
 }
 
 .cancel-btn:hover {
-  color: #ffffff;
+  color: var(--profile-heading);
 
-  border-color: rgba(180, 165, 255, 0.48);
+  border-color: var(--profile-accent-border);
 
   background:
-    radial-gradient(circle at 12% 50%, rgba(165, 140, 255, 0.14), transparent 36%),
-    linear-gradient(145deg, rgba(145, 120, 255, 0.1), rgba(255, 255, 255, 0.02));
+    radial-gradient(circle at 12% 50%, var(--profile-accent-soft), transparent 36%),
+    var(--profile-menu-hover-bg);
 
   transform: translateY(-1px);
 
   box-shadow:
-    0 0 18px rgba(145, 120, 255, 0.12);
+    0 0 18px rgba(143, 124, 255, 0.12);
 }
 
 /* =========================
@@ -742,8 +721,8 @@ const onCreateLink = () => {
   background:
     linear-gradient(
       180deg,
-      rgba(165, 140, 255, 0.42),
-      rgba(105, 130, 255, 0.22)
+      var(--profile-accent-border),
+      rgba(81, 186, 252, 0.18)
     );
 
   border-radius: 999px;

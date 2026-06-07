@@ -59,66 +59,7 @@ const emitAndClose = (eventName) => {
 </script>
 
 <style scoped>
-/* =========================
-   Theme Variables
-========================= */
-
 .fab-container {
-  --fab-main-bg:
-    linear-gradient(
-      135deg,
-      rgba(80, 105, 255, 0.76),
-      rgba(34, 47, 118, 0.92)
-    );
-
-  --fab-main-bg-hover:
-    linear-gradient(
-      135deg,
-      rgba(105, 202, 255, 0.82),
-      rgba(84, 92, 255, 0.92)
-    );
-
-  --fab-main-bg-open:
-    linear-gradient(
-      135deg,
-      rgba(20, 28, 58, 0.96),
-      rgba(7, 12, 28, 0.96)
-    );
-
-  --fab-main-text: #f4f8ff;
-  --fab-accent: #8fd0ff;
-  --fab-accent-2: #9f8cff;
-  --fab-border: rgba(170, 210, 255, 0.42);
-  --fab-border-strong: rgba(220, 240, 255, 0.72);
-
-  --fab-sub-bg:
-    linear-gradient(
-      145deg,
-      rgba(15, 24, 52, 0.92),
-      rgba(6, 10, 24, 0.92)
-    );
-
-  --fab-sub-bg-hover:
-    linear-gradient(
-      145deg,
-      rgba(35, 54, 112, 0.96),
-      rgba(10, 20, 48, 0.96)
-    );
-
-  --fab-sub-text: #a9c8ff;
-  --fab-sub-text-hover: #ffffff;
-  --fab-sub-border: rgba(140, 190, 255, 0.28);
-
-  --fab-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.035),
-    0 0 20px rgba(105, 150, 255, 0.28),
-    0 16px 38px rgba(0, 0, 0, 0.38);
-
-  --fab-shadow-soft:
-    0 0 0 1px rgba(255, 255, 255, 0.025),
-    0 0 14px rgba(105, 150, 255, 0.16),
-    0 12px 28px rgba(0, 0, 0, 0.28);
-
   position: fixed;
   right: 40px;
   bottom: 40px;
@@ -129,63 +70,8 @@ const emitAndClose = (eventName) => {
   gap: 14px;
 
   z-index: 1000;
-}
 
-:global(html[data-theme='light']) .fab-container {
-  --fab-main-bg:
-    linear-gradient(
-      135deg,
-      rgba(100, 115, 255, 0.92),
-      rgba(74, 96, 205, 0.96)
-    );
-
-  --fab-main-bg-hover:
-    linear-gradient(
-      135deg,
-      rgba(62, 152, 255, 0.92),
-      rgba(105, 115, 255, 0.96)
-    );
-
-  --fab-main-bg-open:
-    linear-gradient(
-      135deg,
-      rgba(238, 243, 255, 0.96),
-      rgba(218, 228, 250, 0.96)
-    );
-
-  --fab-main-text: #ffffff;
-  --fab-accent: #2b78ff;
-  --fab-accent-2: #7667ff;
-  --fab-border: rgba(82, 112, 220, 0.36);
-  --fab-border-strong: rgba(55, 80, 180, 0.56);
-
-  --fab-sub-bg:
-    linear-gradient(
-      145deg,
-      rgba(255, 255, 255, 0.92),
-      rgba(232, 239, 255, 0.92)
-    );
-
-  --fab-sub-bg-hover:
-    linear-gradient(
-      145deg,
-      rgba(238, 244, 255, 0.96),
-      rgba(218, 228, 255, 0.96)
-    );
-
-  --fab-sub-text: #4b5e9c;
-  --fab-sub-text-hover: #2b46ff;
-  --fab-sub-border: rgba(82, 112, 220, 0.24);
-
-  --fab-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.5),
-    0 0 22px rgba(80, 115, 255, 0.18),
-    0 16px 34px rgba(45, 60, 110, 0.22);
-
-  --fab-shadow-soft:
-    0 0 0 1px rgba(255, 255, 255, 0.5),
-    0 0 14px rgba(80, 115, 255, 0.12),
-    0 12px 26px rgba(45, 60, 110, 0.16);
+  font-family: 'Orbitron', 'Rajdhani', 'Noto Sans TC', sans-serif;
 }
 
 /* =========================
@@ -204,10 +90,12 @@ const emitAndClose = (eventName) => {
 
   padding: 0;
 
-  color: var(--fab-main-text);
-  background: var(--fab-main-bg);
+  color: #f3f5ff;
+  background:
+    radial-gradient(circle at 50% 16%, rgba(255, 255, 255, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(70, 72, 128, 0.96) 0%, rgba(35, 39, 78, 0.98) 100%);
 
-  border: 1px solid var(--fab-border);
+  border: 1px solid rgba(122, 129, 212, 0.36);
 
   clip-path: polygon(
     14px 0,
@@ -221,13 +109,16 @@ const emitAndClose = (eventName) => {
   );
 
   cursor: pointer;
-
-  box-shadow: var(--fab-shadow);
-
   overflow: hidden;
 
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.28),
+    0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 10px 22px rgba(0, 0, 0, 0.34);
+
   transition:
-    transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 0.22s ease,
     background 0.22s ease,
     border-color 0.22s ease,
     box-shadow 0.22s ease,
@@ -240,7 +131,7 @@ const emitAndClose = (eventName) => {
   position: absolute;
   inset: 6px;
 
-  border: 1px solid rgba(220, 240, 255, 0.16);
+  border: 1px solid rgba(170, 178, 255, 0.16);
 
   clip-path: polygon(
     10px 0,
@@ -270,20 +161,22 @@ const emitAndClose = (eventName) => {
     linear-gradient(
       90deg,
       transparent,
-      rgba(210, 235, 255, 0.78),
+      rgba(190, 196, 255, 0.72),
       transparent
     );
 
-  box-shadow: 0 0 10px rgba(140, 205, 255, 0.4);
-
-  opacity: 0.8;
+  opacity: 0.72;
 }
+
+/* =========================
+   Main FAB Effects
+========================= */
 
 .fab-orbit {
   position: absolute;
   inset: -8px;
 
-  border: 1px solid rgba(140, 190, 255, 0.2);
+  border: 1px solid var(--fab-ring);
   border-radius: 999px;
 
   opacity: 0;
@@ -308,10 +201,10 @@ const emitAndClose = (eventName) => {
 
   border-radius: 999px;
 
-  background: var(--fab-accent);
+  background: var(--link-color);
   box-shadow:
-    0 0 8px var(--fab-accent),
-    0 0 16px rgba(105, 202, 255, 0.4);
+    0 0 8px var(--link-color),
+    0 0 16px rgba(81, 186, 252, 0.4);
 }
 
 .fab-scan {
@@ -335,10 +228,19 @@ const emitAndClose = (eventName) => {
 }
 
 .main-fab:hover {
-  transform: translateY(-3px);
-  background: var(--fab-main-bg-hover);
-  border-color: var(--fab-border-strong);
-  box-shadow: var(--fab-shadow);
+  transform: translateY(-2px);
+
+  background:
+    radial-gradient(circle at 50% 16%, rgba(255, 255, 255, 0.14), transparent 34%),
+    linear-gradient(180deg, rgba(82, 84, 145, 0.98) 0%, rgba(42, 47, 92, 0.98) 100%);
+
+  border-color: rgba(148, 155, 235, 0.42);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 0 12px rgba(118, 126, 220, 0.14),
+    0 12px 24px rgba(0, 0, 0, 0.36);
 }
 
 .main-fab:hover .fab-orbit {
@@ -351,10 +253,19 @@ const emitAndClose = (eventName) => {
 }
 
 .main-fab.is-open {
-  background: var(--fab-main-bg-open);
-  color: var(--fab-accent);
+  color: #d8dcff;
+  background:
+    radial-gradient(circle at 50% 16%, rgba(255, 255, 255, 0.08), transparent 34%),
+    linear-gradient(180deg, rgba(58, 61, 110, 0.98) 0%, rgba(28, 32, 62, 0.98) 100%);
+
+  border-color: rgba(148, 155, 235, 0.42);
   transform: rotate(135deg);
-  border-color: var(--fab-border-strong);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 0 10px rgba(118, 126, 220, 0.1),
+    0 12px 24px rgba(0, 0, 0, 0.36);
 }
 
 .main-fab.is-open:hover {
@@ -385,7 +296,7 @@ const emitAndClose = (eventName) => {
 
   box-shadow:
     0 0 8px rgba(255, 255, 255, 0.32),
-    0 0 14px rgba(140, 205, 255, 0.22);
+    0 0 14px rgba(143, 124, 255, 0.22);
 
   transition:
     width 0.2s ease,
@@ -394,13 +305,13 @@ const emitAndClose = (eventName) => {
 }
 
 .horizontal {
-  width: 18px;
-  height: 2px;
+  width: 15px;
+  height: 1.8px;
 }
 
 .vertical {
-  width: 2px;
-  height: 18px;
+  width: 1.8px;
+  height: 15px;
 }
 
 .main-fab.is-open .horizontal {
@@ -422,7 +333,6 @@ const emitAndClose = (eventName) => {
   gap: 12px;
 }
 
-/* 子按鈕 */
 .sub-fab {
   position: relative;
 
@@ -433,10 +343,12 @@ const emitAndClose = (eventName) => {
   align-items: center;
   justify-content: center;
 
-  color: var(--fab-sub-text);
-  background: var(--fab-sub-bg);
+  color: #d8dcff;
+  background:
+    radial-gradient(circle at 50% 16%, rgba(255, 255, 255, 0.08), transparent 34%),
+    linear-gradient(180deg, rgba(56, 60, 108, 0.96) 0%, rgba(25, 29, 58, 0.98) 100%);
 
-  border: 1px solid var(--fab-sub-border);
+  border: 1px solid rgba(122, 129, 212, 0.28);
 
   clip-path: polygon(
     11px 0,
@@ -450,10 +362,12 @@ const emitAndClose = (eventName) => {
   );
 
   cursor: pointer;
-
-  box-shadow: var(--fab-shadow-soft);
-
   overflow: hidden;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.24),
+    0 8px 18px rgba(0, 0, 0, 0.28);
 
   transition:
     color 0.18s ease,
@@ -470,7 +384,7 @@ const emitAndClose = (eventName) => {
   inset: 0;
 
   background:
-    radial-gradient(circle at 50% 20%, rgba(105, 202, 255, 0.16), transparent 48%),
+    radial-gradient(circle at 50% 20%, var(--accent-soft), transparent 48%),
     linear-gradient(
       105deg,
       transparent 0%,
@@ -492,7 +406,7 @@ const emitAndClose = (eventName) => {
   position: absolute;
   inset: 5px;
 
-  border: 1px solid rgba(190, 225, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 
   clip-path: polygon(
     8px 0,
@@ -522,13 +436,12 @@ const emitAndClose = (eventName) => {
     linear-gradient(
       90deg,
       transparent,
-      var(--fab-accent),
+      var(--accent-color),
       transparent
     );
 
   opacity: 0.48;
-
-  box-shadow: 0 0 8px rgba(105, 202, 255, 0.24);
+  box-shadow: 0 0 8px rgba(143, 124, 255, 0.24);
 }
 
 .sub-fab i {
@@ -539,21 +452,24 @@ const emitAndClose = (eventName) => {
   line-height: 1;
 
   text-shadow:
-    0 0 10px rgba(105, 202, 255, 0.25),
-    0 0 18px rgba(160, 140, 255, 0.16);
+    0 0 10px rgba(143, 124, 255, 0.25),
+    0 0 18px rgba(81, 186, 252, 0.16);
 }
 
 .sub-fab:hover {
-  color: var(--fab-sub-text-hover);
-  background: var(--fab-sub-bg-hover);
-  border-color: var(--fab-border-strong);
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 50% 16%, rgba(255, 255, 255, 0.1), transparent 34%),
+    linear-gradient(180deg, rgba(70, 74, 130, 0.98) 0%, rgba(33, 38, 76, 0.98) 100%);
 
-  transform: translateY(-3px) scale(1.04);
+  border-color: rgba(148, 155, 235, 0.38);
+
+  transform: translateY(-2px);
 
   box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.035),
-    0 0 20px rgba(105, 202, 255, 0.24),
-    0 16px 34px rgba(0, 0, 0, 0.34);
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.26),
+    0 10px 22px rgba(0, 0, 0, 0.32);
 }
 
 .sub-fab:hover::before {
@@ -568,6 +484,23 @@ const emitAndClose = (eventName) => {
 
 .main-fab.is-open:active {
   transform: rotate(135deg) scale(0.96);
+}
+
+/* =========================
+   Individual Sub FAB
+========================= */
+
+.planet-fab i {
+  color: var(--accent-color);
+}
+
+.note-fab i {
+  color: var(--accent-color);
+}
+
+.planet-fab:hover i,
+.note-fab:hover i {
+  color: var(--fab-sub-text-hover);
 }
 
 /* =========================
@@ -591,6 +524,34 @@ const emitAndClose = (eventName) => {
 .fab-items-leave-from {
   opacity: 1;
   transform: translateY(0) scale(1);
+}
+
+/* =========================
+   Light Theme Fine Tune
+========================= */
+
+:global(html[data-theme='light']) .main-fab {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.52),
+    0 0 22px rgba(143, 124, 255, 0.18),
+    0 16px 34px rgba(45, 60, 110, 0.22);
+}
+
+:global(html[data-theme='light']) .main-fab.is-open {
+  background:
+    radial-gradient(circle at 32% 18%, var(--accent-soft), transparent 34%),
+    linear-gradient(135deg, #ffffff, #eef2ff);
+}
+
+:global(html[data-theme='light']) .sub-fab {
+  background:
+    radial-gradient(circle at 50% 20%, var(--accent-soft), transparent 48%),
+    var(--fab-sub-bg);
+
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.52),
+    0 0 14px rgba(143, 124, 255, 0.12),
+    0 12px 26px rgba(45, 60, 110, 0.16);
 }
 
 /* =========================

@@ -159,25 +159,18 @@ const plainText = computed(() => {
 
   padding: 24px;
 
-  color: var(--preview-text);
-
+  color: var(--profile-text);
   background:
-    radial-gradient(circle at 72% 12%, rgba(105, 202, 255, 0.09), transparent 28%),
-    radial-gradient(circle at 18% 82%, rgba(159, 140, 255, 0.08), transparent 30%),
-    linear-gradient(
-      145deg,
-      var(--preview-bg-strong),
-      var(--preview-bg)
-    );
+    radial-gradient(circle at 72% 12%, var(--profile-accent-soft), transparent 28%),
+    radial-gradient(circle at 18% 82%, rgba(81, 186, 252, 0.055), transparent 30%),
+    var(--profile-panel-bg);
 
-  border: 1px solid var(--preview-border);
+  border: 1px solid var(--profile-panel-border);
   border-radius: 8px;
 
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.035),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    0 0 34px rgba(105, 150, 255, 0.14),
-    0 24px 70px rgba(0, 0, 0, 0.42);
+    var(--profile-shadow-lg),
+    0 0 28px rgba(143, 124, 255, 0.12);
 
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
@@ -187,47 +180,7 @@ const plainText = computed(() => {
   z-index: 2800;
   animation: previewIn 0.22s ease;
 
-  --preview-bg: rgba(6, 10, 24, 0.94);
-  --preview-bg-strong: rgba(13, 20, 42, 0.96);
-  --preview-surface: rgba(10, 18, 40, 0.7);
-  --preview-surface-soft: rgba(255, 255, 255, 0.045);
-  --preview-surface-hover: rgba(36, 52, 105, 0.72);
-
-  --preview-text: #dce9ff;
-  --preview-heading: #f6f8ff;
-  --preview-muted: #7f98c8;
-
-  --preview-accent: #69caff;
-  --preview-accent-2: #9f8cff;
-  --preview-danger: #ff8fa8;
-
-  --preview-border: rgba(150, 205, 255, 0.28);
-  --preview-border-soft: rgba(140, 190, 255, 0.16);
-  --preview-border-strong: rgba(210, 235, 255, 0.58);
-
-  --preview-glow: rgba(105, 202, 255, 0.24);
-}
-
-:global(html[data-theme='light']) .card-preview-panel {
-  --preview-bg: rgba(238, 244, 255, 0.92);
-  --preview-bg-strong: rgba(248, 251, 255, 0.96);
-  --preview-surface: rgba(255, 255, 255, 0.78);
-  --preview-surface-soft: rgba(80, 115, 255, 0.055);
-  --preview-surface-hover: rgba(226, 235, 255, 0.9);
-
-  --preview-text: #26304f;
-  --preview-heading: #10172f;
-  --preview-muted: #687695;
-
-  --preview-accent: #2b78ff;
-  --preview-accent-2: #7667ff;
-  --preview-danger: #d84768;
-
-  --preview-border: rgba(72, 102, 180, 0.22);
-  --preview-border-soft: rgba(72, 102, 180, 0.14);
-  --preview-border-strong: rgba(60, 92, 190, 0.46);
-
-  --preview-glow: rgba(80, 115, 255, 0.18);
+  font-family: 'Orbitron', 'Rajdhani', 'Noto Sans TC', sans-serif;
 }
 
 /* 背景格線 */
@@ -239,8 +192,8 @@ const plainText = computed(() => {
   z-index: 0;
 
   background-image:
-    linear-gradient(rgba(130, 190, 255, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(130, 190, 255, 0.028) 1px, transparent 1px);
+    linear-gradient(rgba(143, 124, 255, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(143, 124, 255, 0.026) 1px, transparent 1px);
 
   background-size: 32px 32px;
 
@@ -260,7 +213,7 @@ const plainText = computed(() => {
       105deg,
       transparent 0%,
       transparent 42%,
-      rgba(210, 235, 255, 0.12) 50%,
+      rgba(255, 255, 255, 0.1) 50%,
       transparent 58%,
       transparent 100%
     );
@@ -278,7 +231,7 @@ const plainText = computed(() => {
   }
 
   18% {
-    opacity: 0.7;
+    opacity: 0.5;
   }
 
   100% {
@@ -287,12 +240,12 @@ const plainText = computed(() => {
   }
 }
 
-/* 四角 HUD 線條 */
 .card-preview-panel > * {
   position: relative;
   z-index: 5;
 }
 
+/* 四角 HUD 線條 */
 .preview-header::before,
 .preview-header::after,
 .preview-actions::before,
@@ -301,13 +254,15 @@ const plainText = computed(() => {
   position: absolute;
   width: 28px;
   height: 2px;
+
   background:
     linear-gradient(
       90deg,
-      rgba(230, 244, 255, 0.88),
-      var(--preview-accent)
+      rgba(255, 255, 255, 0.72),
+      var(--accent-color)
     );
-  box-shadow: 0 0 12px var(--preview-glow);
+
+  box-shadow: 0 0 12px rgba(143, 124, 255, 0.34);
   pointer-events: none;
 }
 
@@ -346,14 +301,15 @@ const plainText = computed(() => {
   margin-bottom: 22px;
   padding-bottom: 18px;
 
-  border-bottom: 1px solid var(--preview-border-soft);
+  border-bottom: 1px solid var(--profile-panel-border);
 }
 
 .preview-title-group {
+  min-width: 0;
+
   display: flex;
   align-items: center;
   gap: 14px;
-  min-width: 0;
 }
 
 .preview-type-icon {
@@ -368,18 +324,18 @@ const plainText = computed(() => {
 
   flex-shrink: 0;
 
-  color: var(--preview-accent);
+  color: var(--accent-color);
 
   background:
-    radial-gradient(circle at 50% 22%, rgba(105, 202, 255, 0.2), transparent 58%),
-    rgba(10, 18, 40, 0.78);
+    radial-gradient(circle at 50% 22%, var(--profile-accent-soft), transparent 58%),
+    var(--profile-panel-bg-soft);
 
-  border: 1px solid var(--preview-border);
+  border: 1px solid var(--profile-panel-border);
   border-radius: 6px;
 
   box-shadow:
-    inset 0 0 18px rgba(105, 202, 255, 0.06),
-    0 0 18px var(--preview-glow);
+    inset 0 0 18px rgba(143, 124, 255, 0.06),
+    0 0 18px rgba(143, 124, 255, 0.18);
 
   clip-path: polygon(
     10px 0,
@@ -407,7 +363,7 @@ const plainText = computed(() => {
     linear-gradient(
       90deg,
       transparent,
-      var(--preview-accent),
+      var(--accent-color),
       transparent
     );
 
@@ -421,11 +377,10 @@ const plainText = computed(() => {
 .preview-kicker {
   margin: 0 0 5px;
 
-  color: var(--preview-accent);
+  color: var(--profile-accent);
 
-  font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
   font-size: 0.72rem;
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
@@ -433,12 +388,11 @@ const plainText = computed(() => {
 .preview-title-text h2 {
   margin: 0;
 
-  color: var(--preview-heading);
+  color: var(--profile-heading);
 
-  font-family: 'Orbitron', 'Rajdhani', 'Noto Sans TC', sans-serif;
   font-size: 1.22rem;
   line-height: 1.25;
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: 0.04em;
 
   white-space: nowrap;
@@ -446,8 +400,8 @@ const plainText = computed(() => {
   text-overflow: ellipsis;
 
   text-shadow:
-    0 0 12px rgba(255, 255, 255, 0.24),
-    0 0 28px var(--preview-glow);
+    0 0 12px rgba(255, 255, 255, 0.2),
+    0 0 28px rgba(143, 124, 255, 0.2);
 }
 
 .preview-close-btn {
@@ -460,13 +414,15 @@ const plainText = computed(() => {
 
   flex-shrink: 0;
 
-  color: var(--preview-text);
-  background: var(--preview-surface-soft);
+  color: var(--profile-text);
+  background: var(--profile-panel-bg-soft);
 
-  border: 1px solid var(--preview-border-soft);
+  border: 1px solid var(--profile-panel-border);
   border-radius: 6px;
 
   cursor: pointer;
+
+  font-family: inherit;
 
   transition:
     transform 0.22s ease,
@@ -479,8 +435,8 @@ const plainText = computed(() => {
 .preview-close-btn:hover {
   transform: rotate(90deg);
   color: #ffffff;
-  background: rgba(255, 80, 120, 0.12);
-  border-color: rgba(255, 130, 160, 0.46);
+  background: var(--danger-bg);
+  border-color: var(--danger-color);
   box-shadow: 0 0 18px rgba(255, 90, 130, 0.16);
 }
 
@@ -506,12 +462,12 @@ const plainText = computed(() => {
   background:
     linear-gradient(
       145deg,
-      var(--preview-surface-soft),
+      rgba(255, 255, 255, 0.035),
       rgba(255, 255, 255, 0.012)
     ),
-    var(--preview-surface);
+    var(--profile-panel-bg-soft);
 
-  border: 1px solid var(--preview-border-soft);
+  border: 1px solid var(--profile-panel-border);
   border-radius: 6px;
 
   overflow: hidden;
@@ -530,7 +486,7 @@ const plainText = computed(() => {
   background:
     linear-gradient(
       90deg,
-      var(--preview-accent),
+      var(--accent-color),
       transparent
     );
 
@@ -541,11 +497,10 @@ const plainText = computed(() => {
   display: block;
   margin-bottom: 6px;
 
-  color: var(--preview-muted);
+  color: var(--profile-muted);
 
-  font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
   font-size: 0.62rem;
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -553,7 +508,7 @@ const plainText = computed(() => {
 .preview-meta-item strong {
   display: block;
 
-  color: var(--preview-heading);
+  color: var(--profile-heading);
 
   font-size: 0.82rem;
   font-weight: 900;
@@ -577,9 +532,8 @@ const plainText = computed(() => {
   margin: 0 0 12px;
   padding-left: 12px;
 
-  color: var(--preview-heading);
+  color: var(--profile-heading);
 
-  font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
   font-size: 0.9rem;
   font-weight: 900;
   letter-spacing: 0.08em;
@@ -597,12 +551,14 @@ const plainText = computed(() => {
 
   transform: translateY(-50%);
 
-  background: linear-gradient(180deg, var(--preview-accent), var(--preview-accent-2));
-  box-shadow: 0 0 10px var(--preview-glow);
+  background: linear-gradient(180deg, var(--accent-color), var(--link-color));
+  box-shadow: 0 0 10px rgba(143, 124, 255, 0.34);
   border-radius: 999px;
 }
 
-/* Tags */
+/* =========================
+   Tags
+========================= */
 
 .preview-tags {
   display: flex;
@@ -615,17 +571,17 @@ const plainText = computed(() => {
 
   padding: 6px 10px;
 
-  color: #a5d8ff;
-  background: rgba(80, 160, 255, 0.08);
+  color: var(--tag-text);
+  background: var(--tag-bg);
 
-  border: 1px solid rgba(118, 196, 255, 0.22);
+  border: 1px solid var(--tag-border);
   border-radius: 4px;
 
   cursor: pointer;
 
-  font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
+  font-family: inherit;
   font-size: 0.76rem;
-  font-weight: 800;
+  font-weight: 850;
   letter-spacing: 0.04em;
 
   transition:
@@ -637,31 +593,35 @@ const plainText = computed(() => {
 }
 
 .preview-tag:hover {
-  color: #ffffff;
-  background: rgba(90, 180, 255, 0.2);
-  border-color: rgba(170, 220, 255, 0.5);
-  box-shadow: 0 0 14px var(--preview-glow);
+  color: var(--profile-heading);
+  background: var(--profile-accent-soft);
+  border-color: var(--profile-accent-border);
+  box-shadow: 0 0 14px rgba(143, 124, 255, 0.2);
   transform: translateY(-1px);
 }
 
-/* Empty */
+/* =========================
+   Empty
+========================= */
 
 .preview-empty {
   padding: 18px 16px;
 
-  color: var(--preview-muted);
+  color: var(--profile-muted);
   text-align: center;
   line-height: 1.7;
   font-size: 0.88rem;
+  font-weight: 750;
 
   background:
     linear-gradient(
       145deg,
-      var(--preview-surface-soft),
+      rgba(255, 255, 255, 0.035),
       rgba(255, 255, 255, 0.012)
-    );
+    ),
+    var(--profile-panel-bg-soft);
 
-  border: 1px dashed var(--preview-border-soft);
+  border: 1px dashed var(--profile-panel-border);
   border-radius: 6px;
 }
 
@@ -669,7 +629,9 @@ const plainText = computed(() => {
   padding: 14px;
 }
 
-/* Links */
+/* =========================
+   Links
+========================= */
 
 .preview-link-list {
   display: flex;
@@ -688,20 +650,22 @@ const plainText = computed(() => {
 
   padding: 10px 12px;
 
-  color: var(--preview-text);
+  color: var(--profile-text);
   background:
     linear-gradient(
       145deg,
-      var(--preview-surface-soft),
+      rgba(255, 255, 255, 0.035),
       rgba(255, 255, 255, 0.012)
     ),
-    var(--preview-surface);
+    var(--profile-panel-bg-soft);
 
-  border: 1px solid var(--preview-border-soft);
+  border: 1px solid var(--profile-panel-border);
   border-radius: 6px;
 
   cursor: pointer;
   text-align: left;
+
+  font-family: inherit;
 
   overflow: hidden;
 
@@ -740,9 +704,9 @@ const plainText = computed(() => {
 
 .preview-link-item:hover {
   transform: translateY(-2px);
-  border-color: var(--preview-border-strong);
-  background: var(--preview-surface-hover);
-  box-shadow: 0 0 16px var(--preview-glow);
+  border-color: var(--profile-accent-border);
+  background: var(--profile-menu-hover-bg);
+  box-shadow: 0 0 16px rgba(143, 124, 255, 0.18);
 }
 
 .preview-link-item:hover::after {
@@ -760,20 +724,20 @@ const plainText = computed(() => {
 
   flex-shrink: 0;
 
-  color: var(--preview-accent);
-  background: rgba(105, 202, 255, 0.1);
+  color: var(--accent-color);
+  background: var(--profile-accent-soft);
 
-  border: 1px solid rgba(105, 202, 255, 0.18);
+  border: 1px solid var(--profile-accent-border);
   border-radius: 5px;
 
-  box-shadow: inset 0 0 14px rgba(105, 202, 255, 0.04);
+  box-shadow: inset 0 0 14px rgba(143, 124, 255, 0.04);
 }
 
 .preview-link-name {
   flex: 1;
   min-width: 0;
 
-  font-weight: 800;
+  font-weight: 850;
 
   white-space: nowrap;
   overflow: hidden;
@@ -793,7 +757,7 @@ const plainText = computed(() => {
   display: flex;
   gap: 10px;
 
-  border-top: 1px solid var(--preview-border-soft);
+  border-top: 1px solid var(--profile-panel-border);
 }
 
 .secondary-preview-btn,
@@ -808,7 +772,7 @@ const plainText = computed(() => {
   justify-content: center;
   gap: 8px;
 
-  font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
+  font-family: inherit;
   font-weight: 900;
   letter-spacing: 0.04em;
 
@@ -827,32 +791,26 @@ const plainText = computed(() => {
 }
 
 .secondary-preview-btn {
-  color: var(--preview-text);
-  background: var(--preview-surface);
-  border: 1px solid var(--preview-border-soft);
+  color: var(--profile-text);
+  background: var(--profile-panel-bg-soft);
+  border: 1px solid var(--profile-panel-border);
 }
 
 .secondary-preview-btn:hover {
-  background: var(--preview-surface-hover);
-  border-color: var(--preview-border-strong);
+  background: var(--profile-menu-hover-bg);
+  border-color: var(--profile-accent-border);
   transform: translateY(-1px);
 }
 
 .primary-preview-btn {
-  color: #ffffff;
+  color: var(--profile-button-text);
+  background: var(--profile-button-bg);
 
-  background:
-    linear-gradient(
-      135deg,
-      rgba(90, 120, 255, 0.72),
-      rgba(63, 95, 210, 0.86)
-    );
-
-  border: 1px solid rgba(185, 205, 255, 0.5);
+  border: 1px solid var(--profile-accent-border);
 
   box-shadow:
     inset 0 0 22px rgba(255, 255, 255, 0.08),
-    0 0 22px rgba(100, 130, 255, 0.18);
+    0 0 22px rgba(143, 124, 255, 0.18);
 }
 
 .primary-preview-btn::after {
@@ -876,12 +834,13 @@ const plainText = computed(() => {
 }
 
 .primary-preview-btn:hover {
-  filter: brightness(1.08);
+  filter: brightness(1.06);
   transform: translateY(-2px);
-  border-color: rgba(225, 235, 255, 0.76);
+  border-color: var(--accent-border);
+
   box-shadow:
-    inset 0 0 26px rgba(255, 255, 255, 0.12),
-    0 0 30px rgba(105, 150, 255, 0.28);
+    inset 0 0 26px rgba(255, 255, 255, 0.1),
+    0 0 30px rgba(143, 124, 255, 0.26);
 }
 
 .primary-preview-btn:hover::after {

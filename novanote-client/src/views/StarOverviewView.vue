@@ -587,50 +587,38 @@ onMounted(async () => {
 
 <style scoped>
 .star-overview-page {
-  --star-bg: #050716;
-  --star-bg-radial-1: rgba(156, 132, 255, 0.16);
-  --star-bg-radial-2: rgba(105, 130, 255, 0.12);
+  --star-bg: var(--profile-bg);
+  --star-bg-radial-1: var(--profile-bg-radial-1);
+  --star-bg-radial-2: var(--profile-bg-radial-2);
 
-  --star-text: #e5e8ff;
-  --star-heading: #fbfaff;
-  --star-muted: #a4aac8;
-  --star-muted-soft: #777f9f;
+  --star-text: var(--profile-text);
+  --star-heading: var(--profile-heading);
+  --star-muted: var(--profile-muted);
+  --star-muted-soft: var(--profile-muted-soft);
 
-  --star-accent: #a58cff;
-  --star-accent-2: #7f8cff;
-  --star-cyan: #7fcaff;
+  --star-accent: var(--accent-color);
+  --star-accent-hover: var(--accent-color-hover);
+  --star-cyan: var(--link-color);
 
-  --star-accent-soft: rgba(165, 140, 255, 0.13);
-  --star-accent-border: rgba(180, 165, 255, 0.42);
+  --star-accent-soft: var(--accent-soft);
+  --star-accent-border: var(--accent-border);
 
   --star-panel-bg:
-    radial-gradient(circle at 50% 0%, rgba(145, 120, 255, 0.16), transparent 22%),
-    radial-gradient(circle at 82% 20%, rgba(90, 130, 255, 0.09), transparent 28%),
-    linear-gradient(145deg, rgba(13, 16, 43, 0.94), rgba(6, 8, 26, 0.96));
+    radial-gradient(circle at 50% 0%, var(--accent-soft), transparent 24%),
+    radial-gradient(circle at 82% 20%, rgba(81, 186, 252, 0.09), transparent 28%),
+    var(--profile-panel-bg);
 
-  --star-panel-soft: rgba(16, 19, 48, 0.74);
-  --star-panel-border: rgba(165, 150, 245, 0.26);
+  --star-panel-soft: var(--profile-panel-bg-soft);
+  --star-panel-border: var(--profile-panel-border);
 
   --star-card-bg:
-    radial-gradient(circle at 50% 0%, rgba(165, 140, 255, 0.12), transparent 54%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012)),
-    rgba(12, 15, 42, 0.62);
+    radial-gradient(circle at 50% 0%, var(--accent-soft), transparent 56%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012)),
+    var(--profile-panel-bg-soft);
 
-  --star-shadow-sm:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.025),
-    0 0 16px rgba(145, 120, 255, 0.1),
-    0 8px 22px rgba(0, 0, 0, 0.22);
-
-  --star-shadow-md:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.035),
-    0 0 22px rgba(145, 120, 255, 0.14),
-    0 14px 34px rgba(0, 0, 0, 0.3);
-
-  --star-shadow-lg:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.035),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
-    0 0 34px rgba(145, 120, 255, 0.15),
-    0 24px 70px rgba(0, 0, 0, 0.42);
+  --star-shadow-sm: var(--profile-shadow-sm);
+  --star-shadow-md: var(--profile-shadow-md);
+  --star-shadow-lg: var(--profile-shadow-lg);
 
   min-height: 100vh;
   width: 100vw;
@@ -641,11 +629,11 @@ onMounted(async () => {
   color: var(--star-text);
 
   background:
-    linear-gradient(rgba(165, 140, 255, 0.026) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(165, 140, 255, 0.026) 1px, transparent 1px),
+    linear-gradient(rgba(143, 124, 255, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(143, 124, 255, 0.026) 1px, transparent 1px),
     radial-gradient(circle at 12% 8%, var(--star-bg-radial-1), transparent 28%),
     radial-gradient(circle at 96% 14%, var(--star-bg-radial-2), transparent 30%),
-    radial-gradient(circle at 52% 86%, rgba(145, 120, 255, 0.06), transparent 35%),
+    radial-gradient(circle at 52% 86%, rgba(143, 124, 255, 0.06), transparent 35%),
     var(--star-bg);
 
   background-size:
@@ -656,51 +644,18 @@ onMounted(async () => {
     auto,
     auto;
 
-  font-family: 'Rajdhani', 'Noto Sans TC', 'Inter', sans-serif;
-
+  font-family: var(--font-main);
   overflow-x: hidden;
 }
 
 :global(html[data-theme='light']) .star-overview-page {
-  --star-bg: #f1efff;
-  --star-bg-radial-1: rgba(145, 120, 255, 0.16);
-  --star-bg-radial-2: rgba(105, 130, 255, 0.12);
-
-  --star-text: #292943;
-  --star-heading: #141326;
-  --star-muted: #6b6f8b;
-  --star-muted-soft: #8e92a8;
-
-  --star-accent: #735cff;
-  --star-accent-2: #5d75ff;
-  --star-cyan: #2b78ff;
-
-  --star-accent-soft: rgba(115, 92, 255, 0.1);
-  --star-accent-border: rgba(115, 92, 255, 0.32);
-
-  --star-panel-bg:
-    radial-gradient(circle at 50% 0%, rgba(145, 120, 255, 0.12), transparent 22%),
-    radial-gradient(circle at 82% 20%, rgba(105, 130, 255, 0.08), transparent 28%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(238, 235, 255, 0.96));
-
-  --star-panel-soft: rgba(255, 255, 255, 0.78);
-  --star-panel-border: rgba(115, 92, 255, 0.2);
-
-  --star-card-bg:
-    radial-gradient(circle at 50% 0%, rgba(145, 120, 255, 0.1), transparent 54%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(238, 235, 255, 0.96));
-
-  --star-shadow-sm:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.52),
-    0 8px 20px rgba(78, 64, 150, 0.12);
-
-  --star-shadow-md:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.58),
-    0 14px 32px rgba(78, 64, 150, 0.16);
-
-  --star-shadow-lg:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.62),
-    0 22px 54px rgba(78, 64, 150, 0.18);
+  background:
+    linear-gradient(rgba(143, 124, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(143, 124, 255, 0.02) 1px, transparent 1px),
+    radial-gradient(circle at 12% 8%, var(--star-bg-radial-1), transparent 28%),
+    radial-gradient(circle at 96% 14%, var(--star-bg-radial-2), transparent 30%),
+    radial-gradient(circle at 52% 86%, rgba(143, 124, 255, 0.045), transparent 35%),
+    var(--star-bg);
 }
 
 /* =========================
@@ -723,7 +678,9 @@ onMounted(async () => {
   margin: 0 auto 44px;
 }
 
-.star-header p {
+.star-header p,
+.timeline-title-block p,
+.panel-title p {
   margin: 0 0 8px;
 
   color: var(--star-accent);
@@ -744,8 +701,8 @@ onMounted(async () => {
   line-height: 1.08;
 
   text-shadow:
-    0 0 12px rgba(255, 255, 255, 0.18),
-    0 0 28px rgba(145, 120, 255, 0.18);
+    0 0 12px rgba(255, 255, 255, 0.16),
+    0 0 28px rgba(143, 124, 255, 0.18);
 }
 
 .back-btn {
@@ -797,7 +754,7 @@ onMounted(async () => {
   transform: translateY(-2px);
   color: var(--star-accent);
   border-color: var(--star-accent-border);
-  background: rgba(165, 140, 255, 0.11);
+  background: var(--accent-soft);
   box-shadow: var(--star-shadow-md);
 }
 
@@ -834,8 +791,8 @@ onMounted(async () => {
 
   background-image:
     radial-gradient(circle, rgba(255, 255, 255, 0.16) 1px, transparent 1.5px),
-    linear-gradient(rgba(165, 140, 255, 0.024) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(165, 140, 255, 0.024) 1px, transparent 1px);
+    linear-gradient(rgba(143, 124, 255, 0.024) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(143, 124, 255, 0.024) 1px, transparent 1px);
 
   background-size:
     92px 92px,
@@ -856,12 +813,12 @@ onMounted(async () => {
   width: 34px;
   height: 34px;
 
-  border-top: 2px solid rgba(180, 170, 255, 0.72);
-  border-right: 2px solid rgba(180, 170, 255, 0.72);
+  border-top: 2px solid var(--star-accent-border);
+  border-right: 2px solid var(--star-accent-border);
 
   filter:
-    drop-shadow(0 0 8px rgba(165, 140, 255, 0.42))
-    drop-shadow(0 0 16px rgba(105, 130, 255, 0.16));
+    drop-shadow(0 0 8px rgba(143, 124, 255, 0.42))
+    drop-shadow(0 0 16px rgba(81, 186, 252, 0.16));
 
   pointer-events: none;
 }
@@ -883,17 +840,13 @@ onMounted(async () => {
 }
 
 .panel-title p {
-  margin: 0 0 6px;
-
-  color: var(--star-accent);
-
+  margin-bottom: 6px;
   font-size: 0.76rem;
-  font-weight: 900;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
 }
 
-.panel-title h2 {
+.panel-title h2,
+.timeline-title-block h2 {
   margin: 0;
 
   color: var(--star-heading);
@@ -904,7 +857,7 @@ onMounted(async () => {
 
   text-shadow:
     0 0 12px rgba(255, 255, 255, 0.16),
-    0 0 24px rgba(145, 120, 255, 0.16);
+    0 0 24px rgba(143, 124, 255, 0.16);
 }
 
 /* =========================
@@ -925,7 +878,7 @@ onMounted(async () => {
 
   background: var(--star-card-bg);
 
-  border: 1px solid rgba(165, 150, 245, 0.28);
+  border: 1px solid var(--star-panel-border);
   border-radius: 8px;
 
   overflow: hidden;
@@ -942,7 +895,7 @@ onMounted(async () => {
   position: absolute;
   inset: 7px;
 
-  border: 1px solid rgba(180, 165, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 6px;
 
   pointer-events: none;
@@ -961,8 +914,8 @@ onMounted(async () => {
   background:
     linear-gradient(
       90deg,
-      rgba(165, 140, 255, 0.95),
-      rgba(105, 130, 255, 0.35),
+      var(--star-accent),
+      rgba(81, 186, 252, 0.35),
       transparent
     );
 
@@ -971,10 +924,10 @@ onMounted(async () => {
 
 .stat-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(180, 165, 255, 0.58);
+  border-color: var(--star-accent-border);
   box-shadow:
-    0 0 24px rgba(145, 120, 255, 0.16),
-    0 14px 32px rgba(0, 0, 0, 0.28);
+    0 0 24px rgba(143, 124, 255, 0.16),
+    0 14px 32px rgba(0, 0, 0, 0.22);
 }
 
 .stat-card span {
@@ -987,17 +940,17 @@ onMounted(async () => {
 
   margin-bottom: 18px;
 
-  color: #c9c2ff;
+  color: var(--star-accent);
   background:
-    radial-gradient(circle at 50% 22%, rgba(165, 140, 255, 0.24), transparent 58%),
-    rgba(120, 100, 255, 0.12);
+    radial-gradient(circle at 50% 22%, var(--accent-soft), transparent 58%),
+    rgba(143, 124, 255, 0.12);
 
-  border: 1px solid rgba(180, 165, 255, 0.42);
+  border: 1px solid var(--star-accent-border);
   border-radius: 8px;
 
   box-shadow:
-    0 0 18px rgba(145, 120, 255, 0.22),
-    inset 0 0 14px rgba(165, 140, 255, 0.08);
+    0 0 18px rgba(143, 124, 255, 0.22),
+    inset 0 0 14px rgba(143, 124, 255, 0.08);
 }
 
 .stat-card p {
@@ -1014,12 +967,11 @@ onMounted(async () => {
 
   color: var(--star-heading);
 
-  font-family: 'Orbitron', 'Rajdhani', 'Noto Sans TC', sans-serif;
   font-size: clamp(1.65rem, 4vw, 2rem);
-  font-weight: 800;
+  font-weight: 900;
   line-height: 1;
 
-  text-shadow: 0 0 16px rgba(145, 120, 255, 0.18);
+  text-shadow: 0 0 16px rgba(143, 124, 255, 0.18);
 }
 
 /* =========================
@@ -1039,32 +991,13 @@ onMounted(async () => {
   padding-bottom: 22px;
   margin-bottom: 24px;
 
-  border-bottom: 1px solid rgba(165, 150, 245, 0.26);
+  border-bottom: 1px solid var(--star-panel-border);
 }
 
 .timeline-title-block p {
-  margin: 0 0 6px;
-
-  color: var(--star-accent);
-
+  margin-bottom: 6px;
   font-size: 0.76rem;
-  font-weight: 900;
   letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.timeline-title-block h2 {
-  margin: 0;
-
-  color: var(--star-heading);
-
-  font-size: clamp(1.35rem, 3vw, 1.75rem);
-  font-weight: 900;
-  line-height: 1.2;
-
-  text-shadow:
-    0 0 12px rgba(255, 255, 255, 0.16),
-    0 0 24px rgba(145, 120, 255, 0.16);
 }
 
 .timeline-select-field {
@@ -1076,7 +1009,7 @@ onMounted(async () => {
 }
 
 .timeline-select-field > span {
-  color: rgba(190, 198, 230, 0.78);
+  color: var(--star-muted);
 
   font-size: 0.78rem;
   font-weight: 850;
@@ -1092,16 +1025,16 @@ onMounted(async () => {
   align-items: center;
 
   background:
-    radial-gradient(circle at 62% 50%, rgba(100, 140, 255, 0.14), transparent 32%),
-    linear-gradient(135deg, rgba(15, 22, 54, 0.86), rgba(8, 12, 32, 0.92));
+    radial-gradient(circle at 62% 50%, rgba(81, 186, 252, 0.14), transparent 32%),
+    var(--input-bg);
 
-  border: 1px solid rgba(165, 175, 255, 0.44);
+  border: 1px solid var(--star-accent-border);
   border-radius: 10px;
 
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.035),
-    0 0 22px rgba(105, 130, 255, 0.12),
-    inset 0 0 24px rgba(120, 130, 255, 0.06);
+    0 0 22px rgba(81, 186, 252, 0.12),
+    inset 0 0 24px rgba(143, 124, 255, 0.06);
 
   overflow: hidden;
 }
@@ -1137,7 +1070,7 @@ onMounted(async () => {
 
   padding: 0 42px 0 14px;
 
-  color: #f7f8ff;
+  color: var(--input-text);
   background: transparent;
   border: 0;
   outline: none;
@@ -1153,8 +1086,8 @@ onMounted(async () => {
 }
 
 .timeline-select-shell select option {
-  color: #171a2a;
-  background: #f6f7ff;
+  color: var(--select-option-text);
+  background: var(--select-option-bg);
 }
 
 .timeline-select-shell i {
@@ -1163,14 +1096,14 @@ onMounted(async () => {
   top: 50%;
   z-index: 3;
 
-  color: #b8aaff;
+  color: var(--star-accent);
 
   font-size: 0.95rem;
 
   transform: translateY(-50%);
   pointer-events: none;
 
-  filter: drop-shadow(0 0 8px rgba(165, 140, 255, 0.72));
+  filter: drop-shadow(0 0 8px rgba(143, 124, 255, 0.72));
 }
 
 .timeline-summary-bar {
@@ -1180,7 +1113,7 @@ onMounted(async () => {
 .timeline-summary-bar p {
   margin: 0;
 
-  color: rgba(190, 198, 230, 0.78);
+  color: var(--star-muted);
 
   font-size: 0.96rem;
   font-weight: 850;
@@ -1188,7 +1121,7 @@ onMounted(async () => {
 }
 
 .timeline-summary-bar strong {
-  color: #ffffff;
+  color: var(--star-heading);
   font-weight: 900;
 }
 
@@ -1196,8 +1129,8 @@ onMounted(async () => {
 .accent-number {
   color: var(--star-accent);
   text-shadow:
-    0 0 10px rgba(165, 140, 255, 0.62),
-    0 0 22px rgba(105, 130, 255, 0.16);
+    0 0 10px rgba(143, 124, 255, 0.62),
+    0 0 22px rgba(81, 186, 252, 0.16);
 }
 
 .timeline-tip {
@@ -1208,9 +1141,9 @@ onMounted(async () => {
   padding: 16px 18px;
   margin-bottom: 20px;
 
-  color: rgba(198, 203, 233, 0.86);
-  background: rgba(10, 17, 45, 0.72);
-  border: 1px solid rgba(165, 150, 245, 0.28);
+  color: var(--star-muted);
+  background: var(--star-panel-soft);
+  border: 1px solid var(--star-panel-border);
   border-radius: 12px;
 
   font-size: 0.95rem;
@@ -1221,7 +1154,7 @@ onMounted(async () => {
 .timeline-tip i {
   color: var(--star-accent);
   font-size: 1.05rem;
-  filter: drop-shadow(0 0 8px rgba(165, 140, 255, 0.6));
+  filter: drop-shadow(0 0 8px rgba(143, 124, 255, 0.6));
 }
 
 /* =========================
@@ -1235,16 +1168,23 @@ onMounted(async () => {
   margin-bottom: 24px;
 
   background:
-    linear-gradient(135deg, rgba(110, 150, 255, 0.13), transparent 18%),
-    linear-gradient(315deg, rgba(156, 132, 255, 0.14), transparent 18%),
+    linear-gradient(135deg, rgba(81, 186, 252, 0.12), transparent 18%),
+    linear-gradient(315deg, var(--accent-soft), transparent 18%),
     rgba(4, 8, 24, 0.68);
 
-  border: 1px solid rgba(115, 150, 255, 0.38);
+  border: 1px solid rgba(81, 186, 252, 0.32);
   border-radius: 18px;
 
   box-shadow:
-    0 0 24px rgba(90, 125, 255, 0.16),
-    inset 0 0 34px rgba(90, 125, 255, 0.05);
+    0 0 24px rgba(81, 186, 252, 0.14),
+    inset 0 0 34px rgba(81, 186, 252, 0.05);
+}
+
+:global(html[data-theme='light']) .timeline-map-frame {
+  background:
+    linear-gradient(135deg, rgba(81, 186, 252, 0.08), transparent 18%),
+    linear-gradient(315deg, var(--accent-soft), transparent 18%),
+    rgba(255, 255, 255, 0.72);
 }
 
 .timeline-map-frame::before {
@@ -1266,8 +1206,8 @@ onMounted(async () => {
   width: 38px;
   height: 38px;
 
-  border-color: rgba(150, 145, 255, 0.72);
-  filter: drop-shadow(0 0 8px rgba(130, 110, 255, 0.5));
+  border-color: var(--star-accent-border);
+  filter: drop-shadow(0 0 8px rgba(143, 124, 255, 0.5));
 
   pointer-events: none;
 }
@@ -1307,11 +1247,11 @@ onMounted(async () => {
   min-height: 360px;
 
   background:
-    radial-gradient(circle at 56% 52%, rgba(120, 105, 255, 0.14), transparent 24%),
-    radial-gradient(circle at 36% 64%, rgba(130, 85, 255, 0.1), transparent 18%),
-    radial-gradient(circle at 50% 50%, rgba(80, 130, 255, 0.07), transparent 46%),
-    linear-gradient(rgba(105, 130, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(105, 130, 255, 0.03) 1px, transparent 1px),
+    radial-gradient(circle at 56% 52%, var(--accent-soft), transparent 24%),
+    radial-gradient(circle at 36% 64%, rgba(143, 124, 255, 0.1), transparent 18%),
+    radial-gradient(circle at 50% 50%, rgba(81, 186, 252, 0.07), transparent 46%),
+    linear-gradient(rgba(81, 186, 252, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(81, 186, 252, 0.03) 1px, transparent 1px),
     rgba(2, 6, 20, 0.8);
 
   background-size:
@@ -1328,6 +1268,15 @@ onMounted(async () => {
   overflow: hidden;
 }
 
+:global(html[data-theme='light']) .timeline-map {
+  background:
+    radial-gradient(circle at 56% 52%, var(--accent-soft), transparent 24%),
+    radial-gradient(circle at 50% 50%, rgba(81, 186, 252, 0.07), transparent 46%),
+    linear-gradient(rgba(81, 186, 252, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(81, 186, 252, 0.045) 1px, transparent 1px),
+    rgba(255, 255, 255, 0.66);
+}
+
 .timeline-map::before {
   content: '';
 
@@ -1336,7 +1285,7 @@ onMounted(async () => {
 
   background-image:
     radial-gradient(circle, rgba(255, 255, 255, 0.42) 1px, transparent 1.7px),
-    radial-gradient(circle, rgba(130, 155, 255, 0.22) 1px, transparent 1.4px);
+    radial-gradient(circle, rgba(81, 186, 252, 0.22) 1px, transparent 1.4px);
 
   background-size:
     94px 94px,
@@ -1358,7 +1307,7 @@ onMounted(async () => {
   height: 220px;
 
   background:
-    radial-gradient(circle, rgba(165, 140, 255, 0.16), transparent 64%);
+    radial-gradient(circle, rgba(143, 124, 255, 0.16), transparent 64%);
 
   filter: blur(8px);
   opacity: 0.48;
@@ -1371,7 +1320,7 @@ onMounted(async () => {
   left: 50%;
   top: 50%;
 
-  border: 1px solid rgba(85, 120, 255, 0.14);
+  border: 1px solid rgba(81, 186, 252, 0.14);
   border-radius: 50%;
 
   transform: translate(-50%, -50%) rotate(-12deg);
@@ -1421,11 +1370,11 @@ onMounted(async () => {
 }
 
 .timeline-line.active {
-  stroke: rgba(145, 120, 255, 0.95);
+  stroke: rgba(143, 124, 255, 0.95);
   opacity: 0.95;
   filter:
-    drop-shadow(0 0 6px rgba(165, 140, 255, 0.8))
-    drop-shadow(0 0 14px rgba(105, 202, 255, 0.28));
+    drop-shadow(0 0 6px rgba(143, 124, 255, 0.8))
+    drop-shadow(0 0 14px rgba(81, 186, 252, 0.28));
 }
 
 .timeline-node {
@@ -1494,11 +1443,11 @@ onMounted(async () => {
   border-radius: 50%;
 
   background:
-    radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.94), rgba(190, 180, 255, 0.48) 38%, rgba(92, 78, 148, 0.72) 70%);
+    radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.94), rgba(205, 196, 255, 0.48) 38%, rgba(92, 78, 148, 0.72) 70%);
 
   box-shadow:
     inset -2px -2px 6px rgba(0, 0, 0, 0.34),
-    0 0 7px rgba(165, 140, 255, 0.2);
+    0 0 7px rgba(143, 124, 255, 0.2);
 }
 
 .timeline-node.floating-note .node-core {
@@ -1507,10 +1456,10 @@ onMounted(async () => {
   border-radius: 3px;
 
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(165, 140, 255, 0.74) 45%, rgba(90, 75, 220, 0.86));
+    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(143, 124, 255, 0.74) 45%, rgba(90, 75, 220, 0.86));
 
   box-shadow:
-    0 0 9px rgba(165, 140, 255, 0.28),
+    0 0 9px rgba(143, 124, 255, 0.28),
     inset 0 0 5px rgba(255, 255, 255, 0.16);
 
   transform: rotate(45deg);
@@ -1520,25 +1469,25 @@ onMounted(async () => {
   inset: 6px;
 
   background:
-    radial-gradient(circle at 35% 30%, #ffffff 0%, #f7f4ff 26%, #9c84ff 56%, #5a43e8 100%);
+    radial-gradient(circle at 35% 30%, #ffffff 0%, #f7f4ff 26%, var(--star-accent) 56%, #5a43e8 100%);
 
   box-shadow:
     0 0 10px rgba(255, 255, 255, 0.82),
-    0 0 24px rgba(156, 132, 255, 0.95),
-    0 0 52px rgba(120, 105, 255, 0.58),
-    0 0 76px rgba(105, 202, 255, 0.18);
+    0 0 24px rgba(143, 124, 255, 0.95),
+    0 0 52px rgba(143, 124, 255, 0.58),
+    0 0 76px rgba(81, 186, 252, 0.18);
 }
 
 .timeline-node.current.floating-note .node-core {
   inset: 6px;
 
   background:
-    linear-gradient(135deg, #ffffff 0%, #d8d0ff 28%, #9c84ff 58%, #6d55ff 100%);
+    linear-gradient(135deg, #ffffff 0%, #d8d0ff 28%, var(--star-accent) 58%, #6d55ff 100%);
 
   box-shadow:
     0 0 8px rgba(255, 255, 255, 0.72),
-    0 0 18px rgba(156, 132, 255, 0.86),
-    0 0 38px rgba(120, 105, 255, 0.46);
+    0 0 18px rgba(143, 124, 255, 0.86),
+    0 0 38px rgba(143, 124, 255, 0.46);
 
   transform: rotate(45deg);
 }
@@ -1558,7 +1507,7 @@ onMounted(async () => {
   opacity: 1;
 
   background:
-    radial-gradient(circle, rgba(165, 140, 255, 0.34) 0%, rgba(165, 140, 255, 0.12) 30%, transparent 68%);
+    radial-gradient(circle, rgba(143, 124, 255, 0.34) 0%, rgba(143, 124, 255, 0.12) 30%, transparent 68%);
 
   animation: nodePulse 2.8s ease-in-out infinite;
 }
@@ -1569,7 +1518,7 @@ onMounted(async () => {
 
   position: absolute;
 
-  border: 1px solid rgba(165, 140, 255, 0.34);
+  border: 1px solid rgba(143, 124, 255, 0.34);
   border-radius: 50%;
 }
 
@@ -1579,7 +1528,7 @@ onMounted(async () => {
 
 .timeline-node.planet .node-pulse::after {
   inset: 15px;
-  border-color: rgba(105, 202, 255, 0.18);
+  border-color: rgba(81, 186, 252, 0.18);
 }
 
 .node-child-badge {
@@ -1596,29 +1545,28 @@ onMounted(async () => {
   align-items: center;
   justify-content: center;
 
-  color: rgba(238, 239, 255, 0.82);
+  color: var(--star-heading);
   background:
-    radial-gradient(circle at 50% 20%, rgba(165, 140, 255, 0.22), transparent 62%),
-    rgba(12, 15, 42, 0.88);
+    radial-gradient(circle at 50% 20%, var(--accent-soft), transparent 62%),
+    var(--star-panel-soft);
 
-  border: 1px solid rgba(165, 140, 255, 0.38);
+  border: 1px solid var(--star-accent-border);
   border-radius: 999px;
 
-  font-family: 'Orbitron', 'Rajdhani', sans-serif;
   font-size: 0.62rem;
   font-weight: 850;
 
   box-shadow:
-    0 0 12px rgba(120, 105, 255, 0.2),
-    inset 0 0 10px rgba(165, 140, 255, 0.08);
+    0 0 12px rgba(143, 124, 255, 0.2),
+    inset 0 0 10px rgba(143, 124, 255, 0.08);
 }
 
 .node-child-badge.current {
-  color: #ffffff;
-  border-color: rgba(200, 190, 255, 0.72);
+  color: var(--accent-text);
+  border-color: var(--star-accent-border);
   box-shadow:
-    0 0 12px rgba(165, 140, 255, 0.6),
-    0 0 24px rgba(120, 105, 255, 0.3);
+    0 0 12px rgba(143, 124, 255, 0.6),
+    0 0 24px rgba(143, 124, 255, 0.3);
 }
 
 /* =========================
@@ -1641,17 +1589,23 @@ onMounted(async () => {
 
   color: var(--star-muted);
   background:
-    radial-gradient(circle at 50% 30%, rgba(165, 140, 255, 0.14), transparent 42%),
+    radial-gradient(circle at 50% 30%, var(--accent-soft), transparent 42%),
     rgba(2, 6, 20, 0.64);
 
   font-weight: 800;
   line-height: 1.7;
 }
 
+:global(html[data-theme='light']) .timeline-empty {
+  background:
+    radial-gradient(circle at 50% 30%, var(--accent-soft), transparent 42%),
+    rgba(255, 255, 255, 0.72);
+}
+
 .timeline-empty i {
   color: var(--star-accent);
   font-size: 1.5rem;
-  filter: drop-shadow(0 0 10px rgba(165, 140, 255, 0.55));
+  filter: drop-shadow(0 0 10px rgba(143, 124, 255, 0.55));
 }
 
 /* =========================
@@ -1674,7 +1628,7 @@ onMounted(async () => {
 .timeline-new-header h3 {
   margin: 0;
 
-  color: #ffffff;
+  color: var(--star-heading);
 
   font-size: 1.15rem;
   font-weight: 900;
@@ -1688,15 +1642,14 @@ onMounted(async () => {
   align-items: center;
   justify-content: center;
 
-  color: #ffffff;
+  color: var(--star-heading);
   background:
-    radial-gradient(circle at 50% 20%, rgba(165, 140, 255, 0.24), transparent 62%),
-    rgba(145, 120, 255, 0.14);
+    radial-gradient(circle at 50% 20%, var(--accent-soft), transparent 62%),
+    rgba(143, 124, 255, 0.14);
 
-  border: 1px solid rgba(165, 140, 255, 0.35);
+  border: 1px solid var(--star-accent-border);
   border-radius: 6px;
 
-  font-family: 'Orbitron', 'Rajdhani', sans-serif;
   font-size: 0.92rem;
   font-weight: 850;
 }
@@ -1711,14 +1664,14 @@ onMounted(async () => {
   padding: 16px;
 
   background:
-    radial-gradient(circle at 10% 0%, rgba(165, 140, 255, 0.1), transparent 26%),
-    linear-gradient(145deg, rgba(10, 15, 40, 0.74), rgba(5, 9, 26, 0.78));
+    radial-gradient(circle at 10% 0%, var(--accent-soft), transparent 26%),
+    var(--star-panel-soft);
 
-  border: 1px solid rgba(120, 145, 255, 0.24);
+  border: 1px solid var(--star-panel-border);
   border-radius: 14px;
 
   box-shadow:
-    inset 0 0 20px rgba(145, 120, 255, 0.035),
+    inset 0 0 20px rgba(143, 124, 255, 0.035),
     0 10px 22px rgba(0, 0, 0, 0.12);
 }
 
@@ -1742,7 +1695,7 @@ onMounted(async () => {
 .timeline-new-group-head h4 {
   margin: 0;
 
-  color: #f7f8ff;
+  color: var(--star-heading);
 
   font-size: 0.98rem;
   font-weight: 900;
@@ -1757,9 +1710,9 @@ onMounted(async () => {
   align-items: center;
   justify-content: center;
 
-  color: #f7f8ff;
-  background: rgba(165, 140, 255, 0.12);
-  border: 1px solid rgba(165, 140, 255, 0.28);
+  color: var(--star-heading);
+  background: var(--accent-soft);
+  border: 1px solid var(--star-accent-border);
   border-radius: 6px;
 
   font-size: 0.78rem;
@@ -1776,27 +1729,27 @@ onMounted(async () => {
   align-items: center;
   justify-content: center;
 
-  color: #c9c2ff;
+  color: var(--star-accent);
   background:
-    radial-gradient(circle at 50% 30%, rgba(165, 140, 255, 0.22), transparent 58%),
-    rgba(145, 120, 255, 0.08);
+    radial-gradient(circle at 50% 30%, var(--accent-soft), transparent 58%),
+    rgba(143, 124, 255, 0.08);
 
-  border: 1px solid rgba(165, 140, 255, 0.3);
+  border: 1px solid var(--star-accent-border);
   border-radius: 10px;
 
   font-size: 0.9rem;
 }
 
 .timeline-new-group-icon.planet {
-  color: #d9d3ff;
+  color: var(--star-accent);
 }
 
 .timeline-new-group-icon.internal-note {
-  color: #b9aaff;
+  color: var(--star-accent-hover);
 }
 
 .timeline-new-group-icon.floating-note {
-  color: var(--star-cyan);
+  color: var(--star-accent);
 }
 
 .timeline-new-scroll {
@@ -1822,12 +1775,12 @@ onMounted(async () => {
 }
 
 .timeline-new-scroll.scrollable::-webkit-scrollbar-thumb {
-  background: rgba(165, 140, 255, 0.42);
+  background: var(--star-accent-border);
   border-radius: 999px;
 }
 
 .timeline-new-scroll.scrollable::-webkit-scrollbar-thumb:hover {
-  background: rgba(185, 170, 255, 0.62);
+  background: var(--star-accent);
 }
 
 .timeline-new-item {
@@ -1841,11 +1794,12 @@ onMounted(async () => {
 
   padding: 16px;
 
-  color: #f7f8ff;
+  color: var(--star-heading);
   background:
-    linear-gradient(135deg, rgba(11, 18, 46, 0.96), rgba(6, 10, 28, 0.98));
+    linear-gradient(135deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012)),
+    var(--star-panel-soft);
 
-  border: 1px solid rgba(120, 145, 255, 0.26);
+  border: 1px solid var(--star-panel-border);
   border-radius: 12px;
 
   cursor: pointer;
@@ -1862,20 +1816,17 @@ onMounted(async () => {
 
 .timeline-new-item:hover {
   transform: translateY(-2px);
-  border-color: rgba(165, 140, 255, 0.52);
-  box-shadow: 0 0 20px rgba(145, 120, 255, 0.14);
+  border-color: var(--star-accent-border);
+  box-shadow: 0 0 20px rgba(143, 124, 255, 0.14);
 }
 
-.timeline-new-item.planet {
-  border-color: rgba(190, 180, 255, 0.28);
-}
-
+.timeline-new-item.planet,
 .timeline-new-item.internal-note {
-  border-color: rgba(165, 140, 255, 0.28);
+  border-color: var(--star-panel-border);
 }
 
 .timeline-new-item.floating-note {
-  border-color: rgba(127, 202, 255, 0.24);
+  border-color: var(--star-accent-border);
 }
 
 .timeline-new-item-icon {
@@ -1890,25 +1841,25 @@ onMounted(async () => {
 
   color: var(--star-accent);
   background:
-    radial-gradient(circle at 50% 30%, rgba(165, 140, 255, 0.22), transparent 58%),
-    rgba(145, 120, 255, 0.08);
+    radial-gradient(circle at 50% 30%, var(--accent-soft), transparent 58%),
+    rgba(143, 124, 255, 0.08);
 
-  border: 1px solid rgba(165, 140, 255, 0.3);
+  border: 1px solid var(--star-accent-border);
   border-radius: 12px;
 
   font-size: 1rem;
 }
 
 .timeline-new-item-icon.planet {
-  color: #d9d3ff;
+  color: var(--star-accent);
 }
 
 .timeline-new-item-icon.in-planet {
-  color: #b9aaff;
+  color: var(--star-accent-hover);
 }
 
 .timeline-new-item-icon.floating {
-  color: var(--star-cyan);
+  color: var(--star-accent);
 }
 
 .timeline-new-item-text {
@@ -1920,7 +1871,7 @@ onMounted(async () => {
 }
 
 .timeline-new-item-text strong {
-  color: #ffffff;
+  color: var(--star-heading);
 
   font-size: 0.98rem;
   font-weight: 850;
@@ -1932,7 +1883,7 @@ onMounted(async () => {
 }
 
 .timeline-new-item-text span {
-  color: #aeb7d8;
+  color: var(--star-muted);
 
   font-size: 0.84rem;
   font-weight: 750;
@@ -1945,7 +1896,7 @@ onMounted(async () => {
 
 .timeline-new-item .open-icon,
 .open-icon {
-  color: rgba(180, 190, 230, 0.7);
+  color: var(--star-muted);
   font-size: 0.88rem;
 }
 
@@ -1953,9 +1904,9 @@ onMounted(async () => {
   margin: 0;
   padding: 16px 18px;
 
-  color: #aeb7d8;
-  background: rgba(255, 255, 255, 0.025);
-  border: 1px solid rgba(120, 145, 255, 0.22);
+  color: var(--star-muted);
+  background: var(--surface-bg-soft);
+  border: 1px solid var(--star-panel-border);
   border-radius: 12px;
 
   font-size: 0.92rem;
@@ -1982,11 +1933,11 @@ onMounted(async () => {
 
   color: var(--star-text);
   background: var(--star-panel-bg);
-  border: 1px solid rgba(165, 150, 245, 0.3);
+  border: 1px solid var(--star-panel-border);
   border-radius: 8px;
 
   box-shadow:
-    0 0 26px rgba(145, 120, 255, 0.18),
+    0 0 26px rgba(143, 124, 255, 0.18),
     var(--star-shadow-lg);
 
   font-weight: 850;
@@ -1996,11 +1947,11 @@ onMounted(async () => {
 }
 
 .toast.success i {
-  color: #8af0c4;
+  color: var(--profile-success);
 }
 
 .toast.error i {
-  color: #ff91b8;
+  color: var(--profile-error);
 }
 
 .toast-enter-active,
@@ -2060,12 +2011,12 @@ onMounted(async () => {
 }
 
 .star-overview-page::-webkit-scrollbar-thumb {
-  background: rgba(165, 140, 255, 0.34);
+  background: var(--star-accent-border);
   border-radius: 999px;
 }
 
 .star-overview-page::-webkit-scrollbar-thumb:hover {
-  background: rgba(190, 175, 255, 0.52);
+  background: var(--star-accent);
 }
 
 .star-overview-page::-webkit-scrollbar-track {
@@ -2101,10 +2052,6 @@ onMounted(async () => {
 
   .star-panel {
     padding: 24px;
-  }
-
-  .timeline-select-field {
-    min-width: 100%;
   }
 }
 

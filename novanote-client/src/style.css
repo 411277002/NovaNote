@@ -8,8 +8,9 @@
 
   /* =========================
      Base
+     色彩主軸：紫色＝主要操作，藍色＝資訊/連結，紅色＝危險
   ========================= */
-  --font-main: 'Inter', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+  --font-main: 'Orbitron', 'Rajdhani', 'Noto Sans TC', sans-serif;
 
   --universe-bg: #050508;
 
@@ -24,9 +25,9 @@
   --accent-color: #8f7cff;
   --accent-color-hover: #a58cff;
   --accent-text: #ffffff;
-  --accent-soft: rgba(126, 94, 255, 0.18);
+  --accent-soft: rgba(143, 124, 255, 0.18);
   --accent-border: rgba(165, 140, 255, 0.46);
-  --accent-gradient: linear-gradient(135deg, #646cff, #9b8cff);
+  --accent-gradient: linear-gradient(135deg, #8f7cff, #51bafc);
 
   --link-color: #8fc5ff;
 
@@ -54,8 +55,8 @@
   --select-option-bg: #191c2a;
   --select-option-text: #f5f6ff;
 
-  --fab-main-bg: #8f7cff;
-  --fab-main-bg-hover: #a58cff;
+  --fab-main-bg: var(--accent-color);
+  --fab-main-bg-hover: var(--accent-color-hover);
   --fab-main-bg-open: #222b3d;
   --fab-main-text: #101522;
 
@@ -68,7 +69,7 @@
   --fab-shadow: 0 18px 34px rgba(0, 0, 0, 0.34);
   --fab-shadow-soft: 0 10px 22px rgba(0, 0, 0, 0.28);
 
-  --fab-ring: rgba(142, 167, 255, 0.22);
+  --fab-ring: rgba(143, 124, 255, 0.22);
 
   /* =========================
      Sidebar / App Shell
@@ -86,10 +87,10 @@
   --sidebar-muted: #9aa7bd;
   --sidebar-muted-soft: #69758c;
 
-  --sidebar-accent: #8ea7ff;
-  --sidebar-accent-hover: #a8b8ff;
-  --sidebar-accent-soft: #26345f;
-  --sidebar-accent-border: #566da8;
+  --sidebar-accent: var(--accent-color);
+  --sidebar-accent-hover: var(--accent-color-hover);
+  --sidebar-accent-soft: rgba(143, 124, 255, 0.18);
+  --sidebar-accent-border: rgba(165, 140, 255, 0.42);
 
   --sidebar-search-bg: #151b2b;
   --sidebar-item-bg: transparent;
@@ -98,13 +99,13 @@
 
   --sidebar-icon-bg: #1b2335;
   --sidebar-icon-color: #a7b3c8;
-  --sidebar-icon-hover-bg: #26345f;
-  --sidebar-icon-hover-color: #b7c6ff;
+  --sidebar-icon-hover-bg: var(--sidebar-accent-soft);
+  --sidebar-icon-hover-color: #d7d0ff;
 
   --sidebar-count-bg: #1b2335;
   --sidebar-count-color: #9aa7bd;
-  --sidebar-count-hover-bg: #26345f;
-  --sidebar-count-hover-color: #c7d2ff;
+  --sidebar-count-hover-bg: var(--sidebar-accent-soft);
+  --sidebar-count-hover-color: #d7d0ff;
 
   --sidebar-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.22);
   --sidebar-shadow-md: 0 14px 32px rgba(0, 0, 0, 0.28);
@@ -128,10 +129,10 @@
   --profile-muted: #9aa7bd;
   --profile-muted-soft: #69758c;
 
-  --profile-accent: #8ea7ff;
-  --profile-accent-hover: #a8b8ff;
-  --profile-accent-soft: #26345f;
-  --profile-accent-border: #566da8;
+  --profile-accent: var(--accent-color);
+  --profile-accent-hover: var(--accent-color-hover);
+  --profile-accent-soft: rgba(143, 124, 255, 0.18);
+  --profile-accent-border: rgba(165, 140, 255, 0.42);
 
   --profile-input-bg: #101626;
   --profile-input-border: #303a52;
@@ -148,8 +149,8 @@
   --profile-success: #34d399;
   --profile-error: #f87171;
 
-  --profile-button-bg: #7477d9;
-  --profile-button-bg-hover: #8b8ef0;
+  --profile-button-bg: var(--accent-color);
+  --profile-button-bg-hover: var(--accent-color-hover);
   --profile-button-text: #ffffff;
 
   --profile-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -197,11 +198,11 @@
   --floating-text: #f4f1ff;
   --floating-muted: rgba(244, 241, 255, 0.58);
 
-  --floating-hover-bg: rgba(126, 94, 255, 0.13);
+  --floating-hover-bg: rgba(143, 124, 255, 0.13);
   --floating-active-bg: linear-gradient(
     135deg,
-    rgba(126, 94, 255, 0.28),
-    rgba(173, 139, 255, 0.12)
+    rgba(143, 124, 255, 0.28),
+    rgba(81, 186, 252, 0.12)
   );
   --floating-active-border: rgba(165, 140, 255, 0.48);
   --floating-active-text: #cfc4ff;
@@ -215,10 +216,10 @@
   --slash-inner-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
 
   --slash-item-text: #f5f7ff;
-  --slash-item-hover-bg: rgba(126, 94, 255, 0.18);
+  --slash-item-hover-bg: rgba(143, 124, 255, 0.18);
   --slash-item-hover-border: rgba(165, 140, 255, 0.42);
 
-  --slash-icon-bg: rgba(126, 94, 255, 0.18);
+  --slash-icon-bg: rgba(143, 124, 255, 0.18);
   --slash-icon-color: #cfc4ff;
 
   --slash-title-color: #f7f8ff;
@@ -241,17 +242,17 @@
   /* =========================
      Tags
   ========================= */
-  --tag-bg: rgba(126, 94, 255, 0.22);
+  --tag-bg: rgba(143, 124, 255, 0.22);
   --tag-border: rgba(165, 140, 255, 0.42);
   --tag-text: #cfc4ff;
 
   /* =========================
      Media
   ========================= */
-  --media-accent: #8f7cff;
-  --media-accent-hover: #a58cff;
+  --media-accent: var(--accent-color);
+  --media-accent-hover: var(--accent-color-hover);
   --media-accent-outline: rgba(165, 140, 255, 0.78);
-  --media-accent-shadow: rgba(126, 94, 255, 0.38);
+  --media-accent-shadow: rgba(143, 124, 255, 0.38);
   --media-dot-border: #1b1e29;
 
   /* =========================
@@ -305,12 +306,12 @@ html[data-theme='light'] {
   --border-color: rgba(0, 0, 0, 0.1);
   --search-bg: rgba(0, 0, 0, 0.05);
 
-  --accent-color: #51bafc;
-  --accent-color-hover: #73d3ff;
+  --accent-color: #8f7cff;
+  --accent-color-hover: #7b68ee;
   --accent-text: #ffffff;
-  --accent-soft: rgba(81, 186, 252, 0.16);
-  --accent-border: rgba(81, 186, 252, 0.38);
-  --accent-gradient: linear-gradient(135deg, #51bafc, #73d3ff);
+  --accent-soft: rgba(143, 124, 255, 0.14);
+  --accent-border: rgba(143, 124, 255, 0.34);
+  --accent-gradient: linear-gradient(135deg, #8f7cff, #51bafc);
 
   --link-color: #4d86ed;
 
@@ -338,21 +339,21 @@ html[data-theme='light'] {
   --select-option-bg: #ffffff;
   --select-option-text: #1a1a1a;
 
-  --fab-main-bg: #3b82f6;
-  --fab-main-bg-hover: #1d4ed8;
+  --fab-main-bg: var(--accent-color);
+  --fab-main-bg-hover: var(--accent-color-hover);
   --fab-main-bg-open: #334155;
   --fab-main-text: #ffffff;
 
   --fab-sub-bg: #ffffff;
-  --fab-sub-bg-hover: #eef4ff;
+  --fab-sub-bg-hover: #f2f0ff;
   --fab-sub-border: #dbe3ef;
   --fab-sub-text: #475569;
-  --fab-sub-text-hover: #2563eb;
+  --fab-sub-text-hover: #6f5ee8;
 
   --fab-shadow: 0 14px 30px rgba(15, 23, 42, 0.18);
   --fab-shadow-soft: 0 8px 18px rgba(15, 23, 42, 0.12);
 
-  --fab-ring: rgba(37, 99, 235, 0.18);
+  --fab-ring: rgba(143, 124, 255, 0.18);
 
   /* =========================
      Sidebar / App Shell
@@ -360,7 +361,7 @@ html[data-theme='light'] {
   --sidebar-bg: #f8fafc;
   --sidebar-surface: #ffffff;
   --sidebar-surface-soft: #f1f5f9;
-  --sidebar-surface-hover: #eef4ff;
+  --sidebar-surface-hover: #f2f0ff;
 
   --sidebar-border: #e2e8f0;
   --sidebar-border-strong: #cbd5e1;
@@ -370,25 +371,25 @@ html[data-theme='light'] {
   --sidebar-muted: #64748b;
   --sidebar-muted-soft: #94a3b8;
 
-  --sidebar-accent: #3b82f6;
-  --sidebar-accent-hover: #2563eb;
-  --sidebar-accent-soft: #dbeafe;
-  --sidebar-accent-border: #93c5fd;
+  --sidebar-accent: var(--accent-color);
+  --sidebar-accent-hover: var(--accent-color-hover);
+  --sidebar-accent-soft: rgba(143, 124, 255, 0.13);
+  --sidebar-accent-border: rgba(143, 124, 255, 0.32);
 
   --sidebar-search-bg: #ffffff;
   --sidebar-item-bg: transparent;
-  --sidebar-item-hover-bg: #eef4ff;
-  --sidebar-item-active-bg: #e0ecff;
+  --sidebar-item-hover-bg: #f2f0ff;
+  --sidebar-item-active-bg: #e9e6ff;
 
   --sidebar-icon-bg: #f1f5f9;
   --sidebar-icon-color: #64748b;
-  --sidebar-icon-hover-bg: #dbeafe;
-  --sidebar-icon-hover-color: #2563eb;
+  --sidebar-icon-hover-bg: var(--sidebar-accent-soft);
+  --sidebar-icon-hover-color: #6f5ee8;
 
   --sidebar-count-bg: #f1f5f9;
   --sidebar-count-color: #64748b;
-  --sidebar-count-hover-bg: #dbeafe;
-  --sidebar-count-hover-color: #2563eb;
+  --sidebar-count-hover-bg: var(--sidebar-accent-soft);
+  --sidebar-count-hover-color: #6f5ee8;
 
   --sidebar-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
   --sidebar-shadow-md: 0 10px 24px rgba(15, 23, 42, 0.08);
@@ -397,7 +398,7 @@ html[data-theme='light'] {
      Profile
   ========================= */
   --profile-bg: #f5f7fb;
-  --profile-bg-radial-1: rgba(79, 120, 255, 0.12);
+  --profile-bg-radial-1: rgba(143, 124, 255, 0.12);
   --profile-bg-radial-2: rgba(81, 186, 252, 0.1);
 
   --profile-sidebar-bg: #ffffff;
@@ -412,18 +413,18 @@ html[data-theme='light'] {
   --profile-muted: #64748b;
   --profile-muted-soft: #94a3b8;
 
-  --profile-accent: #3b82f6;
-  --profile-accent-hover: #2563eb;
-  --profile-accent-soft: #dbeafe;
-  --profile-accent-border: #93c5fd;
+  --profile-accent: var(--accent-color);
+  --profile-accent-hover: var(--accent-color-hover);
+  --profile-accent-soft: rgba(143, 124, 255, 0.13);
+  --profile-accent-border: rgba(143, 124, 255, 0.32);
 
   --profile-input-bg: #ffffff;
   --profile-input-border: #cbd5e1;
   --profile-input-disabled-bg: #f1f5f9;
   --profile-input-disabled-text: #94a3b8;
 
-  --profile-menu-hover-bg: #eef4ff;
-  --profile-menu-active-bg: #e0ecff;
+  --profile-menu-hover-bg: #f2f0ff;
+  --profile-menu-active-bg: #e9e6ff;
 
   --profile-danger: #dc2626;
   --profile-danger-bg: #fee2e2;
@@ -432,8 +433,8 @@ html[data-theme='light'] {
   --profile-success: #10b981;
   --profile-error: #ef4444;
 
-  --profile-button-bg: #6366f1;
-  --profile-button-bg-hover: #4f46e5;
+  --profile-button-bg: var(--accent-color);
+  --profile-button-bg-hover: var(--accent-color-hover);
   --profile-button-text: #ffffff;
 
   --profile-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
@@ -482,10 +483,10 @@ html[data-theme='light'] {
   --floating-text: #1f2430;
   --floating-muted: #8c93a5;
 
-  --floating-hover-bg: #f0f3f8;
-  --floating-active-bg: #eaf2ff;
-  --floating-active-border: #bcd7ff;
-  --floating-active-text: #2f74c0;
+  --floating-hover-bg: #f2f0ff;
+  --floating-active-bg: #ece9ff;
+  --floating-active-border: rgba(143, 124, 255, 0.34);
+  --floating-active-text: #6f5ee8;
 
   /* =========================
      Slash Command Menu
@@ -496,11 +497,11 @@ html[data-theme='light'] {
   --slash-inner-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7);
 
   --slash-item-text: #1f2430;
-  --slash-item-hover-bg: #eef5ff;
-  --slash-item-hover-border: #cfe2ff;
+  --slash-item-hover-bg: #f2f0ff;
+  --slash-item-hover-border: rgba(143, 124, 255, 0.28);
 
-  --slash-icon-bg: #e9f2ff;
-  --slash-icon-color: #2f74c0;
+  --slash-icon-bg: #ece9ff;
+  --slash-icon-color: #6f5ee8;
 
   --slash-title-color: #151922;
   --slash-desc-color: #7d8495;
@@ -522,30 +523,30 @@ html[data-theme='light'] {
   /* =========================
      Tags
   ========================= */
-  --tag-bg: rgba(81, 186, 252, 0.18);
-  --tag-border: rgba(81, 186, 252, 0.26);
-  --tag-text: #267ab0;
+  --tag-bg: rgba(143, 124, 255, 0.14);
+  --tag-border: rgba(143, 124, 255, 0.28);
+  --tag-text: #6554d9;
 
   /* =========================
      Media
   ========================= */
-  --media-accent: #3d74d8;
-  --media-accent-hover: #5b8def;
-  --media-accent-outline: rgba(61, 116, 216, 0.62);
-  --media-accent-shadow: rgba(61, 116, 216, 0.32);
+  --media-accent: var(--accent-color);
+  --media-accent-hover: var(--accent-color-hover);
+  --media-accent-outline: rgba(143, 124, 255, 0.62);
+  --media-accent-shadow: rgba(143, 124, 255, 0.28);
   --media-dot-border: #ffffff;
 
   /* =========================
      Planet / Universe Panel
   ========================= */
   --nav-pill-bg: rgba(255, 255, 255, 0.78);
-  --logo-shadow: 0 0 18px rgba(81, 186, 252, 0.32);
+  --logo-shadow: 0 0 18px rgba(143, 124, 255, 0.28);
 
   --panel-bg: rgba(255, 255, 255, 0.88);
   --panel-border: rgba(0, 0, 0, 0.08);
   --panel-shadow:
     0 28px 80px rgba(30, 50, 80, 0.16),
-    0 0 60px rgba(81, 186, 252, 0.12);
+    0 0 60px rgba(143, 124, 255, 0.1);
 
   --inner-card-bg: rgba(0, 0, 0, 0.035);
   --inner-card-hover-bg: rgba(0, 0, 0, 0.055);
@@ -558,9 +559,9 @@ html[data-theme='light'] {
   /* =========================
      Highlight / Link Glow
   ========================= */
-  --highlight-glow: rgba(81, 186, 252, 0.72);
+  --highlight-glow: rgba(143, 124, 255, 0.72);
   --primary-glow-soft: rgba(255, 255, 255, 0.4);
-  --primary-glow: rgba(81, 186, 252, 0.28);
+  --primary-glow: rgba(143, 124, 255, 0.24);
   --related-glow-soft: rgba(81, 186, 252, 0.22);
   --related-glow: rgba(81, 186, 252, 0.14);
 }

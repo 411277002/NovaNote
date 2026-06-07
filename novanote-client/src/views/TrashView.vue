@@ -461,74 +461,19 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .trash-page {
-  --trash-bg: #050716;
-  --trash-bg-radial-1: rgba(156, 132, 255, 0.15);
-  --trash-bg-radial-2: rgba(105, 130, 255, 0.12);
-
-  --trash-text: #e5e8ff;
-  --trash-heading: #fbfaff;
-  --trash-muted: #a4aac8;
-  --trash-muted-soft: #777f9f;
-
-  --trash-accent: #a58cff;
-  --trash-accent-2: #7f8cff;
-  --trash-accent-soft: rgba(165, 140, 255, 0.13);
-  --trash-accent-border: rgba(180, 165, 255, 0.42);
-
-  --trash-panel-bg:
-    radial-gradient(circle at 50% 0%, rgba(145, 120, 255, 0.16), transparent 22%),
-    radial-gradient(circle at 82% 20%, rgba(90, 130, 255, 0.09), transparent 28%),
-    linear-gradient(145deg, rgba(13, 16, 43, 0.94), rgba(6, 8, 26, 0.96));
-  --trash-panel-soft: rgba(16, 19, 48, 0.74);
-  --trash-panel-border: rgba(165, 150, 245, 0.26);
-
-  --trash-card-bg:
-    radial-gradient(circle at 88% 12%, rgba(165, 140, 255, 0.1), transparent 30%),
-    linear-gradient(145deg, rgba(16, 19, 48, 0.94), rgba(7, 10, 28, 0.98));
-  --trash-card-hover:
-    radial-gradient(circle at 88% 12%, rgba(165, 140, 255, 0.15), transparent 32%),
-    linear-gradient(145deg, rgba(22, 25, 62, 0.94), rgba(8, 11, 32, 0.98));
-
-  --trash-restore-bg:
-    linear-gradient(135deg, rgba(145, 120, 255, 0.8), rgba(90, 100, 220, 0.9));
-  --trash-restore-bg-hover:
-    linear-gradient(135deg, rgba(180, 165, 255, 0.9), rgba(120, 135, 255, 0.95));
-
-  --trash-danger: #ff91b8;
-  --trash-danger-soft: rgba(255, 90, 150, 0.1);
-  --trash-danger-border: rgba(255, 120, 170, 0.3);
-
-  --trash-shadow-sm:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.025),
-    0 0 16px rgba(145, 120, 255, 0.1),
-    0 8px 22px rgba(0, 0, 0, 0.22);
-
-  --trash-shadow-md:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.035),
-    0 0 22px rgba(145, 120, 255, 0.14),
-    0 14px 34px rgba(0, 0, 0, 0.3);
-
-  --trash-shadow-lg:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.035),
-    inset 0 1px 0 rgba(255, 255, 255, 0.07),
-    0 0 34px rgba(145, 120, 255, 0.15),
-    0 24px 70px rgba(0, 0, 0, 0.42);
-
   min-height: 100vh;
   width: 100vw;
-
   padding: 56px 72px 96px;
   box-sizing: border-box;
 
-  color: var(--trash-text);
-
+  color: var(--profile-text);
   background:
-    linear-gradient(rgba(165, 140, 255, 0.026) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(165, 140, 255, 0.026) 1px, transparent 1px),
-    radial-gradient(circle at 12% 8%, var(--trash-bg-radial-1), transparent 28%),
-    radial-gradient(circle at 96% 14%, var(--trash-bg-radial-2), transparent 30%),
-    radial-gradient(circle at 52% 86%, rgba(145, 120, 255, 0.06), transparent 35%),
-    var(--trash-bg);
+    linear-gradient(rgba(143, 124, 255, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(143, 124, 255, 0.026) 1px, transparent 1px),
+    radial-gradient(circle at 12% 8%, var(--profile-bg-radial-1), transparent 28%),
+    radial-gradient(circle at 96% 14%, var(--profile-bg-radial-2), transparent 30%),
+    radial-gradient(circle at 52% 86%, rgba(143, 124, 255, 0.06), transparent 35%),
+    var(--profile-bg);
 
   background-size:
     42px 42px,
@@ -538,61 +483,8 @@ onBeforeUnmount(() => {
     auto,
     auto;
 
-  font-family: 'Rajdhani', 'Noto Sans TC', 'Inter', sans-serif;
-
   overflow-y: auto;
   overflow-x: hidden;
-}
-
-:global(html[data-theme='light']) .trash-page {
-  --trash-bg: #f1efff;
-  --trash-bg-radial-1: rgba(145, 120, 255, 0.16);
-  --trash-bg-radial-2: rgba(105, 130, 255, 0.12);
-
-  --trash-text: #292943;
-  --trash-heading: #141326;
-  --trash-muted: #6b6f8b;
-  --trash-muted-soft: #8e92a8;
-
-  --trash-accent: #735cff;
-  --trash-accent-2: #5d75ff;
-  --trash-accent-soft: rgba(115, 92, 255, 0.1);
-  --trash-accent-border: rgba(115, 92, 255, 0.32);
-
-  --trash-panel-bg:
-    radial-gradient(circle at 50% 0%, rgba(145, 120, 255, 0.12), transparent 22%),
-    radial-gradient(circle at 82% 20%, rgba(105, 130, 255, 0.08), transparent 28%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(238, 235, 255, 0.96));
-  --trash-panel-soft: rgba(255, 255, 255, 0.78);
-  --trash-panel-border: rgba(115, 92, 255, 0.2);
-
-  --trash-card-bg:
-    radial-gradient(circle at 88% 12%, rgba(145, 120, 255, 0.1), transparent 30%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(238, 235, 255, 0.96));
-  --trash-card-hover:
-    radial-gradient(circle at 88% 12%, rgba(145, 120, 255, 0.16), transparent 30%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(232, 228, 255, 0.98));
-
-  --trash-restore-bg:
-    linear-gradient(135deg, rgba(115, 92, 255, 0.78), rgba(90, 110, 225, 0.88));
-  --trash-restore-bg-hover:
-    linear-gradient(135deg, rgba(145, 120, 255, 0.86), rgba(105, 130, 255, 0.92));
-
-  --trash-danger: #d84776;
-  --trash-danger-soft: rgba(216, 71, 118, 0.09);
-  --trash-danger-border: rgba(216, 71, 118, 0.24);
-
-  --trash-shadow-sm:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.52),
-    0 8px 20px rgba(78, 64, 150, 0.12);
-
-  --trash-shadow-md:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.58),
-    0 14px 32px rgba(78, 64, 150, 0.16);
-
-  --trash-shadow-lg:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.62),
-    0 22px 54px rgba(78, 64, 150, 0.18);
 }
 
 /* =========================
@@ -619,9 +511,8 @@ onBeforeUnmount(() => {
 .eyebrow {
   margin: 0;
 
-  color: var(--trash-accent);
+  color: var(--profile-accent);
 
-  font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
   font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0.22em;
@@ -631,21 +522,22 @@ onBeforeUnmount(() => {
 .trash-title {
   margin: 0;
 
-  color: var(--trash-heading);
+  color: var(--profile-heading);
 
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 950;
   line-height: 1.1;
 
   text-shadow:
-    0 0 12px rgba(255, 255, 255, 0.18),
-    0 0 28px rgba(145, 120, 255, 0.18);
+    0 0 12px rgba(255, 255, 255, 0.16),
+    0 0 28px rgba(143, 124, 255, 0.18);
 }
 
 .trash-subtitle {
   margin: 0;
 
-  color: var(--trash-muted);
+  color: var(--profile-muted);
+
   font-size: 0.95rem;
   font-weight: 800;
   line-height: 1.7;
@@ -662,12 +554,12 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 8px;
 
-  color: var(--trash-heading);
+  color: var(--profile-heading);
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012)),
-    var(--trash-panel-soft);
+    var(--profile-panel-bg-soft);
 
-  border: 1px solid var(--trash-panel-border);
+  border: 1px solid var(--profile-panel-border);
   border-radius: 6px;
 
   clip-path: polygon(
@@ -686,7 +578,7 @@ onBeforeUnmount(() => {
   font-weight: 900;
   letter-spacing: 0.02em;
 
-  box-shadow: var(--trash-shadow-sm);
+  box-shadow: var(--profile-shadow-sm);
 
   transition:
     transform 0.18s ease,
@@ -698,10 +590,10 @@ onBeforeUnmount(() => {
 
 .back-universe-btn:hover {
   transform: translateY(-2px);
-  color: var(--trash-accent);
-  border-color: var(--trash-accent-border);
-  background: rgba(165, 140, 255, 0.11);
-  box-shadow: var(--trash-shadow-md);
+  color: var(--profile-accent);
+  border-color: var(--profile-accent-border);
+  background: var(--profile-menu-hover-bg);
+  box-shadow: var(--profile-shadow-md);
 }
 
 /* =========================
@@ -729,11 +621,10 @@ onBeforeUnmount(() => {
   padding: 32px 36px 34px;
 
   border-radius: 8px;
-  border: 1px solid var(--trash-panel-border);
+  border: 1px solid var(--profile-panel-border);
 
-  background: var(--trash-panel-bg);
-
-  box-shadow: var(--trash-shadow-lg);
+  background: var(--profile-panel-bg);
+  box-shadow: var(--profile-shadow-lg);
 
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
@@ -750,8 +641,8 @@ onBeforeUnmount(() => {
 
   background-image:
     radial-gradient(circle, rgba(255, 255, 255, 0.16) 1px, transparent 1.5px),
-    linear-gradient(rgba(165, 140, 255, 0.024) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(165, 140, 255, 0.024) 1px, transparent 1px);
+    linear-gradient(rgba(143, 124, 255, 0.024) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(143, 124, 255, 0.024) 1px, transparent 1px);
 
   background-size:
     92px 92px,
@@ -772,12 +663,12 @@ onBeforeUnmount(() => {
   width: 34px;
   height: 34px;
 
-  border-top: 2px solid rgba(180, 170, 255, 0.72);
-  border-right: 2px solid rgba(180, 170, 255, 0.72);
+  border-top: 2px solid var(--profile-accent-border);
+  border-right: 2px solid var(--profile-accent-border);
 
   filter:
-    drop-shadow(0 0 8px rgba(165, 140, 255, 0.42))
-    drop-shadow(0 0 16px rgba(105, 130, 255, 0.16));
+    drop-shadow(0 0 8px rgba(143, 124, 255, 0.42))
+    drop-shadow(0 0 16px rgba(81, 186, 252, 0.16));
 
   pointer-events: none;
 }
@@ -796,15 +687,14 @@ onBeforeUnmount(() => {
   padding-bottom: 20px;
   margin-bottom: 24px;
 
-  border-bottom: 1px solid var(--trash-panel-border);
+  border-bottom: 1px solid var(--profile-panel-border);
 }
 
 .section-kicker {
   margin: 0 0 5px;
 
-  color: var(--trash-accent);
+  color: var(--profile-accent);
 
-  font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
   font-size: 0.72rem;
   font-weight: 900;
   letter-spacing: 0.18em;
@@ -814,26 +704,28 @@ onBeforeUnmount(() => {
 .section-title {
   margin: 0;
 
-  color: var(--trash-heading);
+  color: var(--profile-heading);
+
   font-size: 1.35rem;
   font-weight: 950;
 
   text-shadow:
     0 0 12px rgba(255, 255, 255, 0.16),
-    0 0 24px rgba(145, 120, 255, 0.16);
+    0 0 24px rgba(143, 124, 255, 0.16);
 }
 
 .section-count {
+  min-height: 32px;
+  padding: 0 12px;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
 
-  min-height: 32px;
-  padding: 0 12px;
+  color: var(--profile-muted);
+  background: var(--profile-panel-bg-soft);
 
-  color: var(--trash-muted);
-  background: var(--trash-panel-soft);
-  border: 1px solid var(--trash-panel-border);
+  border: 1px solid var(--profile-panel-border);
   border-radius: 6px;
 
   font-size: 0.86rem;
@@ -852,12 +744,12 @@ onBeforeUnmount(() => {
   justify-content: center;
   gap: 10px;
 
-  color: var(--trash-muted);
+  color: var(--profile-muted);
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012)),
-    var(--trash-panel-soft);
+    var(--profile-panel-bg-soft);
 
-  border: 1px dashed var(--trash-panel-border);
+  border: 1px dashed var(--profile-panel-border);
   border-radius: 6px;
 
   font-size: 0.95rem;
@@ -865,8 +757,8 @@ onBeforeUnmount(() => {
 }
 
 .empty-state i {
-  color: var(--trash-accent);
-  filter: drop-shadow(0 0 8px rgba(165, 140, 255, 0.45));
+  color: var(--profile-accent);
+  filter: drop-shadow(0 0 8px rgba(143, 124, 255, 0.45));
 }
 
 /* =========================
@@ -891,11 +783,13 @@ onBeforeUnmount(() => {
   gap: 18px;
 
   border-radius: 6px;
-  border: 1px solid var(--trash-panel-border);
+  border: 1px solid var(--profile-panel-border);
 
-  background: var(--trash-card-bg);
+  background:
+    radial-gradient(circle at 88% 12%, var(--profile-accent-soft), transparent 30%),
+    linear-gradient(145deg, rgba(16, 19, 48, 0.94), rgba(7, 10, 28, 0.98));
 
-  box-shadow: var(--trash-shadow-sm);
+  box-shadow: var(--profile-shadow-sm);
 
   cursor: context-menu;
   overflow: hidden;
@@ -905,6 +799,12 @@ onBeforeUnmount(() => {
     border-color 0.18s ease,
     box-shadow 0.18s ease,
     background 0.18s ease;
+}
+
+:global(html[data-theme='light']) .trash-card {
+  background:
+    radial-gradient(circle at 88% 12%, var(--profile-accent-soft), transparent 30%),
+    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 252, 0.98));
 }
 
 .trash-card::before {
@@ -932,21 +832,19 @@ onBeforeUnmount(() => {
   background:
     linear-gradient(
       90deg,
-      var(--trash-accent),
-      rgba(105, 130, 255, 0.35),
+      var(--profile-accent),
+      rgba(81, 186, 252, 0.35),
       transparent
     );
 
   opacity: 0.72;
-
   pointer-events: none;
 }
 
 .trash-card:hover {
   transform: translateY(-3px);
-  border-color: var(--trash-accent-border);
-  box-shadow: var(--trash-shadow-md);
-  background: var(--trash-card-hover);
+  border-color: var(--profile-accent-border);
+  box-shadow: var(--profile-shadow-md);
 }
 
 .trash-card > * {
@@ -963,7 +861,8 @@ onBeforeUnmount(() => {
 .item-title {
   margin: 0;
 
-  color: var(--trash-heading);
+  color: var(--profile-heading);
+
   font-size: 1.08rem;
   font-weight: 950;
   line-height: 1.35;
@@ -972,15 +871,17 @@ onBeforeUnmount(() => {
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  text-shadow: 0 0 12px rgba(145, 120, 255, 0.14);
+  text-shadow: 0 0 12px rgba(143, 124, 255, 0.14);
 }
 
 .trash-preview {
   max-height: 64px;
+
   overflow: hidden;
 
-  color: var(--trash-muted);
+  color: var(--profile-muted);
   font-size: 0.86rem;
+  font-weight: 700;
   line-height: 1.65;
 }
 
@@ -1003,12 +904,12 @@ onBeforeUnmount(() => {
 .tag-pill {
   padding: 4px 9px;
 
-  color: var(--trash-accent);
-  background: rgba(165, 140, 255, 0.1);
-  border: 1px solid rgba(165, 140, 255, 0.24);
+  color: var(--tag-text);
+  background: var(--tag-bg);
+
+  border: 1px solid var(--tag-border);
   border-radius: 4px;
 
-  font-family: 'Rajdhani', 'Noto Sans TC', sans-serif;
   font-size: 0.72rem;
   font-weight: 850;
   letter-spacing: 0.04em;
@@ -1019,7 +920,8 @@ onBeforeUnmount(() => {
 .planet-note-hint {
   margin: 0;
 
-  color: var(--trash-muted);
+  color: var(--profile-muted);
+
   font-size: 0.8rem;
   font-weight: 750;
   line-height: 1.55;
@@ -1032,7 +934,7 @@ onBeforeUnmount(() => {
 }
 
 .deleted-time i {
-  color: var(--trash-accent);
+  color: var(--profile-accent);
 }
 
 .planet-row {
@@ -1046,7 +948,6 @@ onBeforeUnmount(() => {
 
   width: 52px;
   height: 52px;
-
   flex: 0 0 auto;
 
   border-radius: 999px;
@@ -1054,7 +955,7 @@ onBeforeUnmount(() => {
   box-shadow:
     inset -12px -12px 18px rgba(0, 0, 0, 0.38),
     inset 6px 6px 12px rgba(255, 255, 255, 0.24),
-    0 0 24px rgba(165, 140, 255, 0.22);
+    0 0 24px rgba(143, 124, 255, 0.22);
 }
 
 .planet-dot::after {
@@ -1063,7 +964,7 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: -5px;
 
-  border: 1px solid rgba(180, 165, 255, 0.2);
+  border: 1px solid var(--profile-accent-border);
   border-radius: inherit;
 
   opacity: 0.8;
@@ -1074,7 +975,7 @@ onBeforeUnmount(() => {
 }
 
 .planet-note-hint {
-  color: var(--trash-muted-soft);
+  color: var(--profile-muted-soft);
 }
 
 /* =========================
@@ -1137,6 +1038,7 @@ onBeforeUnmount(() => {
 
   transform: translateX(-120%);
   transition: transform 0.65s ease;
+
   pointer-events: none;
 }
 
@@ -1146,29 +1048,36 @@ onBeforeUnmount(() => {
 }
 
 .restore-btn {
-  color: #ffffff;
-  background: var(--trash-restore-bg);
-  border-color: rgba(190, 180, 255, 0.46);
-  box-shadow: 0 10px 24px rgba(145, 120, 255, 0.22);
+  color: var(--profile-button-text);
+  background: var(--profile-button-bg);
+
+  border-color: var(--profile-accent-border);
+
+  box-shadow: 0 10px 24px rgba(143, 124, 255, 0.22);
 }
 
 .restore-btn:hover {
   transform: translateY(-1px);
-  background: var(--trash-restore-bg-hover);
-  border-color: rgba(225, 220, 255, 0.72);
-  box-shadow: 0 14px 30px rgba(145, 120, 255, 0.26);
+
+  background: var(--profile-button-bg-hover);
+  border-color: var(--profile-accent-border);
+
+  box-shadow: 0 14px 30px rgba(143, 124, 255, 0.26);
 }
 
 .delete-btn {
-  color: var(--trash-danger);
-  background: var(--trash-danger-soft);
-  border-color: var(--trash-danger-border);
+  color: var(--danger-color);
+  background: var(--danger-bg);
+
+  border-color: rgba(255, 119, 119, 0.3);
 }
 
 .delete-btn:hover {
   transform: translateY(-1px);
+
   background: rgba(255, 90, 150, 0.16);
-  border-color: var(--trash-danger);
+  border-color: var(--danger-color);
+
   box-shadow: 0 0 18px rgba(255, 90, 150, 0.12);
 }
 
@@ -1184,15 +1093,15 @@ onBeforeUnmount(() => {
   padding: 8px;
 
   border-radius: 6px;
-  border: 1px solid var(--trash-panel-border);
+  border: 1px solid var(--profile-panel-border);
 
   background:
-    radial-gradient(circle at 80% 0%, rgba(165, 140, 255, 0.1), transparent 32%),
-    linear-gradient(145deg, rgba(14, 17, 44, 0.96), rgba(6, 8, 26, 0.98));
+    radial-gradient(circle at 80% 0%, var(--profile-accent-soft), transparent 32%),
+    var(--floating-bg);
 
   box-shadow:
     0 22px 60px rgba(0, 0, 0, 0.38),
-    0 0 24px rgba(145, 120, 255, 0.14),
+    0 0 24px rgba(143, 124, 255, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 
   backdrop-filter: blur(14px);
@@ -1214,7 +1123,7 @@ onBeforeUnmount(() => {
   border-radius: 6px;
 
   background: transparent;
-  color: var(--trash-text);
+  color: var(--profile-text);
 
   cursor: pointer;
 
@@ -1229,16 +1138,16 @@ onBeforeUnmount(() => {
 }
 
 .menu-option:hover {
-  background: rgba(165, 140, 255, 0.12);
+  background: var(--profile-menu-hover-bg);
   transform: translateX(2px);
 }
 
 .restore-option {
-  color: var(--trash-accent);
+  color: var(--profile-accent);
 }
 
 .delete-option {
-  color: var(--trash-danger);
+  color: var(--danger-color);
 }
 
 @keyframes menuIn {
@@ -1262,12 +1171,12 @@ onBeforeUnmount(() => {
 }
 
 .trash-page::-webkit-scrollbar-thumb {
-  background: rgba(165, 140, 255, 0.34);
+  background: var(--profile-accent-border);
   border-radius: 999px;
 }
 
 .trash-page::-webkit-scrollbar-thumb:hover {
-  background: rgba(190, 175, 255, 0.52);
+  background: var(--profile-accent);
 }
 
 .trash-page::-webkit-scrollbar-track {

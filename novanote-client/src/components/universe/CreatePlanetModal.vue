@@ -151,14 +151,16 @@ const onCreate = () => {
   padding: 28px;
 
   background:
-    radial-gradient(circle at 24% 18%, rgba(145, 120, 255, 0.16), transparent 34%),
-    radial-gradient(circle at 78% 72%, rgba(105, 130, 255, 0.12), transparent 36%),
-    rgba(2, 4, 14, 0.74);
+    radial-gradient(circle at 24% 18%, var(--profile-accent-soft), transparent 34%),
+    radial-gradient(circle at 78% 72%, rgba(81, 186, 252, 0.07), transparent 36%),
+    rgba(2, 4, 14, 0.76);
 
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 
   z-index: 3000;
+
+  font-family: 'Orbitron', 'Rajdhani', 'Noto Sans TC', sans-serif;
 }
 
 /* =========================
@@ -169,17 +171,15 @@ const onCreate = () => {
   position: relative;
 
   width: min(520px, 94vw);
-
   padding: 34px 38px 32px;
 
-  color: #eef0ff;
-
+  color: var(--profile-text);
   background:
-    radial-gradient(circle at 18% 0%, rgba(165, 140, 255, 0.16), transparent 28%),
-    radial-gradient(circle at 86% 20%, rgba(105, 130, 255, 0.1), transparent 30%),
-    linear-gradient(145deg, rgba(20, 22, 48, 0.96), rgba(7, 9, 26, 0.98));
+    radial-gradient(circle at 18% 0%, var(--profile-accent-soft), transparent 28%),
+    radial-gradient(circle at 86% 20%, rgba(81, 186, 252, 0.06), transparent 30%),
+    var(--profile-panel-bg);
 
-  border: 1px solid rgba(165, 150, 245, 0.32);
+  border: 1px solid var(--profile-panel-border);
   border-radius: 24px;
 
   clip-path: polygon(
@@ -194,12 +194,8 @@ const onCreate = () => {
   );
 
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.035),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08),
-    inset 0 0 42px rgba(120, 110, 255, 0.05),
-    0 0 0 1px rgba(165, 140, 255, 0.12),
-    0 0 34px rgba(145, 120, 255, 0.16),
-    0 30px 86px rgba(0, 0, 0, 0.56);
+    var(--profile-shadow-lg),
+    0 0 34px rgba(143, 124, 255, 0.14);
 
   overflow: hidden;
 }
@@ -211,8 +207,8 @@ const onCreate = () => {
   inset: 0;
 
   background:
-    linear-gradient(rgba(165, 140, 255, 0.024) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(165, 140, 255, 0.024) 1px, transparent 1px),
+    linear-gradient(rgba(143, 124, 255, 0.024) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(143, 124, 255, 0.024) 1px, transparent 1px),
     radial-gradient(circle, rgba(255, 255, 255, 0.13) 1px, transparent 1.5px);
 
   background-size:
@@ -221,7 +217,6 @@ const onCreate = () => {
     86px 86px;
 
   opacity: 0.44;
-
   pointer-events: none;
 }
 
@@ -235,12 +230,12 @@ const onCreate = () => {
   width: 38px;
   height: 38px;
 
-  border-top: 2px solid rgba(190, 180, 255, 0.72);
-  border-right: 2px solid rgba(190, 180, 255, 0.72);
+  border-top: 2px solid var(--profile-accent-border);
+  border-right: 2px solid var(--profile-accent-border);
 
   filter:
-    drop-shadow(0 0 8px rgba(165, 140, 255, 0.45))
-    drop-shadow(0 0 16px rgba(105, 130, 255, 0.16));
+    drop-shadow(0 0 8px rgba(143, 124, 255, 0.42))
+    drop-shadow(0 0 16px rgba(81, 186, 252, 0.14));
 
   pointer-events: none;
 }
@@ -259,15 +254,15 @@ const onCreate = () => {
 
   text-align: center;
 
-  color: #ffffff;
+  color: var(--profile-heading);
 
   font-size: 1.72rem;
   font-weight: 950;
   letter-spacing: 0.04em;
 
   text-shadow:
-    0 0 12px rgba(255, 255, 255, 0.16),
-    0 0 26px rgba(145, 120, 255, 0.22);
+    0 0 12px rgba(255, 255, 255, 0.14),
+    0 0 26px rgba(143, 124, 255, 0.2);
 }
 
 .modal-subtitle {
@@ -275,7 +270,7 @@ const onCreate = () => {
 
   text-align: center;
 
-  color: rgba(190, 198, 230, 0.72);
+  color: var(--profile-muted);
 
   font-size: 0.94rem;
   font-weight: 800;
@@ -295,7 +290,7 @@ const onCreate = () => {
 }
 
 .modal-field label {
-  color: #f4f1ff;
+  color: var(--profile-heading);
 
   font-size: 0.9rem;
   font-weight: 900;
@@ -309,12 +304,12 @@ const onCreate = () => {
 
   padding: 0 16px;
 
-  color: #f4f6ff;
+  color: var(--profile-text);
   background:
-    radial-gradient(circle at 12% 0%, rgba(165, 140, 255, 0.08), transparent 42%),
-    linear-gradient(145deg, rgba(8, 11, 30, 0.88), rgba(5, 8, 24, 0.94));
+    radial-gradient(circle at 12% 0%, var(--profile-accent-soft), transparent 42%),
+    var(--profile-panel-bg-soft);
 
-  border: 1px solid rgba(165, 150, 245, 0.26);
+  border: 1px solid var(--profile-panel-border);
   border-radius: 14px;
 
   outline: none;
@@ -325,7 +320,7 @@ const onCreate = () => {
 
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.018),
-    inset 0 0 18px rgba(165, 140, 255, 0.035);
+    inset 0 0 18px rgba(143, 124, 255, 0.035);
 
   transition:
     border-color 0.18s ease,
@@ -334,17 +329,17 @@ const onCreate = () => {
 }
 
 .modal-input::placeholder {
-  color: rgba(170, 178, 215, 0.58);
+  color: var(--profile-muted-soft);
 }
 
 .modal-input:focus,
 .modal-select:focus {
-  border-color: rgba(180, 165, 255, 0.68);
+  border-color: var(--profile-accent-border);
 
   box-shadow:
-    0 0 0 3px rgba(165, 140, 255, 0.12),
-    0 0 20px rgba(145, 120, 255, 0.16),
-    inset 0 0 18px rgba(165, 140, 255, 0.05);
+    0 0 0 3px var(--profile-accent-soft),
+    0 0 20px rgba(143, 124, 255, 0.16),
+    inset 0 0 18px rgba(143, 124, 255, 0.05);
 }
 
 .modal-select {
@@ -352,80 +347,8 @@ const onCreate = () => {
 }
 
 .modal-select option {
-  color: #f4f6ff;
-  background: #11152e;
-}
-
-/* =========================
-   Color Picker
-========================= */
-
-.color-picker-wrapper {
-  min-height: 58px;
-
-  display: flex;
-  align-items: center;
-  gap: 16px;
-
-  padding: 0 16px;
-
-  color: #f4f6ff;
-  background:
-    radial-gradient(circle at 12% 0%, rgba(165, 140, 255, 0.08), transparent 42%),
-    linear-gradient(145deg, rgba(8, 11, 30, 0.88), rgba(5, 8, 24, 0.94));
-
-  border: 1px solid rgba(165, 150, 245, 0.26);
-  border-radius: 14px;
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.018),
-    inset 0 0 18px rgba(165, 140, 255, 0.035);
-
-  transition:
-    border-color 0.18s ease,
-    box-shadow 0.18s ease;
-}
-
-.color-picker-wrapper:hover {
-  border-color: rgba(180, 165, 255, 0.52);
-
-  box-shadow:
-    0 0 18px rgba(145, 120, 255, 0.12),
-    inset 0 0 18px rgba(165, 140, 255, 0.04);
-}
-
-.color-picker-wrapper input[type='color'] {
-  width: 48px;
-  height: 36px;
-
-  padding: 0;
-
-  border: 1px solid rgba(220, 210, 255, 0.28);
-  border-radius: 8px;
-
-  background: transparent;
-
-  cursor: pointer;
-
-  box-shadow:
-    0 0 12px rgba(145, 120, 255, 0.18);
-}
-
-.color-picker-wrapper input[type='color']::-webkit-color-swatch-wrapper {
-  padding: 4px;
-}
-
-.color-picker-wrapper input[type='color']::-webkit-color-swatch {
-  border: none;
-  border-radius: 5px;
-}
-
-.color-picker-wrapper span {
-  color: #f4f6ff;
-
-  font-size: 0.98rem;
-  font-weight: 900;
-  letter-spacing: 0.04em;
+  color: var(--profile-text);
+  background: var(--surface-bg);
 }
 
 /* =========================
@@ -436,15 +359,15 @@ const onCreate = () => {
   padding: 16px;
 
   background:
-    radial-gradient(circle at 12% 0%, rgba(165, 140, 255, 0.08), transparent 42%),
-    linear-gradient(145deg, rgba(8, 11, 30, 0.88), rgba(5, 8, 24, 0.94));
+    radial-gradient(circle at 12% 0%, var(--profile-accent-soft), transparent 42%),
+    var(--profile-panel-bg-soft);
 
-  border: 1px solid rgba(165, 150, 245, 0.26);
+  border: 1px solid var(--profile-panel-border);
   border-radius: 16px;
 
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.018),
-    inset 0 0 18px rgba(165, 140, 255, 0.035);
+    inset 0 0 18px rgba(143, 124, 255, 0.035);
 
   transition:
     border-color 0.18s ease,
@@ -452,20 +375,11 @@ const onCreate = () => {
 }
 
 .planet-color-panel:hover {
-  border-color: rgba(180, 165, 255, 0.46);
+  border-color: var(--profile-accent-border);
 
   box-shadow:
-    0 0 18px rgba(145, 120, 255, 0.12),
-    inset 0 0 18px rgba(165, 140, 255, 0.04);
-}
-
-.color-panel-row {
-  display: flex;
-  align-items: center;
-}
-
-.color-panel-auto-row {
-  margin-bottom: 14px;
+    0 0 18px rgba(143, 124, 255, 0.12),
+    inset 0 0 18px rgba(143, 124, 255, 0.04);
 }
 
 .preset-color-dots {
@@ -475,7 +389,7 @@ const onCreate = () => {
 
   padding: 2px 0 16px;
 
-  border-bottom: 1px solid rgba(165, 150, 245, 0.16);
+  border-bottom: 1px solid var(--profile-panel-border);
 }
 
 .preset-dot-btn {
@@ -524,12 +438,12 @@ const onCreate = () => {
 }
 
 .preset-dot-btn.active .preset-dot {
-  border-color: rgba(235, 228, 255, 0.95);
+  border-color: var(--profile-heading);
 
   box-shadow:
-    0 0 0 3px rgba(8, 11, 30, 0.98),
-    0 0 0 5px rgba(165, 140, 255, 0.82),
-    0 0 18px rgba(145, 120, 255, 0.32),
+    0 0 0 3px var(--profile-panel-bg),
+    0 0 0 5px var(--accent-color),
+    0 0 18px rgba(143, 124, 255, 0.32),
     inset 0 0 8px rgba(255, 255, 255, 0.22);
 
   transform: scale(1.03);
@@ -544,7 +458,7 @@ const onCreate = () => {
 }
 
 .custom-color-label {
-  color: #f4f1ff;
+  color: var(--profile-heading);
 
   font-size: 0.94rem;
   font-weight: 950;
@@ -568,7 +482,7 @@ const onCreate = () => {
   border: 1px solid rgba(255, 255, 255, 0.28);
 
   box-shadow:
-    0 0 12px rgba(145, 120, 255, 0.18),
+    0 0 12px rgba(143, 124, 255, 0.18),
     inset 0 0 8px rgba(255, 255, 255, 0.16);
 }
 
@@ -582,12 +496,12 @@ const onCreate = () => {
   align-items: center;
   justify-content: center;
 
-  color: #d9d3ff;
+  color: var(--accent-color);
   background:
-    radial-gradient(circle at 50% 30%, rgba(165, 140, 255, 0.18), transparent 58%),
-    rgba(145, 120, 255, 0.08);
+    radial-gradient(circle at 50% 30%, var(--profile-accent-soft), transparent 58%),
+    var(--tag-bg);
 
-  border: 1px solid rgba(165, 150, 245, 0.32);
+  border: 1px solid var(--profile-accent-border);
   border-radius: 999px;
 
   cursor: pointer;
@@ -606,17 +520,15 @@ const onCreate = () => {
 
 .custom-color-toggle:hover,
 .custom-color-toggle.active {
-  color: #ffffff;
-  background:
-    radial-gradient(circle at 50% 30%, rgba(165, 140, 255, 0.28), transparent 58%),
-    rgba(145, 120, 255, 0.14);
+  color: var(--profile-heading);
+  background: var(--profile-accent-soft);
 
-  border-color: rgba(220, 210, 255, 0.54);
+  border-color: var(--accent-border);
 
   transform: translateY(-1px);
 
   box-shadow:
-    0 0 14px rgba(145, 120, 255, 0.22);
+    0 0 14px rgba(143, 124, 255, 0.22);
 }
 
 .hidden-color-input {
@@ -674,39 +586,38 @@ const onCreate = () => {
 }
 
 .cancel-btn {
-  color: rgba(226, 230, 255, 0.86);
+  color: var(--profile-text);
   background:
-    linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018));
+    linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.018)),
+    var(--profile-panel-bg-soft);
 
-  border: 1px solid rgba(165, 150, 245, 0.24);
+  border: 1px solid var(--profile-panel-border);
 }
 
 .cancel-btn:hover {
-  color: #ffffff;
+  color: var(--profile-heading);
 
-  border-color: rgba(180, 165, 255, 0.48);
+  border-color: var(--profile-accent-border);
 
   background:
-    radial-gradient(circle at 12% 50%, rgba(165, 140, 255, 0.14), transparent 36%),
-    linear-gradient(145deg, rgba(145, 120, 255, 0.1), rgba(255, 255, 255, 0.02));
+    radial-gradient(circle at 12% 50%, var(--profile-accent-soft), transparent 36%),
+    var(--profile-menu-hover-bg);
 
   transform: translateY(-1px);
 
   box-shadow:
-    0 0 18px rgba(145, 120, 255, 0.12);
+    0 0 18px rgba(143, 124, 255, 0.12);
 }
 
 .confirm-btn {
-  color: #ffffff;
-  background:
-    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.18), transparent 54%),
-    linear-gradient(135deg, #6f6cff, #9a7cff);
+  color: var(--profile-button-text);
+  background: var(--profile-button-bg);
 
-  border: 1px solid rgba(220, 210, 255, 0.38);
+  border: 1px solid var(--profile-accent-border);
 
   box-shadow:
-    0 0 0 1px rgba(165, 140, 255, 0.18),
-    0 0 22px rgba(145, 120, 255, 0.28),
+    0 0 0 1px rgba(143, 124, 255, 0.18),
+    0 0 22px rgba(143, 124, 255, 0.28),
     0 12px 28px rgba(0, 0, 0, 0.26);
 }
 
@@ -736,9 +647,11 @@ const onCreate = () => {
   transform: translateY(-2px);
   filter: brightness(1.06);
 
+  background: var(--profile-button-bg-hover);
+
   box-shadow:
-    0 0 0 1px rgba(220, 210, 255, 0.25),
-    0 0 30px rgba(145, 120, 255, 0.38),
+    0 0 0 1px var(--profile-accent-border),
+    0 0 30px rgba(143, 124, 255, 0.38),
     0 16px 34px rgba(0, 0, 0, 0.32);
 }
 
