@@ -174,18 +174,9 @@ const animateSnapToPlanet = async (cardEl, planetEl, planetId) => {
   }
 }
 
-const updateNotePosition = async (cardEl) => {
-  const parent = cardEl.offsetParent
-  if (!parent) return
-
-  const finalX = cardEl.offsetLeft / parent.offsetWidth
-  const finalY = cardEl.offsetTop / parent.offsetHeight
-
-  const safeX = Math.min(0.995, Math.max(0.005, finalX))
-  const safeY = Math.min(0.995, Math.max(0.005, finalY))
-
-  cardEl.style.left = `${safeX * 100}%`
-  cardEl.style.top = `${safeY * 100}%`
+const updateNotePosition = async (safeX, safeY) => {
+  props.note.x_pos = safeX
+  props.note.y_pos = safeY
 
   try {
     await notesStore.updateNotePosition(props.note.id, safeX, safeY)
@@ -216,13 +207,17 @@ const onStartDrag = (event) => {
   let moved = false
   let latestEvent = event
   let rafId = null
+  let lastLeft = initialLeft
+  let lastTop = initialTop
 
   isDragging.value = true
+  window.dispatchEvent(new CustomEvent('novanote:node-drag-start'))
 
   el.style.transition = 'none'
   el.style.zIndex = '2000'
-  el.style.willChange = 'left, top, transform'
+  el.style.willChange = 'transform'
   el.style.pointerEvents = 'none'
+  el.classList.add('dragging')
 
   const applyMove = () => {
     rafId = null
@@ -244,12 +239,11 @@ const onStartDrag = (event) => {
     const minTop = 80
     const maxTop = parent.offsetHeight - 80
 
-    const clampedLeft = Math.min(maxLeft, Math.max(minLeft, nextLeft))
-    const clampedTop = Math.min(maxTop, Math.max(minTop, nextTop))
+    lastLeft = Math.min(maxLeft, Math.max(minLeft, nextLeft))
+    lastTop = Math.min(maxTop, Math.max(minTop, nextTop))
 
-    el.style.left = `${clampedLeft}px`
-    el.style.top = `${clampedTop}px`
-    el.style.transform = 'translate(-50%, -50%) scale(1.04)'
+    el.style.setProperty('--drag-x', `${lastLeft - initialLeft}px`)
+    el.style.setProperty('--drag-y', `${lastTop - initialTop}px`)
   }
 
   const onMouseMove = (moveEvent) => {
@@ -270,10 +264,13 @@ const onStartDrag = (event) => {
     }
 
     isDragging.value = false
+    el.classList.remove('dragging')
 
     el.style.zIndex = ''
     el.style.willChange = ''
     el.style.pointerEvents = ''
+
+    window.dispatchEvent(new CustomEvent('novanote:node-drag-end'))
   }
 
   const onMouseUp = async () => {
@@ -281,7 +278,9 @@ const onStartDrag = (event) => {
 
     if (!moved) {
       el.style.transition = ''
-      el.style.transform = ''
+      el.style.removeProperty('--drag-x')
+      el.style.removeProperty('--drag-y')
+
       emit('edit', props.note)
       return
     }
@@ -292,19 +291,36 @@ const onStartDrag = (event) => {
       minDistance
     } = findClosestPlanet(el)
 
+    const safeX = Math.min(
+      0.995,
+      Math.max(0.005, lastLeft / parent.offsetWidth)
+    )
+
+    const safeY = Math.min(
+      0.995,
+      Math.max(0.005, lastTop / parent.offsetHeight)
+    )
+
     if (closestPlanetId && targetPlanetEl) {
       console.log(
         `🚀 成功吸附至星球 ID: ${closestPlanetId}，距離: ${minDistance.toFixed(2)}px`
       )
 
+      el.style.left = `${safeX * 100}%`
+      el.style.top = `${safeY * 100}%`
+      el.style.removeProperty('--drag-x')
+      el.style.removeProperty('--drag-y')
+      el.style.transition = ''
+
       await animateSnapToPlanet(el, targetPlanetEl, closestPlanetId)
       return
     }
 
-    el.style.transform = ''
     el.style.transition = ''
+    el.style.removeProperty('--drag-x')
+    el.style.removeProperty('--drag-y')
 
-    await updateNotePosition(el)
+    await updateNotePosition(safeX, safeY)
   }
 
   document.addEventListener('mousemove', onMouseMove)
@@ -356,6 +372,8 @@ const onStartDrag = (event) => {
 
   cursor: grab;
   user-select: none;
+  will-change: transform;
+  backface-visibility: hidden;
 
   display: flex;
   flex-direction: column;
@@ -368,7 +386,12 @@ const onStartDrag = (event) => {
     0 0 18px var(--hud-card-glow-soft),
     0 18px 42px var(--hud-card-shadow);
 
-  transform: translate(-50%, -50%);
+  transform:
+    translate(
+      calc(-50% + var(--drag-x, 0px)),
+      calc(-50% + var(--drag-y, 0px))
+    )
+    translateZ(0);
 
   overflow: visible;
 
@@ -434,7 +457,12 @@ const onStartDrag = (event) => {
 }
 
 .floating-card:hover {
-  transform: translate(-50%, calc(-50% - 5px)) scale(1.02);
+  transform:
+    translate(
+      calc(-50% + var(--drag-x, 0px)),
+      calc(-50% - 5px + var(--drag-y, 0px))
+    )
+    scale(1.02);
   border-color: var(--hud-card-border-hover);
 
   box-shadow:
@@ -457,7 +485,12 @@ const onStartDrag = (event) => {
 }
 
 .floating-card.dragging:hover {
-  transform: translate(-50%, -50%) scale(1.04) !important;
+  transform:
+    translate(
+      calc(-50% + var(--drag-x, 0px)),
+      calc(-50% + var(--drag-y, 0px))
+    )
+    scale(1.04) !important;
 }
 
 .floating-card.dragging::before,
@@ -670,7 +703,12 @@ const onStartDrag = (event) => {
     0 0 64px var(--hud-card-glow-soft),
     0 22px 54px var(--hud-card-shadow) !important;
 
-  transform: translate(-50%, -50%) scale(1.1) !important;
+  transform:
+    translate(
+      calc(-50% + var(--drag-x, 0px)),
+      calc(-50% + var(--drag-y, 0px))
+    )
+    scale(1.1) !important;
   z-index: 500 !important;
 }
 
@@ -688,7 +726,12 @@ const onStartDrag = (event) => {
     0 0 70px var(--hud-card-glow-soft) !important;
 
   filter: brightness(1.06) saturate(1.06) !important;
-  transform: translate(-50%, -50%) scale(1.08) !important;
+  transform:
+    translate(
+      calc(-50% + var(--drag-x, 0px)),
+      calc(-50% + var(--drag-y, 0px))
+    )
+    scale(1.08) !important;
   z-index: 700 !important;
 }
 
@@ -705,7 +748,12 @@ const onStartDrag = (event) => {
     0 0 28px var(--hud-card-glow-soft) !important;
 
   filter: brightness(1.02) saturate(1.03) !important;
-  transform: translate(-50%, -50%) scale(1.03) !important;
+  transform:
+    translate(
+      calc(-50% + var(--drag-x, 0px)),
+      calc(-50% + var(--drag-y, 0px))
+    )
+    scale(1.03) !important;
   z-index: 520 !important;
 }
 
@@ -713,7 +761,12 @@ const onStartDrag = (event) => {
 :global(.floating-card.dim) {
   opacity: 0.12 !important;
   filter: blur(2px) grayscale(1) brightness(0.55) !important;
-  transform: translate(-50%, -50%) scale(0.92) !important;
+  transform:
+    translate(
+      calc(-50% + var(--drag-x, 0px)),
+      calc(-50% + var(--drag-y, 0px))
+    )
+    scale(0.92) !important;
   pointer-events: none !important;
 }
 

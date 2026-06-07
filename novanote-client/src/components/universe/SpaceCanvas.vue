@@ -2,6 +2,7 @@
   <div
     ref="viewportRef"
     class="space-canvas-viewport"
+    :class="{ 'is-panning': isDragging, 'node-dragging': isNodeDragging }"
     @mousedown.self="startPan"
     @wheel="handleWheel"
   >
@@ -58,28 +59,26 @@ const props = defineProps({
   }
 })
 
+const emit = defineEmits(['scale-change'])
+
 const scale = ref(1)
 const offset = reactive({ x: 0, y: 0 })
 const isDragging = ref(false)
+const isNodeDragging = ref(false)
 
 const viewportRef = ref(null)
 const linkCanvasRef = ref(null)
 
 let resizeObserver = null
 let drawRafId = null
-let animationFrameId = null
 let panRafId = null
 let latestPanEvent = null
-let flowOffset = 0
-let lastDrawTime = 0
 
 const MIN_SCALE = 0.3
 const MAX_SCALE = 2.5
-const FLOW_SPEED = 0.6
-const DRAW_INTERVAL = 1000 / 30
 
 const canvasStyle = computed(() => ({
-  transform: `translate(${offset.x}px, ${offset.y}px) scale(${scale.value})`,
+  transform: `translate3d(${offset.x}px, ${offset.y}px, 0) scale(${scale.value})`,
   transformOrigin: '0 0',
   transition: isDragging.value
     ? 'none'
@@ -136,12 +135,15 @@ const restoreViewState = () => {
   }
 }
 
-const scheduleDrawLinks = () => {
+const scheduleDrawLinks = (force = false) => {
+  if (isNodeDragging.value && !force) return
   if (drawRafId) return
 
   drawRafId = requestAnimationFrame(() => {
     drawRafId = null
-    drawLinks()
+    if (!isNodeDragging.value || force) {
+      drawLinks()
+    }
   })
 }
 
@@ -165,6 +167,7 @@ const handleWheel = (event) => {
   const worldY = (mouseY - offset.y) / oldScale
 
   scale.value = newScale
+  emit('scale-change', scale.value)
 
   offset.x = mouseX - worldX * newScale
   offset.y = mouseY - worldY * newScale
@@ -285,166 +288,70 @@ const getLinkPairKey = (link) => {
   ].sort().join('__')
 }
 
-const drawSpiralLink = (ctx, from, to, state = 'normal') => {
+const drawSimpleLink = (ctx, from, to, state = 'normal') => {
   const dx = to.x - from.x
   const dy = to.y - from.y
   const distance = Math.hypot(dx, dy)
 
   if (distance < 2) return
 
-  const currentScale = scale.value || 1
-
   const opacityMap = {
-    normal: 1,
+    normal: 0.72,
     highlight: 1,
     dim: 0.08
   }
 
-  const glowMap = {
-    normal: 0.85,
-    highlight: 1.55,
-    dim: 0.12
-  }
-
   const widthMap = {
-    normal: 1,
-    highlight: 1.15,
-    dim: 0.85
+    normal: 1.8,
+    highlight: 2.6,
+    dim: 1
   }
 
-  const lineOpacity = opacityMap[state] ?? 1
-  const glowPower = glowMap[state] ?? 1
-  const widthPower = widthMap[state] ?? 1
-
-  const ux = dx / distance
-  const uy = dy / distance
-
-  const px = -uy
-  const py = ux
-
-  const turns = Math.max(3, Math.min(distance / 90, 8))
-  const amplitude = Math.min(distance * 0.01, 3.2) * Math.max(0.75, currentScale)
-  const steps = 110
-
-  const envelopeAt = (t) => Math.sin(Math.PI * t)
-
-  const getStrandPoint = (t, phaseOffset = 0) => {
-    const baseX = from.x + dx * t
-    const baseY = from.y + dy * t
-
-    const wave =
-      Math.sin(t * Math.PI * 2 * turns + flowOffset * 0.04 + phaseOffset) *
-      amplitude *
-      envelopeAt(t)
-
-    return {
-      x: baseX + px * wave,
-      y: baseY + py * wave
-    }
+  const glowMap = {
+    normal: 10,
+    highlight: 18,
+    dim: 0
   }
+
+  const lineOpacity = opacityMap[state] ?? opacityMap.normal
+  const lineWidth = widthMap[state] ?? widthMap.normal
+  const glow = glowMap[state] ?? glowMap.normal
 
   ctx.save()
-  ctx.globalCompositeOperation = 'lighter'
   ctx.lineCap = 'round'
   ctx.lineJoin = 'round'
 
-  // 外層光暈
-  const glowWidth = 8 * Math.max(0.85, currentScale) * widthPower
+  if (state !== 'dim') {
+    const gradient = ctx.createLinearGradient(from.x, from.y, to.x, to.y)
+    gradient.addColorStop(0, `rgba(143, 124, 255, ${lineOpacity})`)
+    gradient.addColorStop(0.5, `rgba(185, 235, 255, ${lineOpacity})`)
+    gradient.addColorStop(1, `rgba(81, 186, 252, ${lineOpacity})`)
 
-  for (let strand = 0; strand < 2; strand++) {
-    const phase = strand === 0 ? 0 : Math.PI
-
-    ctx.beginPath()
-
-    for (let i = 0; i <= steps; i++) {
-      const t = i / steps
-      const p = getStrandPoint(t, phase)
-
-      if (i === 0) ctx.moveTo(p.x, p.y)
-      else ctx.lineTo(p.x, p.y)
-    }
-
-    ctx.strokeStyle =
-      strand === 0
-        ? `rgba(150, 215, 255, ${0.12 * lineOpacity})`
-        : `rgba(255, 255, 255, ${0.10 * lineOpacity})`
-
-    ctx.lineWidth = glowWidth
-    ctx.shadowBlur = 14 * Math.max(0.85, currentScale) * glowPower
-    ctx.shadowColor = `rgba(180, 230, 255, ${0.24 * lineOpacity})`
-    ctx.stroke()
+    ctx.strokeStyle = gradient
+    ctx.shadowBlur = glow
+    ctx.shadowColor = `rgba(143, 124, 255, ${0.55 * lineOpacity})`
+  } else {
+    ctx.strokeStyle = `rgba(170, 180, 210, ${lineOpacity})`
+    ctx.shadowBlur = 0
   }
 
-  // DNA 雙股主線
-  for (let strand = 0; strand < 2; strand++) {
-    const phase = strand === 0 ? 0 : Math.PI
+  ctx.lineWidth = lineWidth
+
+  ctx.beginPath()
+  ctx.moveTo(from.x, from.y)
+  ctx.lineTo(to.x, to.y)
+  ctx.stroke()
+
+  if (state === 'highlight') {
+    ctx.shadowBlur = 0
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.92)'
 
     ctx.beginPath()
-
-    for (let i = 0; i <= steps; i++) {
-      const t = i / steps
-      const p = getStrandPoint(t, phase)
-
-      if (i === 0) ctx.moveTo(p.x, p.y)
-      else ctx.lineTo(p.x, p.y)
-    }
-
-    ctx.strokeStyle =
-      strand === 0
-        ? `rgba(185, 235, 255, ${0.76 * lineOpacity})`
-        : `rgba(255, 255, 255, ${0.82 * lineOpacity})`
-
-    ctx.lineWidth = 2.1 * Math.max(0.85, currentScale) * widthPower
-    ctx.shadowBlur = 9 * Math.max(0.85, currentScale) * glowPower
-    ctx.shadowColor =
-      strand === 0
-        ? `rgba(150, 220, 255, ${0.48 * lineOpacity})`
-        : `rgba(255, 255, 255, ${0.4 * lineOpacity})`
-
-    ctx.stroke()
-  }
-
-  // DNA 橫槓
-  const rungCount = Math.max(6, Math.floor(distance / 58))
-
-  for (let i = 1; i < rungCount; i++) {
-    const t = i / rungCount
-
-    const a = getStrandPoint(t, 0)
-    const b = getStrandPoint(t, Math.PI)
+    ctx.arc(from.x, from.y, 3.2, 0, Math.PI * 2)
+    ctx.fill()
 
     ctx.beginPath()
-    ctx.moveTo(a.x, a.y)
-    ctx.lineTo(b.x, b.y)
-
-    ctx.strokeStyle = `rgba(255, 255, 255, ${0.24 * lineOpacity})`
-    ctx.lineWidth = 1.1 * Math.max(0.85, currentScale) * widthPower
-    ctx.shadowBlur = 6 * Math.max(0.85, currentScale) * glowPower
-    ctx.shadowColor = `rgba(255, 255, 255, ${0.22 * lineOpacity})`
-    ctx.stroke()
-  }
-
-  // 流動光點
-  const particleCount = state === 'dim' ? 0 : 4
-
-  for (let i = 0; i < particleCount; i++) {
-    const t = (flowOffset * 0.004 + i / particleCount) % 1
-
-    const useSecondStrand = i % 2 === 1
-    const p = getStrandPoint(t, useSecondStrand ? Math.PI : 0)
-
-    ctx.beginPath()
-    ctx.arc(
-      p.x,
-      p.y,
-      2.2 * Math.max(0.85, currentScale) * widthPower,
-      0,
-      Math.PI * 2
-    )
-
-    ctx.fillStyle = `rgba(255, 255, 255, ${0.92 * lineOpacity})`
-    ctx.shadowBlur = 12 * Math.max(0.85, currentScale) * glowPower
-    ctx.shadowColor = `rgba(255,255,255,${0.9 * lineOpacity})`
+    ctx.arc(to.x, to.y, 3.2, 0, Math.PI * 2)
     ctx.fill()
   }
 
@@ -452,6 +359,8 @@ const drawSpiralLink = (ctx, from, to, state = 'normal') => {
 }
 
 const drawLinks = () => {
+  if (isNodeDragging.value) return
+
   const canvas = linkCanvasRef.value
   const viewport = viewportRef.value
 
@@ -496,20 +405,10 @@ const drawLinks = () => {
         ? 'highlight'
         : 'dim'
 
-    drawSpiralLink(ctx, from, to, lineState)
+    drawSimpleLink(ctx, from, to, lineState)
   })
 }
 
-const animateLinks = (time = 0) => {
-  animationFrameId = requestAnimationFrame(animateLinks)
-
-  if (time - lastDrawTime < DRAW_INTERVAL) return
-
-  lastDrawTime = time
-  flowOffset += FLOW_SPEED
-
-  drawLinks()
-}
 
 const focusNode = async (type, id) => {
   await nextTick()
@@ -547,6 +446,22 @@ const focusNode = async (type, id) => {
   }, 1200)
 }
 
+const handleNodeDragStart = () => {
+  isNodeDragging.value = true
+  document.body.classList.add('is-dragging-node')
+
+  if (drawRafId) {
+    cancelAnimationFrame(drawRafId)
+    drawRafId = null
+  }
+}
+
+const handleNodeDragEnd = () => {
+  isNodeDragging.value = false
+  document.body.classList.remove('is-dragging-node')
+  scheduleDrawLinks(true)
+}
+
 watch(
   () => props.links,
   () => {
@@ -571,6 +486,7 @@ watch(
 )
 
 watch(scale, () => {
+  emit('scale-change', scale.value)
   scheduleDrawLinks()
 })
 
@@ -578,11 +494,9 @@ onMounted(async () => {
   await nextTick()
 
   restoreViewState()
+  emit('scale-change', scale.value)
   resizeCanvas()
 
-  if (!animationFrameId) {
-    animationFrameId = requestAnimationFrame(animateLinks)
-  }
 
   resizeObserver = new ResizeObserver(() => {
     resizeCanvas()
@@ -593,13 +507,11 @@ onMounted(async () => {
   }
 
   window.addEventListener('resize', resizeCanvas)
+  window.addEventListener('novanote:node-drag-start', handleNodeDragStart)
+  window.addEventListener('novanote:node-drag-end', handleNodeDragEnd)
 })
 
 onBeforeUnmount(() => {
-  if (animationFrameId) {
-    cancelAnimationFrame(animationFrameId)
-    animationFrameId = null
-  }
 
   if (drawRafId) {
     cancelAnimationFrame(drawRafId)
@@ -617,6 +529,8 @@ onBeforeUnmount(() => {
   }
 
   window.removeEventListener('resize', resizeCanvas)
+  window.removeEventListener('novanote:node-drag-start', handleNodeDragStart)
+  window.removeEventListener('novanote:node-drag-end', handleNodeDragEnd)
 })
 
 defineExpose({
@@ -636,8 +550,18 @@ defineExpose({
   background: transparent;
 }
 
-.space-canvas-viewport:active {
+.space-canvas-viewport:active,
+.space-canvas-viewport.is-panning {
   cursor: grabbing;
+}
+
+.space-canvas-viewport.node-dragging .nebula,
+.space-canvas-viewport.node-dragging .star-layer {
+  animation-play-state: paused !important;
+}
+
+.space-canvas-viewport.node-dragging .link-canvas {
+  opacity: 0.55;
 }
 
 .space-canvas-viewport::after {

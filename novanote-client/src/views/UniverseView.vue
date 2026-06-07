@@ -124,6 +124,7 @@
       :links="linksStore.links"
       :active-filter-tag="activeFilterTag || searchQuery"
       :highlight-link-keys="Array.from(graphHighlightContext.highlightLinks)"
+      @scale-change="currentScale = $event"
     >
       <PlanetNode
         v-for="planet in planetsStore.planets"

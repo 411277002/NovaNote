@@ -231,6 +231,8 @@ const startDrag = (event) => {
   isDragging.value = true
   hasMoved.value = false
 
+  window.dispatchEvent(new CustomEvent('novanote:node-drag-start'))
+
   const startX = event.clientX
   const startY = event.clientY
 
@@ -239,10 +241,13 @@ const startDrag = (event) => {
 
   let latestEvent = event
   let rafId = null
+  let lastLeft = initialLeft
+  let lastTop = initialTop
 
   el.style.transition = 'none'
   el.style.zIndex = '2000'
-  el.style.willChange = 'left, top, transform'
+  el.style.willChange = 'transform'
+  el.classList.add('is-dragging')
 
   const applyMove = () => {
     rafId = null
@@ -264,12 +269,11 @@ const startDrag = (event) => {
     const minTop = 80
     const maxTop = parent.offsetHeight - 80
 
-    const clampedLeft = Math.min(maxLeft, Math.max(minLeft, nextLeft))
-    const clampedTop = Math.min(maxTop, Math.max(minTop, nextTop))
+    lastLeft = Math.min(maxLeft, Math.max(minLeft, nextLeft))
+    lastTop = Math.min(maxTop, Math.max(minTop, nextTop))
 
-    el.style.left = `${clampedLeft}px`
-    el.style.top = `${clampedTop}px`
-    el.style.transform = 'translate(-50%, -50%) scale(1.08)'
+    el.style.setProperty('--drag-x', `${lastLeft - initialLeft}px`)
+    el.style.setProperty('--drag-y', `${lastTop - initialTop}px`)
   }
 
   const onMouseMove = (moveEvent) => {
@@ -290,9 +294,12 @@ const startDrag = (event) => {
     }
 
     isDragging.value = false
+    el.classList.remove('is-dragging')
 
     el.style.zIndex = ''
     el.style.willChange = ''
+
+    window.dispatchEvent(new CustomEvent('novanote:node-drag-end'))
   }
 
   const onMouseUp = async () => {
@@ -300,7 +307,8 @@ const startDrag = (event) => {
 
     if (!hasMoved.value) {
       el.style.transition = ''
-      el.style.transform = ''
+      el.style.removeProperty('--drag-x')
+      el.style.removeProperty('--drag-y')
 
       emit('click', props.planet)
       return
@@ -308,18 +316,17 @@ const startDrag = (event) => {
 
     const finalX = Math.min(
       0.995,
-      Math.max(0.005, el.offsetLeft / parent.offsetWidth)
+      Math.max(0.005, lastLeft / parent.offsetWidth)
     )
 
     const finalY = Math.min(
       0.995,
-      Math.max(0.005, el.offsetTop / parent.offsetHeight)
+      Math.max(0.005, lastTop / parent.offsetHeight)
     )
 
-    el.style.left = `${finalX * 100}%`
-    el.style.top = `${finalY * 100}%`
-    el.style.transform = ''
     el.style.transition = ''
+    el.style.removeProperty('--drag-x')
+    el.style.removeProperty('--drag-y')
 
     props.planet.x_pos = finalX
     props.planet.y_pos = finalY
@@ -352,8 +359,15 @@ const startDrag = (event) => {
   justify-content: center;
 
   user-select: none;
+  will-change: transform;
+  backface-visibility: hidden;
   background: transparent !important;
-  transform: translate(-50%, -50%);
+  transform:
+    translate(
+      calc(-50% + var(--drag-x, 0px)),
+      calc(-50% + var(--drag-y, 0px))
+    )
+    translateZ(0);
 
   transition:
     transform 0.28s cubic-bezier(0.175, 0.885, 0.32, 1.275),
@@ -974,7 +988,12 @@ const startDrag = (event) => {
 :global(.PlanetNode.dim) {
   opacity: 0.15 !important;
   filter: grayscale(1) blur(1px) brightness(0.55) !important;
-  transform: translate(-50%, -50%) scale(0.9) !important;
+  transform:
+    translate(
+      calc(-50% + var(--drag-x, 0px)),
+      calc(-50% + var(--drag-y, 0px))
+    )
+    scale(0.9) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

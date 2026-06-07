@@ -564,6 +564,30 @@ html[data-theme='light'] {
   --primary-glow: rgba(143, 124, 255, 0.24);
   --related-glow-soft: rgba(81, 186, 252, 0.22);
   --related-glow: rgba(81, 186, 252, 0.14);
+
+  /* =========================
+     Dragging / Interaction Optimization
+  ========================= */
+  --drag-shadow: 0 14px 42px rgba(0, 0, 0, 0.34);
+  --drag-filter-disable: brightness(1) saturate(1) blur(0px);
+
+  /* =========================
+     Shared Shadows System
+  ========================= */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.16);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.22);
+  --shadow-md: 0 8px 16px rgba(0, 0, 0, 0.24);
+  --shadow-lg: 0 14px 32px rgba(0, 0, 0, 0.28);
+  --shadow-xl: 0 24px 70px rgba(0, 0, 0, 0.36);
+  --shadow-inner-lg: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
+
+  /* =========================
+     HUD / Tech Borders
+  ========================= */
+  --hud-border-thin: 1px solid rgba(255, 255, 255, 0.08);
+  --hud-border-accent: 1px solid rgba(165, 140, 255, 0.18);
+  --hud-corner-width: 12px;
+  --hud-corner-color: rgba(165, 140, 255, 0.22);
 }
 
 /* =========================================================
@@ -728,4 +752,241 @@ select option {
     border-color 0.18s ease,
     color 0.18s ease,
     box-shadow 0.18s ease;
+}
+
+/* =========================================================
+   Dragging Performance Optimization
+   拖曳性能最佳化
+========================================================= */
+
+.is-dragging,
+.dragging,
+.planet-node.is-dragging,
+.planet-node.dragging,
+.PlanetNode.dragging,
+.note-card.is-dragging,
+.note-card.dragging,
+.floating-card.dragging,
+.hud-note-card.dragging {
+  transition: none !important;
+  animation: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  will-change: transform;
+  cursor: grabbing !important;
+  pointer-events: auto !important;
+}
+
+/* Canvas background optimization during interaction */
+.space-canvas-viewport.is-dragging,
+.space-canvas-viewport.dragging {
+  cursor: grabbing;
+}
+
+.space-canvas-viewport.is-dragging .nebula,
+.space-canvas-viewport.is-dragging .star-layer {
+  animation: none !important;
+  will-change: auto;
+  pointer-events: none;
+  contain: paint;
+  transform: translateZ(0);
+}
+
+/* =========================================================
+   Shared Component Styles
+   共用元件樣式
+========================================================= */
+
+.nova-panel {
+  background: var(--panel-bg);
+  border: var(--hud-border-thin);
+  border-radius: 12px;
+  box-shadow: var(--panel-shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nova-hud-panel {
+  background: var(--panel-bg);
+  border: var(--hud-border-accent);
+  border-radius: 8px;
+  box-shadow: var(--shadow-lg);
+}
+
+.nova-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent-color);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nova-button:hover {
+  background: var(--accent-color-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.nova-button:active {
+  transform: translateY(0);
+}
+
+.nova-icon-button {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  background: var(--button-bg);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.nova-icon-button:hover {
+  background: var(--button-hover-bg);
+  transform: translateY(-2px);
+}
+
+.nova-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 16px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-border);
+  color: var(--text-color);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.nova-input {
+  padding: 10px 14px;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  background: var(--input-bg);
+  color: var(--input-text);
+  font-family: inherit;
+}
+
+.nova-input::placeholder {
+  color: var(--input-placeholder);
+}
+
+.nova-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+/* =========================================================
+   HUD Corner Frames (for tech aesthetic)
+========================================================= */
+
+.nova-hud-corner {
+  position: absolute;
+  width: var(--hud-corner-width);
+  height: var(--hud-corner-width);
+  pointer-events: none;
+}
+
+.nova-hud-corner::before,
+.nova-hud-corner::after {
+  content: '';
+  position: absolute;
+  background: var(--hud-corner-color);
+}
+
+.corner-tl::before {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+}
+
+.corner-tl::after {
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+}
+
+.corner-tr::before {
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 1px;
+}
+
+.corner-tr::after {
+  top: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+}
+
+.corner-bl::before {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+}
+
+.corner-bl::after {
+  bottom: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+}
+
+.corner-br::before {
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 1px;
+}
+
+.corner-br::after {
+  bottom: 0;
+  right: 0;
+  width: 1px;
+  height: 100%;
+}
+
+/* =========================================================
+   Performance & Containment
+========================================================= */
+
+.nova-canvas-content {
+  pointer-events: none;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.nova-canvas-content > * {
+  pointer-events: auto;
+}
+
+/* Background layers should be optimized */
+.nebula-container,
+.stars-parallax,
+.link-canvas {
+  pointer-events: none;
+  contain: paint;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Dragging elements should be lightweight */
+.draggable-element {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
