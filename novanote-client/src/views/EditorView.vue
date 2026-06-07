@@ -429,313 +429,313 @@
           </div>
         </div>
 
-        <div class="document-shell">
-          <div
-            v-if="showSelectionBubble"
-            id="selection-bubble-menu"
-            class="selection-bubble-menu"
-            :style="selectionBubbleStyle"
-            @mousedown.stop
+        <div
+          v-if="showSelectionBubble"
+          id="selection-bubble-menu"
+          class="selection-bubble-menu"
+          :style="selectionBubbleStyle"
+          @mousedown.stop
+        >
+          <button
+            class="bubble-btn"
+            :class="{ active: editor?.isActive('bold') }"
+            type="button"
+            title="粗體"
+            @click="editor?.chain().focus().toggleBold().run()"
           >
+            <i class="fa-solid fa-bold"></i>
+          </button>
+
+          <button
+            class="bubble-btn"
+            :class="{ active: editor?.isActive('italic') }"
+            type="button"
+            title="斜體"
+            @click="editor?.chain().focus().toggleItalic().run()"
+          >
+            <i class="fa-solid fa-italic"></i>
+          </button>
+
+          <button
+            class="bubble-btn"
+            :class="{ active: editor?.isActive('underline') }"
+            type="button"
+            title="底線"
+            @click="editor?.chain().focus().toggleUnderline().run()"
+          >
+            <i class="fa-solid fa-underline"></i>
+          </button>
+
+          <span class="bubble-divider"></span>
+
+          <select
+            class="bubble-select font"
+            :value="currentFontFamily"
+            title="字型"
+            @mousedown.stop
+            @change="applyBubbleFontFamily($event.target.value)"
+          >
+            <option value="Inter">Inter</option>
+            <option value="Noto Sans TC">Noto Sans TC</option>
+            <option value="Arial">Arial</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Microsoft JhengHei">微軟正黑體</option>
+          </select>
+
+          <select
+            class="bubble-select size"
+            :value="currentFontSize"
+            title="字體大小"
+            @mousedown.stop
+            @change="applyBubbleFontSize($event.target.value)"
+          >
+            <option value="">18</option>
+            <option value="12px">12</option>
+            <option value="14px">14</option>
+            <option value="16px">16</option>
+            <option value="18px">18</option>
+            <option value="20px">20</option>
+            <option value="24px">24</option>
+            <option value="28px">28</option>
+            <option value="32px">32</option>
+            <option value="36px">36</option>
+            <option value="48px">48</option>
+          </select>
+
+          <div class="bubble-text-align-tool">
             <button
-              class="bubble-btn"
-              :class="{ active: editor?.isActive('bold') }"
+              class="bubble-btn bubble-text-align-btn"
               type="button"
-              title="粗體"
-              @click="editor?.chain().focus().toggleBold().run()"
-            >
-              <i class="fa-solid fa-bold"></i>
-            </button>
-
-            <button
-              class="bubble-btn"
-              :class="{ active: editor?.isActive('italic') }"
-              type="button"
-              title="斜體"
-              @click="editor?.chain().focus().toggleItalic().run()"
-            >
-              <i class="fa-solid fa-italic"></i>
-            </button>
-
-            <button
-              class="bubble-btn"
-              :class="{ active: editor?.isActive('underline') }"
-              type="button"
-              title="底線"
-              @click="editor?.chain().focus().toggleUnderline().run()"
-            >
-              <i class="fa-solid fa-underline"></i>
-            </button>
-
-            <span class="bubble-divider"></span>
-
-            <select
-              class="bubble-select font"
-              :value="currentFontFamily"
-              title="字型"
-              @mousedown.stop
-              @change="applyBubbleFontFamily($event.target.value)"
-            >
-              <option value="Inter">Inter</option>
-              <option value="Noto Sans TC">Noto Sans TC</option>
-              <option value="Arial">Arial</option>
-              <option value="Georgia">Georgia</option>
-              <option value="Times New Roman">Times New Roman</option>
-              <option value="Microsoft JhengHei">微軟正黑體</option>
-            </select>
-
-            <select
-              class="bubble-select size"
-              :value="currentFontSize"
-              title="字體大小"
-              @mousedown.stop
-              @change="applyBubbleFontSize($event.target.value)"
-            >
-              <option value="">18</option>
-              <option value="12px">12</option>
-              <option value="14px">14</option>
-              <option value="16px">16</option>
-              <option value="18px">18</option>
-              <option value="20px">20</option>
-              <option value="24px">24</option>
-              <option value="28px">28</option>
-              <option value="32px">32</option>
-              <option value="36px">36</option>
-              <option value="48px">48</option>
-            </select>
-
-            <div class="bubble-text-align-tool">
-              <button
-                class="bubble-btn bubble-text-align-btn"
-                type="button"
-                title="文字對齊"
-                :class="{ active: showBubbleTextAlignMenu }"
-                @mousedown.prevent
-                @click.stop="toggleBubbleTextAlignMenu"
-              >
-                <i class="fa-solid" :class="currentTextAlignIcon"></i>
-              </button>
-
-              <div
-                v-if="showBubbleTextAlignMenu"
-                class="bubble-text-align-menu"
-                @mousedown.prevent
-                @click.stop
-              >
-                <button
-                  v-for="option in textAlignOptions"
-                  :key="'bubble-align-' + option.value"
-                  class="bubble-text-align-menu-item"
-                  type="button"
-                  :class="{ active: currentTextAlign === option.value }"
-                  :title="option.label"
-                  @click="applyBubbleTextAlign(option.value)"
-                >
-                  <i class="fa-solid" :class="option.icon"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="bubble-line-height-tool">
-              <button
-                class="bubble-btn bubble-line-height-btn"
-                type="button"
-                title="行距"
-                :class="{ active: showBubbleLineHeightMenu }"
-                @mousedown.prevent
-                @click.stop="toggleBubbleLineHeightMenu"
-              >
-                <span class="bubble-line-height-icon">
-                  <i class="fa-solid fa-arrows-up-down"></i>
-                  <span class="bubble-line-height-lines">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </span>
-                </span>
-              </button>
-
-              <div
-                v-if="showBubbleLineHeightMenu"
-                class="bubble-line-height-menu"
-                @mousedown.prevent
-                @click.stop
-              >
-                <button
-                  v-for="option in lineHeightOptions"
-                  :key="'bubble-line-height-' + option.value"
-                  class="bubble-line-height-menu-item"
-                  type="button"
-                  :class="{ active: currentLineHeight === option.value }"
-                  @click="applyBubbleLineHeight(option.value)"
-                >
-                  <span class="bubble-line-height-check">
-                    <i
-                      v-if="currentLineHeight === option.value"
-                      class="fa-solid fa-check"
-                    ></i>
-                  </span>
-
-                  <span class="bubble-line-height-label">
-                    {{ option.label }}
-                  </span>
-                </button>
-              </div>
-            </div>
-
-            <span class="bubble-divider"></span>
-
-            <div class="bubble-color-wrap">
-              <button
-                class="bubble-btn color"
-                type="button"
-                title="文字顏色"
-                @mousedown.prevent
-                @click.stop="toggleBubbleTextPalette"
-              >
-                <span class="bubble-color-icon">
-                  A
-                  <span
-                    class="bubble-color-line"
-                    :style="{ backgroundColor: currentTextColor || selectedTextColor || '#000000' }"
-                  ></span>
-                </span>
-              </button>
-
-              <div
-                v-if="showBubbleTextPalette"
-                class="color-palette bubble-color-palette"
-                @mousedown.prevent
-                @click.stop
-              >
-                <button class="palette-none-btn" type="button" @click="applyBubbleTextColor(null)">
-                  <span class="none-icon">A</span>
-                  <span>自動</span>
-                </button>
-
-                <div class="palette-grid">
-                  <button
-                    v-for="color in colorPaletteColors"
-                    :key="'bubble-text-' + color"
-                    class="palette-color-dot"
-                    type="button"
-                    :class="{ active: currentTextColor === color }"
-                    :style="{ backgroundColor: color }"
-                    @click="applyBubbleTextColor(color)"
-                  ></button>
-                </div>
-
-                <div class="custom-color-row">
-                  <span class="custom-label">自訂</span>
-
-                  <button
-                    class="custom-current-color"
-                    type="button"
-                    :style="{ backgroundColor: currentTextColor || selectedTextColor || '#000000' }"
-                    @click="openBubbleTextColorPicker"
-                  ></button>
-
-                  <button
-                    class="custom-picker-btn"
-                    type="button"
-                    @click="openBubbleTextColorPicker"
-                  >
-                    ＋
-                  </button>
-
-                  <input
-                    ref="bubbleTextColorInputRef"
-                    v-model="bubbleCustomTextColor"
-                    type="color"
-                    class="hidden-color-input"
-                    @change="applyBubbleTextColor(bubbleCustomTextColor)"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div class="bubble-color-wrap">
-              <button
-                class="bubble-btn color"
-                type="button"
-                title="螢光筆顏色"
-                @mousedown.prevent
-                @click.stop="toggleBubbleHighlightPalette"
-              >
-                <span class="bubble-marker-icon-wrap">
-                  <img class="bubble-marker-icon" :src="markerPenIcon" alt="螢光筆" />
-                  <span
-                    class="bubble-color-line"
-                    :style="{ backgroundColor: currentHighlightColor || selectedHighlightColor || '#fff176' }"
-                  ></span>
-                </span>
-              </button>
-
-              <div
-                v-if="showBubbleHighlightPalette"
-                class="color-palette bubble-color-palette"
-                @mousedown.prevent
-                @click.stop
-              >
-                <button class="palette-none-btn" type="button" @click="applyBubbleHighlight(null)">
-                  <span class="none-icon">⌫</span>
-                  <span>無</span>
-                </button>
-
-                <div class="palette-grid">
-                  <button
-                    v-for="color in colorPaletteColors"
-                    :key="'bubble-highlight-' + color"
-                    class="palette-color-dot"
-                    type="button"
-                    :class="{ active: currentHighlightColor === color }"
-                    :style="{ backgroundColor: color }"
-                    @click="applyBubbleHighlight(color)"
-                  ></button>
-                </div>
-
-                <div class="custom-color-row">
-                  <span class="custom-label">自訂</span>
-
-                  <button
-                    class="custom-current-color"
-                    type="button"
-                    :style="{ backgroundColor: currentHighlightColor || selectedHighlightColor || '#fff176' }"
-                    @click="openBubbleHighlightColorPicker"
-                  ></button>
-
-                  <button
-                    class="custom-picker-btn"
-                    type="button"
-                    @click="openBubbleHighlightColorPicker"
-                  >
-                    ＋
-                  </button>
-
-                  <input
-                    ref="bubbleHighlightColorInputRef"
-                    v-model="bubbleCustomHighlightColor"
-                    type="color"
-                    class="hidden-color-input"
-                    @change="applyBubbleHighlight(bubbleCustomHighlightColor)"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <span class="bubble-divider"></span>
-
-            <button
-              class="bubble-btn link"
-              type="button"
-              title="新增連結"
+              title="文字對齊"
+              :class="{ active: showBubbleTextAlignMenu }"
               @mousedown.prevent
-              @click.stop="openBubbleLinkModal"
+              @click.stop="toggleBubbleTextAlignMenu"
             >
-              <i class="fa-solid fa-link"></i>
+              <i class="fa-solid" :class="currentTextAlignIcon"></i>
             </button>
+
+            <div
+              v-if="showBubbleTextAlignMenu"
+              class="bubble-text-align-menu"
+              @mousedown.prevent
+              @click.stop
+            >
+              <button
+                v-for="option in textAlignOptions"
+                :key="'bubble-align-' + option.value"
+                class="bubble-text-align-menu-item"
+                type="button"
+                :class="{ active: currentTextAlign === option.value }"
+                :title="option.label"
+                @click="applyBubbleTextAlign(option.value)"
+              >
+                <i class="fa-solid" :class="option.icon"></i>
+              </button>
+            </div>
           </div>
 
+          <div class="bubble-line-height-tool">
+            <button
+              class="bubble-btn bubble-line-height-btn"
+              type="button"
+              title="行距"
+              :class="{ active: showBubbleLineHeightMenu }"
+              @mousedown.prevent
+              @click.stop="toggleBubbleLineHeightMenu"
+            >
+              <span class="bubble-line-height-icon">
+                <i class="fa-solid fa-arrows-up-down"></i>
+                <span class="bubble-line-height-lines">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </span>
+              </span>
+            </button>
+
+            <div
+              v-if="showBubbleLineHeightMenu"
+              class="bubble-line-height-menu"
+              @mousedown.prevent
+              @click.stop
+            >
+              <button
+                v-for="option in lineHeightOptions"
+                :key="'bubble-line-height-' + option.value"
+                class="bubble-line-height-menu-item"
+                type="button"
+                :class="{ active: currentLineHeight === option.value }"
+                @click="applyBubbleLineHeight(option.value)"
+              >
+                <span class="bubble-line-height-check">
+                  <i
+                    v-if="currentLineHeight === option.value"
+                    class="fa-solid fa-check"
+                  ></i>
+                </span>
+
+                <span class="bubble-line-height-label">
+                  {{ option.label }}
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <span class="bubble-divider"></span>
+
+          <div class="bubble-color-wrap">
+            <button
+              class="bubble-btn color"
+              type="button"
+              title="文字顏色"
+              @mousedown.prevent
+              @click.stop="toggleBubbleTextPalette"
+            >
+              <span class="bubble-color-icon">
+                A
+                <span
+                  class="bubble-color-line"
+                  :style="{ backgroundColor: currentTextColor || selectedTextColor || '#000000' }"
+                ></span>
+              </span>
+            </button>
+
+            <div
+              v-if="showBubbleTextPalette"
+              class="color-palette bubble-color-palette"
+              @mousedown.prevent
+              @click.stop
+            >
+              <button class="palette-none-btn" type="button" @click="applyBubbleTextColor(null)">
+                <span class="none-icon">A</span>
+                <span>自動</span>
+              </button>
+
+              <div class="palette-grid">
+                <button
+                  v-for="color in colorPaletteColors"
+                  :key="'bubble-text-' + color"
+                  class="palette-color-dot"
+                  type="button"
+                  :class="{ active: currentTextColor === color }"
+                  :style="{ backgroundColor: color }"
+                  @click="applyBubbleTextColor(color)"
+                ></button>
+              </div>
+
+              <div class="custom-color-row">
+                <span class="custom-label">自訂</span>
+
+                <button
+                  class="custom-current-color"
+                  type="button"
+                  :style="{ backgroundColor: currentTextColor || selectedTextColor || '#000000' }"
+                  @click="openBubbleTextColorPicker"
+                ></button>
+
+                <button
+                  class="custom-picker-btn"
+                  type="button"
+                  @click="openBubbleTextColorPicker"
+                >
+                  ＋
+                </button>
+
+                <input
+                  ref="bubbleTextColorInputRef"
+                  v-model="bubbleCustomTextColor"
+                  type="color"
+                  class="hidden-color-input"
+                  @change="applyBubbleTextColor(bubbleCustomTextColor)"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="bubble-color-wrap">
+            <button
+              class="bubble-btn color"
+              type="button"
+              title="螢光筆顏色"
+              @mousedown.prevent
+              @click.stop="toggleBubbleHighlightPalette"
+            >
+              <span class="bubble-marker-icon-wrap">
+                <img class="bubble-marker-icon" :src="markerPenIcon" alt="螢光筆" />
+                <span
+                  class="bubble-color-line"
+                  :style="{ backgroundColor: currentHighlightColor || selectedHighlightColor || '#fff176' }"
+                ></span>
+              </span>
+            </button>
+
+            <div
+              v-if="showBubbleHighlightPalette"
+              class="color-palette bubble-color-palette"
+              @mousedown.prevent
+              @click.stop
+            >
+              <button class="palette-none-btn" type="button" @click="applyBubbleHighlight(null)">
+                <span class="none-icon">⌫</span>
+                <span>無</span>
+              </button>
+
+              <div class="palette-grid">
+                <button
+                  v-for="color in colorPaletteColors"
+                  :key="'bubble-highlight-' + color"
+                  class="palette-color-dot"
+                  type="button"
+                  :class="{ active: currentHighlightColor === color }"
+                  :style="{ backgroundColor: color }"
+                  @click="applyBubbleHighlight(color)"
+                ></button>
+              </div>
+
+              <div class="custom-color-row">
+                <span class="custom-label">自訂</span>
+
+                <button
+                  class="custom-current-color"
+                  type="button"
+                  :style="{ backgroundColor: currentHighlightColor || selectedHighlightColor || '#fff176' }"
+                  @click="openBubbleHighlightColorPicker"
+                ></button>
+
+                <button
+                  class="custom-picker-btn"
+                  type="button"
+                  @click="openBubbleHighlightColorPicker"
+                >
+                  ＋
+                </button>
+
+                <input
+                  ref="bubbleHighlightColorInputRef"
+                  v-model="bubbleCustomHighlightColor"
+                  type="color"
+                  class="hidden-color-input"
+                  @change="applyBubbleHighlight(bubbleCustomHighlightColor)"
+                />
+              </div>
+            </div>
+          </div>
+
+          <span class="bubble-divider"></span>
+
+          <button
+            class="bubble-btn link"
+            type="button"
+            title="新增連結"
+            @mousedown.prevent
+            @click.stop="openBubbleLinkModal"
+          >
+            <i class="fa-solid fa-link"></i>
+          </button>
+        </div>
+
+        <div class="document-shell">
           <editor-content
             v-if="editor"
             :editor="editor"
@@ -2903,9 +2903,10 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-/* =========================
-   Page Reset
-========================= */
+/* =========================================================
+   NovaNote EditorView - Unified Cosmic HUD Style
+   風格目標：和 Universe / Planet / NoteCard 保持同一套星際科技語言
+========================================================= */
 
 :global(html),
 :global(body),
@@ -2914,161 +2915,70 @@ onBeforeUnmount(() => {
   height: 100%;
   margin: 0;
   overflow: hidden;
-  background: #080a14;
+  background: #050714;
 }
-
-/* =========================
-   Editor Page + Theme Tokens
-========================= */
 
 .editor-page {
   width: 100vw;
   height: 100vh;
   min-height: 100vh;
-
   display: flex;
   flex-direction: column;
-
-  font-family: 'Inter', 'Noto Sans TC', sans-serif;
+  position: relative;
   overflow: hidden;
+  font-family: 'Inter', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
 
-  --editor-accent: #5aa0ff;
-  --editor-accent-hover: #7fb8ff;
-  --editor-accent-soft: rgba(90, 160, 255, 0.12);
-  --editor-accent-border: rgba(95, 150, 255, 0.28);
+  --editor-accent: #786cff;
+  --editor-accent-2: #41c7ff;
+  --editor-accent-3: #9f7cff;
+  --editor-danger: #ff6b9a;
 
   --page-bg:
-    radial-gradient(circle at 16% 10%, rgba(143, 124, 255, 0.1), transparent 30%),
-    radial-gradient(circle at 82% 20%, rgba(91, 184, 255, 0.08), transparent 34%),
-    linear-gradient(180deg, #f7f8ff 0%, #eef2ff 100%);
-  --page-text: #0f1720;
+    radial-gradient(circle at 12% 8%, rgba(120, 108, 255, 0.14), transparent 31%),
+    radial-gradient(circle at 82% 18%, rgba(65, 199, 255, 0.1), transparent 32%),
+    radial-gradient(circle at 62% 90%, rgba(159, 124, 255, 0.08), transparent 34%),
+    linear-gradient(180deg, #f7f8ff 0%, #eef3ff 48%, #e8eeff 100%);
+  --page-text: #182038;
 
-  --header-bg:
-    radial-gradient(circle at 18% 0%, rgba(143, 124, 255, 0.13), transparent 38%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(238, 242, 255, 0.88));
-  --header-border: rgba(130, 145, 200, 0.22);
-  --header-shadow:
-    inset 0 -1px 0 rgba(255, 255, 255, 0.68),
-    0 12px 30px rgba(70, 80, 130, 0.08);
+  --surface-0: rgba(255, 255, 255, 0.98);
+  --surface-1: rgba(248, 250, 255, 0.98);
+  --surface-2: #ffffff;
+  --surface-muted: #eef3ff;
+  --surface-border: rgba(116, 132, 210, 0.26);
+  --surface-border-strong: rgba(120, 108, 255, 0.38);
+  --surface-line: rgba(80, 102, 170, 0.14);
 
-  --header-control-bg:
-    radial-gradient(circle at 50% 0%, rgba(143, 124, 255, 0.12), transparent 58%),
-    rgba(255, 255, 255, 0.72);
-  --header-control-border: rgba(143, 124, 255, 0.26);
-  --header-control-text: #37405f;
+  --text-main: #151c32;
+  --text-soft: #3d4868;
+  --text-muted: #7d89a6;
+  --text-inverse: #ffffff;
 
-  --header-control-hover-bg:
-    radial-gradient(circle at 50% 0%, rgba(143, 124, 255, 0.18), transparent 58%),
-    rgba(255, 255, 255, 0.88);
-  --header-control-hover-border: rgba(143, 124, 255, 0.58);
-  --header-control-hover-text: #4f46e5;
-  --header-control-hover-shadow:
-    0 0 0 3px rgba(143, 124, 255, 0.1),
-    0 0 22px rgba(143, 124, 255, 0.18);
+  --glow-soft: 0 0 22px rgba(120, 108, 255, 0.12);
+  --glow-strong: 0 0 28px rgba(120, 108, 255, 0.22);
+  --panel-shadow: 0 20px 50px rgba(54, 66, 120, 0.14);
+  --panel-shadow-soft: 0 12px 30px rgba(54, 66, 120, 0.1);
 
-  --header-control-active-bg: rgba(95, 150, 255, 0.08);
-  --header-control-active-border: rgba(95, 150, 255, 0.22);
-  --header-control-active-text: #2f6fb8;
+  --control-bg: #ffffff;
+  --control-bg-hover: #f3f6ff;
+  --control-border: rgba(116, 132, 210, 0.3);
+  --control-border-hover: rgba(120, 108, 255, 0.52);
+  --control-text: #26304e;
+  --control-active-bg: linear-gradient(135deg, rgba(120, 108, 255, 0.14), rgba(65, 199, 255, 0.08));
+  --control-active-text: #5147d9;
 
-  --title-text: #1b2038;
-  --title-placeholder: #9aa6b6;
-  --title-focus-bg: rgba(255, 255, 255, 0.9);
-  --title-focus-border: rgba(120, 170, 255, 0.18);
-  --title-focus-shadow: 0 0 0 4px rgba(120, 170, 255, 0.08);
+  --document-bg: #ffffff;
+  --document-text: #111827;
+  --document-heading: #0c1224;
+  --document-border: rgba(120, 108, 255, 0.34);
+  --document-inner: rgba(120, 108, 255, 0.13);
 
-  --toolbar-area-bg: rgba(255, 255, 255, 0.86);
-  --toolbar-bg: rgba(255, 255, 255, 0.7);
-  --toolbar-border: rgba(110, 130, 170, 0.06);
+  --tag-bg: linear-gradient(135deg, rgba(120, 108, 255, 0.1), rgba(65, 199, 255, 0.08));
+  --tag-border: rgba(120, 108, 255, 0.28);
+  --tag-text: #5047c9;
 
-  --toolbar-btn-text: #0f1720;
-  --toolbar-btn-hover-bg: rgba(90, 160, 255, 0.06);
-  --toolbar-btn-hover-border: rgba(95, 150, 255, 0.12);
-  --toolbar-btn-hover-text: #2f6fb8;
+  --modal-bg: #ffffff;
+  --modal-mask: rgba(14, 18, 32, 0.38);
 
-  --toolbar-btn-active-bg: rgba(125, 175, 255, 0.12);
-  --toolbar-btn-active-border: rgba(95, 150, 255, 0.18);
-  --toolbar-btn-active-text: #2f6fb8;
-  --toolbar-btn-active-shadow: 0 6px 18px rgba(90, 160, 255, 0.06);
-
-  --toolbar-select-bg: rgba(255, 255, 255, 0.9);
-  --toolbar-select-border: rgba(110, 130, 170, 0.06);
-  --toolbar-select-text: #0f1720;
-  --toolbar-select-option-bg: #ffffff;
-  --toolbar-select-option-text: #0f1720;
-
-  --toolbar-divider: rgba(110, 130, 170, 0.06);
-
-  --floating-bg: rgba(255, 255, 255, 0.96);
-  --floating-border: rgba(143, 124, 255, 0.26);
-  --floating-text: #0f1720;
-  --floating-muted: #8f99ab;
-  --floating-hover-bg: rgba(242, 247, 255, 0.9);
-  --floating-active-bg: rgba(225, 240, 255, 0.9);
-  --floating-active-border: rgba(120, 170, 255, 0.16);
-  --floating-active-text: #2f6fb8;
-  --floating-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.6),
-    0 22px 60px rgba(70, 80, 130, 0.18);
-
-  --document-bg:
-    radial-gradient(circle at 14% 0%, rgba(143, 124, 255, 0.08), transparent 28%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(245, 247, 255, 0.94));
-  --document-border: rgba(143, 124, 255, 0.24);
-  --document-inner-border: rgba(143, 124, 255, 0.1);
-  --document-corner: rgba(94, 116, 220, 0.5);
-  --document-corner-glow: rgba(143, 124, 255, 0.22);
-  --document-text: #09101a;
-  --document-heading: #061223;
-  --document-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.58),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    0 0 30px rgba(143, 124, 255, 0.12),
-    0 26px 70px rgba(70, 80, 130, 0.14);
-
-  --tag-bg: linear-gradient(135deg, rgba(235, 246, 255, 0.9), rgba(245, 241, 255, 0.9));
-  --tag-border: rgba(140, 180, 230, 0.08);
-  --tag-text: #2f6fb8;
-
-  --tag-input-bg: rgba(255, 255, 255, 0.68);
-  --tag-input-border: #c9cfda;
-  --tag-input-text: #1f2430;
-  --tag-input-placeholder: #9aa2b3;
-  --tag-input-focus-border: #8fb8ff;
-  --tag-input-focus-shadow: 0 0 0 3px rgba(91, 141, 239, 0.1);
-
-  --modal-mask-bg: rgba(16, 20, 32, 0.26);
-  --modal-bg: rgba(255, 255, 255, 0.96);
-  --modal-border: rgba(110, 130, 170, 0.06);
-  --modal-text: #0f1720;
-  --modal-title: #07101a;
-  --modal-muted: #8f99ab;
-
-  --modal-input-bg: #ffffff;
-  --modal-input-border: #d8dde8;
-  --modal-input-text: #1f2430;
-  --modal-input-placeholder: #9aa2b3;
-  --modal-input-focus-border: #8fb8ff;
-  --modal-input-focus-shadow: 0 0 0 4px rgba(91, 141, 239, 0.12);
-
-  --cancel-btn-bg: #ffffff;
-  --cancel-btn-border: #d8dde8;
-  --cancel-btn-text: #1f2430;
-  --cancel-btn-hover-bg: #f5f7fb;
-
-  --confirm-btn-bg: #3d74d8;
-  --confirm-btn-text: #ffffff;
-  --confirm-btn-border: transparent;
-  --confirm-btn-shadow: none;
-  --confirm-btn-hover-bg: #4d82e5;
-  --confirm-btn-hover-shadow: none;
-
-  --media-accent: #5aa0ff;
-  --media-accent-hover: #7fb8ff;
-  --media-accent-outline: rgba(90, 160, 255, 0.6);
-  --media-accent-shadow: rgba(90, 160, 255, 0.28);
-  --media-dot-border: #ffffff;
-
-  position: relative;
   background: var(--page-bg);
   color: var(--page-text);
 }
@@ -3080,201 +2990,77 @@ onBeforeUnmount(() => {
 :global(.dark) .editor-page,
 :global(.dark-mode) .editor-page {
   --editor-accent: #8f7cff;
-  --editor-accent-hover: #a58cff;
-  --editor-accent-soft: rgba(126, 94, 255, 0.18);
-  --editor-accent-border: rgba(165, 140, 255, 0.48);
+  --editor-accent-2: #51bafc;
+  --editor-accent-3: #b79dff;
 
   --page-bg:
-    radial-gradient(circle at 16% 10%, rgba(143, 124, 255, 0.16), transparent 30%),
-    radial-gradient(circle at 82% 20%, rgba(91, 184, 255, 0.1), transparent 34%),
-    radial-gradient(circle at 64% 82%, rgba(45, 212, 191, 0.06), transparent 32%),
-    linear-gradient(180deg, #050714 0%, #090d20 52%, #050714 100%);
+    radial-gradient(circle at 13% 10%, rgba(143, 124, 255, 0.18), transparent 30%),
+    radial-gradient(circle at 82% 16%, rgba(81, 186, 252, 0.12), transparent 30%),
+    radial-gradient(circle at 58% 86%, rgba(45, 212, 191, 0.07), transparent 34%),
+    linear-gradient(180deg, #050714 0%, #080c20 48%, #050714 100%);
   --page-text: #f5f7ff;
 
-  --header-bg:
-    radial-gradient(circle at 18% 0%, rgba(165, 140, 255, 0.13), transparent 38%),
-    linear-gradient(145deg, rgba(16, 19, 40, 0.96), rgba(8, 10, 26, 0.98));
-  --header-border: rgba(165, 150, 245, 0.18);
-  --header-shadow:
-    inset 0 -1px 0 rgba(255, 255, 255, 0.035),
-    0 14px 34px rgba(0, 0, 0, 0.3);
+  --surface-0: rgba(11, 15, 34, 0.96);
+  --surface-1: rgba(14, 18, 42, 0.94);
+  --surface-2: rgba(8, 12, 31, 0.98);
+  --surface-muted: rgba(255, 255, 255, 0.045);
+  --surface-border: rgba(165, 150, 245, 0.2);
+  --surface-border-strong: rgba(165, 140, 255, 0.46);
+  --surface-line: rgba(232, 238, 255, 0.09);
 
-  --header-control-bg:
-    radial-gradient(circle at 50% 0%, rgba(165, 140, 255, 0.16), transparent 58%),
-    rgba(255, 255, 255, 0.045);
-  --header-control-border: rgba(165, 150, 245, 0.28);
-  --header-control-text: #f4f1ff;
+  --text-main: #f5f7ff;
+  --text-soft: #d8ddff;
+  --text-muted: rgba(222, 228, 255, 0.62);
+  --text-inverse: #050714;
 
-  --header-control-hover-bg:
-    radial-gradient(circle at 50% 0%, rgba(165, 140, 255, 0.24), transparent 60%),
-    rgba(145, 120, 255, 0.12);
-  --header-control-hover-border: rgba(190, 175, 255, 0.58);
-  --header-control-hover-text: #ffffff;
-  --header-control-hover-shadow:
-    0 0 0 3px rgba(126, 94, 255, 0.08),
-    0 0 18px rgba(126, 94, 255, 0.16);
+  --glow-soft: 0 0 22px rgba(143, 124, 255, 0.14);
+  --glow-strong: 0 0 32px rgba(143, 124, 255, 0.32);
+  --panel-shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
+  --panel-shadow-soft: 0 14px 38px rgba(0, 0, 0, 0.28);
 
-  --header-control-active-bg:
-    linear-gradient(135deg, rgba(126, 94, 255, 0.26), rgba(173, 139, 255, 0.12));
-  --header-control-active-border: rgba(165, 140, 255, 0.5);
-  --header-control-active-text: #d8ceff;
+  --control-bg: rgba(255, 255, 255, 0.055);
+  --control-bg-hover: rgba(143, 124, 255, 0.13);
+  --control-border: rgba(165, 150, 245, 0.22);
+  --control-border-hover: rgba(190, 175, 255, 0.55);
+  --control-text: #f4f1ff;
+  --control-active-bg: linear-gradient(135deg, rgba(143, 124, 255, 0.26), rgba(81, 186, 252, 0.08));
+  --control-active-text: #ded6ff;
 
-  --title-text: #ffffff;
-  --title-placeholder: rgba(244, 241, 255, 0.45);
-  --title-focus-bg: rgba(126, 94, 255, 0.08);
-  --title-focus-border: rgba(165, 140, 255, 0.78);
-  --title-focus-shadow:
-    0 0 0 4px rgba(126, 94, 255, 0.16),
-    0 0 24px rgba(126, 94, 255, 0.16);
-
-  --toolbar-area-bg: rgba(20, 22, 34, 0.94);
-  --toolbar-bg: rgba(255, 255, 255, 0.025);
-  --toolbar-border: rgba(255, 255, 255, 0.08);
-
-  --toolbar-btn-text: #f4f1ff;
-  --toolbar-btn-hover-bg: rgba(126, 94, 255, 0.13);
-  --toolbar-btn-hover-border: rgba(165, 140, 255, 0.34);
-  --toolbar-btn-hover-text: #d8ceff;
-
-  --toolbar-btn-active-bg:
-    linear-gradient(135deg, rgba(126, 94, 255, 0.26), rgba(173, 139, 255, 0.12));
-  --toolbar-btn-active-border: rgba(165, 140, 255, 0.5);
-  --toolbar-btn-active-text: #d8ceff;
-  --toolbar-btn-active-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.035),
-    0 0 0 3px rgba(126, 94, 255, 0.08),
-    0 0 18px rgba(126, 94, 255, 0.16);
-
-  --toolbar-select-bg: rgba(255, 255, 255, 0.055);
-  --toolbar-select-border: rgba(255, 255, 255, 0.11);
-  --toolbar-select-text: #f4f1ff;
-  --toolbar-select-option-bg: #191c2a;
-  --toolbar-select-option-text: #f5f7ff;
-
-  --toolbar-divider: rgba(244, 241, 255, 0.28);
-
-  --floating-bg:
-    radial-gradient(circle at 18% 0%, rgba(165, 140, 255, 0.12), transparent 34%),
-    linear-gradient(145deg, rgba(18, 22, 50, 0.96), rgba(7, 10, 28, 0.98));
-  --floating-border: rgba(165, 150, 245, 0.28);
-  --floating-text: #f4f1ff;
-  --floating-muted: rgba(244, 241, 255, 0.58);
-  --floating-hover-bg: rgba(126, 94, 255, 0.13);
-  --floating-active-bg:
-    linear-gradient(135deg, rgba(126, 94, 255, 0.28), rgba(173, 139, 255, 0.12));
-  --floating-active-border: rgba(165, 140, 255, 0.48);
-  --floating-active-text: #cfc4ff;
-  --floating-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.035),
-    0 0 28px rgba(145, 120, 255, 0.14),
-    0 24px 70px rgba(0, 0, 0, 0.46);
-
-  --document-bg:
-    radial-gradient(circle at 14% 0%, rgba(126, 94, 255, 0.1), transparent 28%),
-    linear-gradient(180deg, rgba(6, 10, 26, 0.92), rgba(4, 8, 22, 0.98));
-  --document-border: rgba(113, 128, 255, 0.24);
-  --document-inner-border: rgba(120, 138, 255, 0.08);
-  --document-corner: rgba(160, 176, 255, 0.42);
-  --document-corner-glow: rgba(126, 94, 255, 0.18);
+  --document-bg: linear-gradient(180deg, rgba(8, 12, 31, 0.96), rgba(5, 8, 22, 0.98));
   --document-text: #f5f7ff;
   --document-heading: #ffffff;
-  --document-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.02),
-    0 0 26px rgba(116, 103, 255, 0.08),
-    0 24px 58px rgba(0, 0, 0, 0.3);
+  --document-border: rgba(126, 146, 255, 0.3);
+  --document-inner: rgba(190, 198, 255, 0.1);
 
-  --tag-bg:
-    linear-gradient(135deg, rgba(126, 94, 255, 0.26), rgba(173, 139, 255, 0.14));
-  --tag-border: rgba(165, 140, 255, 0.48);
-  --tag-text: #cfc4ff;
+  --tag-bg: linear-gradient(135deg, rgba(143, 124, 255, 0.24), rgba(81, 186, 252, 0.08));
+  --tag-border: rgba(165, 140, 255, 0.42);
+  --tag-text: #d8ceff;
 
-  --tag-input-bg: rgba(16, 18, 31, 0.48);
-  --tag-input-border: rgba(165, 140, 255, 0.38);
-  --tag-input-text: #efeaff;
-  --tag-input-placeholder: rgba(207, 196, 255, 0.52);
-  --tag-input-focus-border: rgba(183, 157, 255, 0.78);
-  --tag-input-focus-shadow:
-    0 0 0 3px rgba(126, 94, 255, 0.18),
-    0 0 24px rgba(126, 94, 255, 0.18);
-
-  --modal-mask-bg: rgba(0, 0, 0, 0.42);
-  --modal-bg: linear-gradient(180deg, rgba(18, 20, 32, 0.98), rgba(12, 12, 22, 0.96));
-  --modal-border: rgba(160, 130, 255, 0.12);
-  --modal-text: #f6f5ff;
-  --modal-title: #ffffff;
-  --modal-muted: #b9afcf;
-
-  --modal-input-bg: rgba(255, 255, 255, 0.02);
-  --modal-input-border: rgba(165, 140, 255, 0.14);
-  --modal-input-text: #efeaff;
-  --modal-input-placeholder: rgba(215, 200, 255, 0.22);
-  --modal-input-focus-border: rgba(185, 150, 255, 0.9);
-  --modal-input-focus-shadow:
-    0 0 0 4px rgba(140, 90, 220, 0.12),
-    0 0 28px rgba(140, 90, 220, 0.14);
-
-  --cancel-btn-bg: rgba(255, 255, 255, 0.02);
-  --cancel-btn-border: rgba(255, 255, 255, 0.04);
-  --cancel-btn-text: #efeaff;
-  --cancel-btn-hover-bg: rgba(120, 90, 200, 0.06);
-
-  --confirm-btn-bg: linear-gradient(90deg, rgba(150, 110, 255, 0.95), rgba(110, 80, 230, 0.95));
-  --confirm-btn-text: #ffffff;
-  --confirm-btn-border: rgba(200, 170, 255, 0.2);
-  --confirm-btn-shadow:
-    0 8px 36px rgba(120, 80, 200, 0.28),
-    0 0 28px rgba(120, 80, 200, 0.18);
-  --confirm-btn-hover-bg: linear-gradient(90deg, rgba(170, 130, 255, 1), rgba(140, 100, 240, 1));
-  --confirm-btn-hover-shadow:
-    0 0 0 6px rgba(130, 90, 230, 0.14),
-    0 20px 44px rgba(120, 80, 200, 0.36);
-
-  --media-accent: #b89aff;
-  --media-accent-hover: #d1baff;
-  --media-accent-outline: rgba(180, 130, 255, 0.52);
-  --media-accent-shadow: rgba(140, 90, 220, 0.36);
-  --media-dot-border: #0b0d14;
-
-  background: var(--page-bg);
-  color: var(--page-text);
+  --modal-bg: linear-gradient(180deg, rgba(18, 22, 48, 0.98), rgba(8, 11, 28, 0.98));
+  --modal-mask: rgba(0, 0, 0, 0.48);
 }
-
-/* =========================
-   Background Grid
-========================= */
 
 .editor-page::before {
   content: '';
   position: fixed;
   inset: 0;
   z-index: 0;
-
-  background:
-    linear-gradient(rgba(143, 124, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(143, 124, 255, 0.035) 1px, transparent 1px),
-    radial-gradient(circle, rgba(255, 255, 255, 0.22) 1px, transparent 1.6px);
-
-  background-size:
-    42px 42px,
-    42px 42px,
-    92px 92px;
-
-  opacity: 0.45;
   pointer-events: none;
+  background:
+    linear-gradient(rgba(120, 108, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120, 108, 255, 0.045) 1px, transparent 1px),
+    radial-gradient(circle, rgba(120, 108, 255, 0.24) 1px, transparent 1.5px);
+  background-size: 44px 44px, 44px 44px, 96px 96px;
+  opacity: 0.45;
 }
 
 .editor-page.dark-editor::before {
   background:
-    linear-gradient(rgba(165, 140, 255, 0.026) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(165, 140, 255, 0.026) 1px, transparent 1px),
-    radial-gradient(circle, rgba(255, 255, 255, 0.12) 1px, transparent 1.6px);
-
-  background-size:
-    42px 42px,
-    42px 42px,
-    96px 96px;
-
-  opacity: 0.5;
+    linear-gradient(rgba(165, 140, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(165, 140, 255, 0.028) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.12) 1px, transparent 1.5px);
+  background-size: 44px 44px, 44px 44px, 98px 98px;
+  opacity: 0.62;
 }
 
 .editor-page > * {
@@ -3283,66 +3069,32 @@ onBeforeUnmount(() => {
 }
 
 /* =========================
-   Editor Tabs
+   Tabs
 ========================= */
 
 .editor-tabs-row {
-  position: relative;
   z-index: 2600;
-
-  flex: 0 0 42px;
-  width: 100%;
-  height: 42px;
-  min-height: 42px;
-  max-height: 42px;
-
+  flex: 0 0 44px;
+  height: 44px;
+  min-height: 44px;
   display: flex;
   align-items: center;
-
-  padding: 6px 28px 0;
-
+  padding: 6px 30px 0;
   overflow: hidden;
-
-  background:
-    radial-gradient(circle at 18% 0%, rgba(143, 124, 255, 0.08), transparent 42%),
-    linear-gradient(180deg, rgba(245, 248, 255, 0.96), rgba(226, 233, 255, 0.92));
-
-  border-bottom: 1px solid rgba(120, 135, 190, 0.2);
-
-  box-shadow:
-    inset 0 -1px 0 rgba(255, 255, 255, 0.72),
-    0 8px 22px rgba(65, 78, 130, 0.08);
-}
-
-.editor-page.dark-editor .editor-tabs-row {
-  background:
-    radial-gradient(circle at 18% 0%, rgba(143, 124, 255, 0.14), transparent 42%),
-    linear-gradient(180deg, rgba(13, 16, 34, 0.98), rgba(8, 10, 25, 0.98));
-
-  border-bottom: 1px solid rgba(165, 150, 245, 0.18);
-
-  box-shadow:
-    inset 0 -1px 0 rgba(255, 255, 255, 0.035),
-    0 10px 28px rgba(0, 0, 0, 0.26);
+  background: linear-gradient(180deg, var(--surface-0), var(--surface-1));
+  border-bottom: 1px solid var(--surface-border);
+  box-shadow: var(--panel-shadow-soft);
 }
 
 .editor-tabs-row::after {
   content: '';
   position: absolute;
-  left: 28px;
-  right: 28px;
+  left: 30px;
+  right: 30px;
   bottom: 0;
   height: 1px;
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(143, 124, 255, 0.48),
-      rgba(91, 184, 255, 0.22),
-      transparent
-    );
-  opacity: 0.72;
-  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--editor-accent), var(--editor-accent-2), transparent);
+  opacity: 0.48;
 }
 
 .editor-tabs-row :deep(.editor-tabs),
@@ -3352,17 +3104,12 @@ onBeforeUnmount(() => {
 .editor-tabs-row :deep(.tabs-list) {
   width: 100%;
   height: 36px;
-  min-height: 36px;
-
   display: flex;
   align-items: center;
-  gap: 6px;
-
+  gap: 7px;
   overflow-x: auto;
   overflow-y: hidden;
-
   scrollbar-width: none;
-  -ms-overflow-style: none;
 }
 
 .editor-tabs-row :deep(.editor-tabs::-webkit-scrollbar),
@@ -3379,71 +3126,23 @@ onBeforeUnmount(() => {
 .editor-tabs-row :deep(.tab-button),
 .editor-tabs-row :deep(button[role='tab']) {
   position: relative;
-
   height: 32px;
-  min-width: 104px;
-  max-width: 190px;
-
+  min-width: 112px;
+  max-width: 198px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
-
   padding: 0 12px;
-
-  color: #3c435f;
-  background:
-    radial-gradient(circle at 18% 0%, rgba(143, 124, 255, 0.1), transparent 58%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(232, 236, 255, 0.8));
-
-  border: 1px solid rgba(120, 135, 190, 0.26);
-  border-radius: 6px;
-
-  clip-path: polygon(
-    7px 0,
-    calc(100% - 7px) 0,
-    100% 7px,
-    100% 100%,
-    0 100%,
-    0 7px
-  );
-
+  border: 1px solid var(--surface-border);
+  border-radius: 8px;
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%, 0 8px);
+  background: var(--control-bg);
+  color: var(--text-soft);
   cursor: pointer;
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.5),
-    0 4px 12px rgba(65, 78, 130, 0.08);
-
   font-family: inherit;
-  font-size: 0.86rem;
+  font-size: 0.84rem;
   font-weight: 850;
-
-  overflow: hidden;
-
-  transition:
-    color 0.18s ease,
-    background 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
-}
-
-.editor-page.dark-editor .editor-tabs-row :deep(.tab),
-.editor-page.dark-editor .editor-tabs-row :deep(.editor-tab),
-.editor-page.dark-editor .editor-tabs-row :deep(.tab-item),
-.editor-page.dark-editor .editor-tabs-row :deep(.tab-button),
-.editor-page.dark-editor .editor-tabs-row :deep(button[role='tab']) {
-  color: #dbe0ff;
-
-  background:
-    radial-gradient(circle at 18% 0%, rgba(165, 140, 255, 0.12), transparent 58%),
-    linear-gradient(180deg, rgba(20, 25, 50, 0.96), rgba(11, 15, 34, 0.98));
-
-  border-color: rgba(120, 140, 210, 0.3);
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.026),
-    0 0 10px rgba(91, 184, 255, 0.04),
-    0 5px 14px rgba(0, 0, 0, 0.22);
+  transition: 0.18s ease;
 }
 
 .editor-tabs-row :deep(.tab:hover),
@@ -3451,17 +3150,9 @@ onBeforeUnmount(() => {
 .editor-tabs-row :deep(.tab-item:hover),
 .editor-tabs-row :deep(.tab-button:hover),
 .editor-tabs-row :deep(button[role='tab']:hover) {
-  color: #4f46e5;
-  border-color: rgba(143, 124, 255, 0.5);
-}
-
-.editor-page.dark-editor .editor-tabs-row :deep(.tab:hover),
-.editor-page.dark-editor .editor-tabs-row :deep(.editor-tab:hover),
-.editor-page.dark-editor .editor-tabs-row :deep(.tab-item:hover),
-.editor-page.dark-editor .editor-tabs-row :deep(.tab-button:hover),
-.editor-page.dark-editor .editor-tabs-row :deep(button[role='tab']:hover) {
-  color: #ffffff;
-  border-color: rgba(165, 140, 255, 0.52);
+  color: var(--editor-accent);
+  border-color: var(--control-border-hover);
+  box-shadow: var(--glow-soft);
 }
 
 .editor-tabs-row :deep(.active),
@@ -3473,90 +3164,11 @@ onBeforeUnmount(() => {
 .editor-tabs-row :deep(.tab-button.active),
 .editor-tabs-row :deep(button[role='tab'][aria-selected='true']) {
   color: #ffffff !important;
-
-  border-color: rgba(143, 124, 255, 0.82) !important;
-
+  border-color: rgba(165, 140, 255, 0.82) !important;
   background:
-    radial-gradient(circle at 14% 50%, rgba(255, 255, 255, 0.16), transparent 38%),
-    radial-gradient(circle at 52% 0%, rgba(180, 165, 255, 0.26), transparent 56%),
-    linear-gradient(135deg, rgba(105, 95, 255, 0.96), rgba(88, 62, 210, 0.92)) !important;
-
-  box-shadow:
-    0 0 0 1px rgba(180, 165, 255, 0.28),
-    0 0 18px rgba(143, 124, 255, 0.36),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.14) !important;
-}
-
-.editor-page.dark-editor .editor-tabs-row :deep(.active),
-.editor-page.dark-editor .editor-tabs-row :deep(.is-active),
-.editor-page.dark-editor .editor-tabs-row :deep(.router-link-active),
-.editor-page.dark-editor .editor-tabs-row :deep(.tab.active),
-.editor-page.dark-editor .editor-tabs-row :deep(.editor-tab.active),
-.editor-page.dark-editor .editor-tabs-row :deep(.tab-item.active),
-.editor-page.dark-editor .editor-tabs-row :deep(.tab-button.active),
-.editor-page.dark-editor .editor-tabs-row :deep(button[role='tab'][aria-selected='true']) {
-  color: #ffffff !important;
-
-  border-color: rgba(170, 145, 255, 0.88) !important;
-
-  background:
-    radial-gradient(circle at 14% 50%, rgba(255, 255, 255, 0.14), transparent 38%),
-    radial-gradient(circle at 52% 0%, rgba(180, 165, 255, 0.32), transparent 56%),
-    linear-gradient(135deg, rgba(92, 72, 230, 0.94), rgba(48, 36, 130, 0.96)) !important;
-
-  box-shadow:
-    0 0 0 1px rgba(180, 165, 255, 0.28),
-    0 0 20px rgba(145, 120, 255, 0.42),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.12) !important;
-}
-
-.editor-tabs-row :deep(.active::after),
-.editor-tabs-row :deep(.is-active::after),
-.editor-tabs-row :deep(.tab.active::after),
-.editor-tabs-row :deep(.editor-tab.active::after),
-.editor-tabs-row :deep(.tab-item.active::after),
-.editor-tabs-row :deep(.tab-button.active::after),
-.editor-tabs-row :deep(button[role='tab'][aria-selected='true']::after) {
-  content: '';
-
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  bottom: 0;
-
-  height: 2px;
-
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(210, 200, 255, 0.95),
-      rgba(143, 124, 255, 0.9),
-      transparent
-    );
-
-  box-shadow:
-    0 0 8px rgba(180, 165, 255, 0.78);
-
-  pointer-events: none;
-}
-
-.editor-tabs-row :deep(.tab-dot),
-.editor-tabs-row :deep(.editor-tab-dot),
-.editor-tabs-row :deep(.tab-indicator),
-.editor-tabs-row :deep(.dot) {
-  width: 9px;
-  height: 9px;
-
-  flex-shrink: 0;
-
-  border-radius: 50%;
-
-  background: #8f7cff !important;
-
-  box-shadow:
-    0 0 0 2px rgba(143, 124, 255, 0.12),
-    0 0 10px rgba(143, 124, 255, 0.72);
+    radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.2), transparent 48%),
+    linear-gradient(135deg, rgba(120, 108, 255, 0.98), rgba(65, 86, 230, 0.94)) !important;
+  box-shadow: 0 0 0 1px rgba(180, 165, 255, 0.24), 0 0 20px rgba(120, 108, 255, 0.34) !important;
 }
 
 .editor-tabs-row :deep(.tab-title),
@@ -3566,16 +3178,10 @@ onBeforeUnmount(() => {
 .editor-tabs-row :deep(.label) {
   min-width: 0;
   flex: 1;
-
-  color: inherit;
-
-  font-size: 0.86rem;
-  font-weight: 900;
-  letter-spacing: 0.02em;
-
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: inherit;
 }
 
 .editor-tabs-row :deep(.tab-close),
@@ -3584,26 +3190,16 @@ onBeforeUnmount(() => {
 .editor-tabs-row :deep(.close) {
   width: 20px;
   height: 20px;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  flex-shrink: 0;
-
   margin-left: auto;
-
-  color: currentColor;
-  background: transparent;
-
   border: 1px solid transparent;
-  border-radius: 4px;
-
-  opacity: 0.7;
+  border-radius: 5px;
+  background: transparent;
+  color: currentColor;
   cursor: pointer;
-
-  font-size: 0.8rem;
-  line-height: 1;
+  opacity: 0.72;
 }
 
 .editor-tabs-row :deep(.tab-close:hover),
@@ -3611,10 +3207,7 @@ onBeforeUnmount(() => {
 .editor-tabs-row :deep(.close-btn:hover),
 .editor-tabs-row :deep(.close:hover) {
   opacity: 1;
-  color: #ffffff;
-
-  background: rgba(255, 255, 255, 0.14);
-  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.16);
 }
 
 .editor-tabs-row :deep(.add-tab),
@@ -3625,51 +3218,13 @@ onBeforeUnmount(() => {
   width: 42px;
   min-width: 42px;
   height: 32px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  color: #4f46e5;
-
-  background:
-    radial-gradient(circle at 50% 0%, rgba(143, 124, 255, 0.14), transparent 58%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(232, 236, 255, 0.74));
-
-  border: 1px solid rgba(143, 124, 255, 0.26);
-  border-radius: 6px;
-
-  clip-path: polygon(
-    7px 0,
-    calc(100% - 7px) 0,
-    100% 7px,
-    100% 100%,
-    0 100%,
-    0 7px
-  );
-
+  border: 1px solid var(--surface-border-strong);
+  border-radius: 8px;
+  clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%, 0 8px);
+  background: var(--control-bg);
+  color: var(--editor-accent);
   cursor: pointer;
-
-  font-size: 1.15rem;
-  font-weight: 500;
-}
-
-.editor-page.dark-editor .editor-tabs-row :deep(.add-tab),
-.editor-page.dark-editor .editor-tabs-row :deep(.add-tab-btn),
-.editor-page.dark-editor .editor-tabs-row :deep(.new-tab-btn),
-.editor-page.dark-editor .editor-tabs-row :deep(.tab-add),
-.editor-page.dark-editor .editor-tabs-row :deep(.plus-btn) {
-  color: #d8ceff;
-
-  background:
-    radial-gradient(circle at 50% 0%, rgba(165, 140, 255, 0.14), transparent 58%),
-    linear-gradient(180deg, rgba(18, 22, 46, 0.96), rgba(10, 14, 34, 0.98));
-
-  border-color: rgba(120, 140, 210, 0.3);
-}
-
-.editor-tabs-row :deep(button) {
-  font-family: inherit;
+  font-weight: 900;
 }
 
 /* =========================
@@ -3677,24 +3232,16 @@ onBeforeUnmount(() => {
 ========================= */
 
 .editor-header {
-  position: relative;
-  top: auto;
   z-index: 2500;
-
-  flex: 0 0 64px;
-  height: 64px;
-
-  padding: 0 42px;
+  flex: 0 0 66px;
+  height: 66px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  background: var(--header-bg);
-  border-bottom: 1px solid var(--header-border);
-  box-shadow: var(--header-shadow);
-
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  padding: 0 42px;
+  background: linear-gradient(180deg, var(--surface-0), var(--surface-1));
+  border-bottom: 1px solid var(--surface-border);
+  box-shadow: var(--panel-shadow-soft);
 }
 
 .editor-header::after {
@@ -3704,9 +3251,8 @@ onBeforeUnmount(() => {
   right: 42px;
   bottom: -1px;
   height: 1px;
-  background:
-    linear-gradient(90deg, transparent, rgba(143, 124, 255, 0.58), rgba(91, 184, 255, 0.28), transparent);
-  pointer-events: none;
+  background: linear-gradient(90deg, transparent, var(--editor-accent), var(--editor-accent-2), transparent);
+  opacity: 0.52;
 }
 
 .header-left,
@@ -3716,85 +3262,62 @@ onBeforeUnmount(() => {
 }
 
 .header-left {
-  gap: 18px;
   min-width: 0;
+  gap: 16px;
 }
 
 .header-right {
-  gap: 12px;
+  gap: 11px;
 }
 
-.back-btn {
+.back-btn,
+.header-toolbar-toggle,
+.theme-toggle-btn {
   height: 38px;
-  padding: 0 16px;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  border: 1px solid var(--header-control-border);
-  border-radius: 12px;
-
-  background: var(--header-control-bg);
-  color: var(--header-control-text);
-
+  border: 1px solid var(--control-border);
+  border-radius: 10px;
+  background: var(--control-bg);
+  color: var(--control-text);
   cursor: pointer;
   font-family: inherit;
-  font-size: 0.9rem;
   font-weight: 850;
-  white-space: nowrap;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: 0.18s ease;
+}
 
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.45),
-    0 0 14px rgba(143, 124, 255, 0.08);
+.back-btn {
+  padding: 0 16px;
+  font-size: 0.9rem;
+  white-space: nowrap;
 }
 
 .header-toolbar-toggle,
 .theme-toggle-btn {
   width: 38px;
-  height: 38px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 1px solid var(--header-control-border);
-  border-radius: 12px;
-
-  background: var(--header-control-bg);
-  color: var(--header-control-text);
-
-  cursor: pointer;
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.025),
-    0 0 14px rgba(145, 120, 255, 0.1);
+  padding: 0;
 }
 
 .back-btn:hover,
 .header-toolbar-toggle:hover,
 .theme-toggle-btn:hover {
   transform: translateY(-1px);
-  background: var(--header-control-hover-bg);
-  border-color: var(--header-control-hover-border);
-  color: var(--header-control-hover-text);
-  box-shadow: var(--header-control-hover-shadow);
+  background: var(--control-bg-hover);
+  border-color: var(--control-border-hover);
+  color: var(--editor-accent);
+  box-shadow: var(--glow-soft);
 }
 
 .header-toolbar-toggle[aria-expanded='true'] {
-  background: var(--header-control-active-bg);
-  border-color: var(--header-control-active-border);
-  color: var(--header-control-active-text);
-}
-
-.header-toolbar-toggle i,
-.theme-toggle-btn i {
-  font-size: 0.92rem;
-  color: inherit;
+  background: var(--control-active-bg);
+  color: var(--control-active-text);
+  border-color: var(--surface-border-strong);
 }
 
 .title-slot {
-  width: 330px;
+  width: 350px;
   min-width: 220px;
 }
 
@@ -3802,39 +3325,34 @@ onBeforeUnmount(() => {
   width: 100%;
   height: 42px;
   padding: 0 12px;
-
   border: 1px solid transparent;
   border-radius: 10px;
-
-  background: transparent;
-  color: var(--title-text);
-
   outline: none;
+  background: transparent;
+  color: var(--text-main);
   font-family: inherit;
-  font-size: 1.35rem;
+  font-size: 1.36rem;
   font-weight: 950;
   letter-spacing: -0.02em;
 }
 
-.editor-page.dark-editor .doc-title-input {
-  text-shadow:
-    0 0 12px rgba(255, 255, 255, 0.12),
-    0 0 24px rgba(145, 120, 255, 0.18);
-}
-
 .doc-title-input::placeholder {
-  color: var(--title-placeholder);
+  color: var(--text-muted);
 }
 
-.doc-title-input.editing,
-.doc-title-input:focus {
-  background: var(--title-focus-bg);
-  border-color: var(--title-focus-border);
-  box-shadow: var(--title-focus-shadow);
+.doc-title-input:focus,
+.doc-title-input.editing {
+  background: var(--surface-muted);
+  border-color: var(--surface-border-strong);
+  box-shadow: 0 0 0 4px rgba(120, 108, 255, 0.11);
+}
+
+.editor-page.dark-editor .doc-title-input {
+  text-shadow: 0 0 16px rgba(143, 124, 255, 0.2);
 }
 
 .save-status {
-  color: var(--floating-muted);
+  color: var(--text-muted);
   font-size: 0.84rem;
   font-weight: 800;
   white-space: nowrap;
@@ -3849,47 +3367,29 @@ onBeforeUnmount(() => {
 ========================= */
 
 .toolbar-area {
-  position: relative;
-  top: auto;
   z-index: 2400;
-
   flex: 0 0 auto;
-  padding: 0;
-
-  background: var(--toolbar-area-bg);
-  border-bottom: 1px solid var(--toolbar-border);
-  box-shadow: 0 12px 28px rgba(35, 42, 58, 0.04);
-
+  background: var(--surface-0);
+  border-bottom: 1px solid var(--surface-border);
+  box-shadow: var(--panel-shadow-soft);
   overflow: visible;
-
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
 }
 
 .editor-toolbar {
   min-height: 60px;
   padding: 10px 42px;
-
   display: flex;
   align-items: center;
   align-content: center;
-  gap: 8px;
   flex-wrap: wrap;
-
-  background: var(--toolbar-bg);
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-
+  gap: 8px;
+  background: transparent;
   overflow: visible;
 }
 
 .toolbar-slide-enter-active,
 .toolbar-slide-leave-active {
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease,
-    max-height 0.24s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease, max-height 0.24s ease;
   overflow: hidden;
 }
 
@@ -3904,30 +3404,52 @@ onBeforeUnmount(() => {
 .toolbar-slide-leave-from {
   opacity: 1;
   transform: translateY(0);
-  max-height: 96px;
+  max-height: 100px;
+}
+
+.toolbar-btn,
+.text-align-menu-item,
+.line-height-menu-item,
+.bubble-btn,
+.bubble-text-align-menu-item,
+.bubble-line-height-menu-item,
+.palette-none-btn,
+.custom-picker-btn {
+  font-family: inherit;
 }
 
 .toolbar-btn {
   height: 36px;
   min-width: 36px;
   padding: 0 10px;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 7px;
-
   border: 1px solid transparent;
   border-radius: 9px;
-
   background: transparent;
-  color: var(--toolbar-btn-text);
-
+  color: var(--control-text);
   cursor: pointer;
-  font-family: inherit;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 850;
   white-space: nowrap;
+  transition: 0.16s ease;
+}
+
+.toolbar-btn:hover {
+  background: var(--control-bg-hover);
+  border-color: var(--control-border-hover);
+  color: var(--editor-accent);
+}
+
+.toolbar-btn.active,
+.toolbar-btn[aria-expanded='true'],
+.toolbar-btn[aria-pressed='true'] {
+  background: var(--control-active-bg);
+  border-color: var(--surface-border-strong);
+  color: var(--control-active-text);
+  box-shadow: var(--glow-soft);
 }
 
 .toolbar-btn i,
@@ -3935,94 +3457,69 @@ onBeforeUnmount(() => {
   color: inherit;
 }
 
-.toolbar-btn:hover {
-  background: var(--toolbar-btn-hover-bg);
-  border-color: var(--toolbar-btn-hover-border);
-  color: var(--toolbar-btn-hover-text);
-}
-
-.toolbar-btn.active,
-.toolbar-btn[aria-pressed='true'],
-.toolbar-btn[aria-expanded='true'] {
-  background: var(--toolbar-btn-active-bg);
-  border-color: var(--toolbar-btn-active-border);
-  color: var(--toolbar-btn-active-text);
-  box-shadow: var(--toolbar-btn-active-shadow);
-}
-
-.toolbar-btn:disabled,
-.toolbar-btn:disabled:hover {
-  opacity: 1;
-  cursor: not-allowed;
-  background: transparent;
-  border-color: transparent;
-  color: var(--floating-muted);
-  box-shadow: none;
-}
-
 .italic {
   font-style: italic;
 }
 
-.toolbar-select {
-  height: 38px;
-  min-width: 100px;
-  padding: 0 12px;
-
-  border: 1px solid var(--toolbar-select-border);
+.toolbar-select,
+.bubble-select,
+.modal-input {
+  border: 1px solid var(--control-border);
   border-radius: 9px;
-
-  background: var(--toolbar-select-bg);
-  color: var(--toolbar-select-text);
-
+  background: var(--control-bg);
+  color: var(--control-text);
   outline: none;
   font-family: inherit;
-  font-size: 0.88rem;
-  font-weight: 800;
+  font-weight: 820;
+}
+
+.toolbar-select {
+  height: 38px;
+  min-width: 102px;
+  padding: 0 12px;
+  font-size: 0.86rem;
   cursor: pointer;
 }
 
 .toolbar-select:hover,
-.toolbar-select:focus {
-  border-color: var(--editor-accent-hover);
-  box-shadow: 0 0 0 3px var(--editor-accent-soft);
+.toolbar-select:focus,
+.bubble-select:hover,
+.bubble-select:focus,
+.modal-input:focus {
+  border-color: var(--control-border-hover);
+  box-shadow: 0 0 0 3px rgba(120, 108, 255, 0.12);
 }
 
 .toolbar-select option,
 .bubble-select option,
 .modal-input option {
-  background: var(--toolbar-select-option-bg);
-  color: var(--toolbar-select-option-text);
+  background: var(--surface-2);
+  color: var(--text-main);
 }
 
-.font-select {
-  min-width: 190px;
-}
+.font-select { min-width: 190px; }
+.size-select { width: 86px; min-width: 86px; }
+.heading-select { min-width: 128px; }
 
-.size-select {
-  width: 86px;
-  min-width: 86px;
-}
-
-.line-height-select {
-  width: 118px;
-  min-width: 118px;
-}
-
-.heading-select {
-  min-width: 128px;
+.toolbar-divider,
+.bubble-divider {
+  width: 1px;
+  flex-shrink: 0;
+  background: var(--surface-line);
 }
 
 .toolbar-divider {
-  width: 1px;
   height: 26px;
   margin: 0 5px;
-  background: var(--toolbar-divider);
-  flex-shrink: 0;
+}
+
+.bubble-divider {
+  height: 24px;
+  margin: 0 3px;
 }
 
 /* =========================
-   Dropdown Common
+   Floating menus / palettes
 ========================= */
 
 .text-align-tool,
@@ -4030,7 +3527,9 @@ onBeforeUnmount(() => {
 .color-tool,
 .text-color-tool,
 .highlight-tool,
-.bubble-color-wrap {
+.bubble-color-wrap,
+.bubble-text-align-tool,
+.bubble-line-height-tool {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -4039,64 +3538,35 @@ onBeforeUnmount(() => {
 
 .text-align-menu,
 .line-height-menu,
-.color-palette {
+.color-palette,
+.bubble-text-align-menu,
+.bubble-line-height-menu {
+  position: absolute;
   z-index: 99999;
-}
-
-/* =========================
-   Text Align Tool
-========================= */
-
-.text-align-btn {
-  padding: 0 8px;
-  gap: 6px;
-}
-
-.text-align-btn > i:first-child {
-  font-size: 1.02rem;
-}
-
-.text-align-caret {
-  font-size: 0.72rem;
-  opacity: 0.8;
+  border: 1px solid var(--surface-border-strong);
+  border-radius: 14px;
+  background: var(--surface-0);
+  color: var(--text-main);
+  box-shadow: var(--panel-shadow), var(--glow-soft);
 }
 
 .text-align-menu {
-  position: absolute;
   top: 44px;
   left: 0;
-
   width: 224px;
   padding: 10px;
-
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 6px;
-
-  border-radius: 14px;
-  border: 1px solid var(--floating-border);
-  background: var(--floating-bg);
-  color: var(--floating-text);
-  box-shadow: var(--floating-shadow);
-
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
 }
 
 .text-align-menu-item,
 .bubble-text-align-menu-item {
   height: 42px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
   border: 1px solid transparent;
   border-radius: 10px;
-
   background: transparent;
-  color: var(--floating-text);
-
+  color: var(--text-soft);
   cursor: pointer;
   font-size: 1.05rem;
 }
@@ -4105,36 +3575,21 @@ onBeforeUnmount(() => {
 .text-align-menu-item.active,
 .bubble-text-align-menu-item:hover,
 .bubble-text-align-menu-item.active {
-  background: var(--floating-hover-bg);
-  border-color: var(--floating-active-border);
-  color: var(--floating-active-text);
+  background: var(--control-bg-hover);
+  border-color: var(--surface-border-strong);
+  color: var(--editor-accent);
 }
 
-.text-align-menu-item.active,
-.bubble-text-align-menu-item.active {
-  background: var(--floating-active-bg);
-}
-
-/* =========================
-   Line Height Tool
-========================= */
-
-.line-height-btn {
-  padding: 0 8px;
-  gap: 5px;
-}
+.line-height-btn,
+.text-align-btn { padding: 0 8px; }
+.text-align-caret { font-size: 0.72rem; opacity: 0.78; }
 
 .line-height-icon,
 .bubble-line-height-icon {
   display: inline-flex;
   align-items: center;
-  gap: 1px;
+  gap: 2px;
   line-height: 1;
-}
-
-.line-height-icon > i,
-.bubble-line-height-icon > i {
-  font-size: 0.85rem;
 }
 
 .line-height-lines,
@@ -4156,150 +3611,92 @@ onBeforeUnmount(() => {
 
 .line-height-menu,
 .bubble-line-height-menu {
-  position: absolute;
   top: 44px;
   left: 0;
-
   width: 220px;
-  padding: 12px 0;
-
-  border-radius: 14px;
-  border: 1px solid var(--floating-border);
-  background: var(--floating-bg);
-  color: var(--floating-text);
-  box-shadow: var(--floating-shadow);
-
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  padding: 10px 0;
 }
 
 .line-height-menu-item,
 .bubble-line-height-menu-item {
   width: 100%;
-  height: 44px;
-  padding: 0 18px;
-
+  height: 42px;
+  padding: 0 16px;
   display: flex;
   align-items: center;
-  gap: 14px;
-
+  gap: 12px;
   border: none;
   background: transparent;
-  color: var(--floating-text);
-
+  color: var(--text-soft);
   cursor: pointer;
-  font-family: inherit;
-  font-size: 1rem;
-  font-weight: 750;
+  font-size: 0.94rem;
+  font-weight: 800;
   text-align: left;
 }
 
 .line-height-menu-item:hover,
-.bubble-line-height-menu-item:hover {
-  background: var(--floating-hover-bg);
-  color: var(--floating-active-text);
-}
-
 .line-height-menu-item.active,
+.bubble-line-height-menu-item:hover,
 .bubble-line-height-menu-item.active {
-  color: var(--floating-active-text);
+  background: var(--control-bg-hover);
+  color: var(--editor-accent);
 }
 
 .line-height-check,
 .bubble-line-height-check {
   width: 20px;
   display: inline-flex;
-  align-items: center;
   justify-content: center;
-  color: currentColor;
-  font-size: 0.95rem;
 }
 
-.line-height-label,
-.bubble-line-height-label {
-  flex: 1;
-}
-
-/* =========================
-   Color Buttons / Palette
-========================= */
-
+/* color palette */
 .color-tool-btn {
   width: 40px;
   height: 36px;
   padding: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.google-color-icon {
+.google-color-icon,
+.bubble-color-icon,
+.bubble-marker-icon-wrap {
   position: relative;
-  width: 26px;
+  width: 28px;
   height: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-}
-
-.text-color-letter {
-  color: var(--floating-text);
-  font-size: 1rem;
+  color: var(--control-text);
   font-weight: 950;
-  line-height: 1;
 }
 
-.color-tool-btn:hover .text-color-letter {
-  color: var(--toolbar-btn-hover-text);
+.text-color-letter { font-size: 1rem; color: inherit; }
+
+.markerpen-icon,
+.bubble-marker-icon {
+  width: 34px;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  filter: saturate(0.88);
 }
 
 .color-indicator,
 .bubble-color-line {
   position: absolute;
-  left: 3px;
-  right: 3px;
-  bottom: 1px;
-  height: 4px;
-  border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.34),
-    0 1px 3px rgba(0, 0, 0, 0.16);
-}
-
-.markerpen-tool {
-  width: 28px;
-  height: 28px;
-}
-
-.markerpen-icon {
-  width: 34px;
-  object-fit: contain;
-  display: block;
-  pointer-events: none;
-  filter: saturate(0.82);
-}
-
-.markerpen-tool .color-indicator,
-.bubble-marker-icon-wrap .bubble-color-line {
   left: 4px;
   right: 4px;
-  bottom: -1px;
+  bottom: 0;
+  height: 4px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3), 0 1px 4px rgba(0, 0, 0, 0.16);
 }
 
 .color-palette {
-  position: absolute;
   top: 44px;
   left: 0;
   width: 330px;
   padding: 14px 16px 16px;
-  border-radius: 16px;
-  border: 1px solid var(--floating-border);
-  background: var(--floating-bg);
-  color: var(--floating-text);
-  box-shadow: var(--floating-shadow);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
 }
 
 .palette-none-btn {
@@ -4313,25 +3710,22 @@ onBeforeUnmount(() => {
   border: none;
   border-radius: 9px;
   background: transparent;
-  color: var(--floating-text);
+  color: var(--text-soft);
   cursor: pointer;
-  font-family: inherit;
   font-size: 0.9rem;
   font-weight: 850;
 }
 
 .palette-none-btn:hover {
-  background: var(--floating-hover-bg);
-  color: var(--floating-active-text);
+  background: var(--control-bg-hover);
+  color: var(--editor-accent);
 }
 
 .none-icon {
   width: 24px;
   display: inline-flex;
-  align-items: center;
   justify-content: center;
-  color: var(--floating-muted);
-  font-size: 1rem;
+  color: var(--text-muted);
   font-weight: 950;
 }
 
@@ -4352,15 +3746,13 @@ onBeforeUnmount(() => {
 }
 
 .palette-color-dot:hover {
-  transform: scale(1.15);
-  box-shadow: 0 0 0 3px var(--editor-accent-soft);
+  transform: scale(1.13);
+  box-shadow: 0 0 0 3px rgba(120, 108, 255, 0.16);
 }
 
 .palette-color-dot.active {
   border-color: var(--editor-accent);
-  box-shadow:
-    0 0 0 2px var(--floating-bg),
-    0 0 0 4px var(--editor-accent);
+  box-shadow: 0 0 0 2px var(--surface-0), 0 0 0 4px var(--editor-accent);
 }
 
 .custom-color-row {
@@ -4372,38 +3764,25 @@ onBeforeUnmount(() => {
 
 .custom-label {
   margin-right: auto;
-  color: var(--floating-text);
-  font-size: 0.85rem;
+  color: var(--text-soft);
+  font-size: 0.84rem;
   font-weight: 850;
 }
 
-.custom-current-color {
+.custom-current-color,
+.custom-picker-btn {
   width: 30px;
   height: 30px;
   border-radius: 999px;
-  border: 1px solid var(--toolbar-select-border);
+  border: 1px solid var(--control-border);
+  background: var(--control-bg);
+  color: var(--control-text);
   cursor: pointer;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.16);
-}
-
-.custom-picker-btn {
-  width: 28px;
-  height: 28px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 999px;
-  border: 1px solid var(--toolbar-select-border);
-  background: var(--toolbar-select-bg);
-  color: var(--toolbar-select-text);
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 950;
 }
 
 .custom-picker-btn:hover {
-  background: var(--floating-hover-bg);
-  color: var(--floating-active-text);
+  color: var(--editor-accent);
+  border-color: var(--control-border-hover);
 }
 
 .hidden-color-input,
@@ -4416,251 +3795,130 @@ onBeforeUnmount(() => {
 }
 
 /* =========================
-   Main Layout
+   Main layout
 ========================= */
 
 .editor-main {
   flex: 1 1 auto;
   min-height: 0;
-
   display: grid;
   grid-template-columns: 250px minmax(720px, 920px) 1fr;
   gap: 38px;
   align-items: start;
-
-  padding: 54px 64px 54px;
-
-  background: transparent;
-
+  padding: 52px 64px 54px;
   overflow-y: auto;
   overflow-x: hidden;
   overscroll-behavior: contain;
 }
 
 .editor-content-column {
-  position: relative;
   width: 100%;
+  position: relative;
 }
 
 /* =========================
-   Mention Panel - Sci-Fi HUD Frame
+   Mention panel
 ========================= */
 
 .mention-panel {
   position: sticky;
   top: 18px;
-
-  min-height: auto;
+  min-height: 190px;
   padding: 24px 20px 22px;
-
-  color: #eef2ff;
-
-  background:
-    radial-gradient(circle at 0% 18%, rgba(142, 94, 255, 0.18), transparent 18%),
-    radial-gradient(circle at 100% 0%, rgba(120, 185, 255, 0.16), transparent 18%),
-    radial-gradient(circle at 50% 0%, rgba(120, 132, 255, 0.08), transparent 28%),
-    linear-gradient(180deg, rgba(8, 13, 31, 0.92), rgba(3, 7, 20, 0.98));
-
-  border: 1px solid rgba(116, 138, 255, 0.34);
-  border-radius: 6px;
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.018),
-    inset 0 0 42px rgba(120, 100, 255, 0.035),
-    0 0 0 1px rgba(126, 94, 255, 0.045),
-    0 0 22px rgba(82, 110, 255, 0.13),
-    0 22px 52px rgba(0, 0, 0, 0.34);
-
+  color: var(--text-main);
+  background: var(--surface-0);
+  border: 1px solid var(--surface-border-strong);
+  border-radius: 8px;
+  clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px), 0 14px);
+  box-shadow: var(--panel-shadow), var(--glow-soft);
   overflow: hidden;
-  background-clip: padding-box;
 }
 
 .mention-panel::before {
   content: '';
-
   position: absolute;
   inset: 12px;
-
-  border: 1px solid rgba(132, 154, 255, 0.16);
-  border-radius: 4px;
-
-  background:
-    linear-gradient(rgba(132, 154, 255, 0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(132, 154, 255, 0.018) 1px, transparent 1px),
-    radial-gradient(circle, rgba(180, 196, 255, 0.13) 1px, transparent 1.45px);
-
-  background-size:
-    28px 28px,
-    28px 28px,
-    82px 82px;
-
-  opacity: 0.78;
-
+  border: 1px solid var(--surface-line);
   pointer-events: none;
-  z-index: 0;
+  background:
+    linear-gradient(var(--surface-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--surface-line) 1px, transparent 1px);
+  background-size: 28px 28px;
+  opacity: 0.4;
 }
 
 .mention-panel > * {
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
 
 .mention-title {
-  position: relative;
-
   margin: 0 0 18px;
-  padding-left: 2px;
-
-  color: #f7f8ff;
-
+  color: var(--text-main);
   font-size: 0.98rem;
   font-weight: 950;
   letter-spacing: 0.04em;
+}
 
-  text-shadow:
-    0 0 10px rgba(255, 255, 255, 0.14),
-    0 0 18px rgba(126, 94, 255, 0.32);
+.mention-title::after {
+  content: '';
+  display: block;
+  width: 72px;
+  height: 2px;
+  margin-top: 10px;
+  background: linear-gradient(90deg, var(--editor-accent), var(--editor-accent-2), transparent);
+  box-shadow: var(--glow-soft);
 }
 
 .mention-empty {
-  position: relative;
-
-  min-height: auto;
-
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-
-  margin-top: 5px;
-  padding: 20px 18px 20px;
-
+  padding: 20px 16px;
+  color: var(--text-muted);
   text-align: center;
-
-  color: rgba(198, 206, 235, 0.66);
-
   font-size: 0.88rem;
   font-weight: 760;
   line-height: 1.8;
-
-  background:
-    radial-gradient(circle at 50% 24%, rgba(126, 94, 255, 0.11), transparent 23%),
-    linear-gradient(180deg, rgba(10, 15, 36, 0.5), rgba(5, 9, 25, 0.68));
-
-  border: 1px solid rgba(103, 126, 240, 0.14);
-  border-radius: 5px;
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.014),
-    inset 0 0 30px rgba(126, 94, 255, 0.024);
+  background: var(--surface-muted);
+  border: 1px solid var(--surface-line);
+  border-radius: 6px;
 }
 
 .mention-item {
-  position: relative;
-
   width: 100%;
-
   display: flex;
   align-items: center;
   gap: 9px;
-
   padding: 10px 8px;
-
-  color: rgba(210, 218, 246, 0.86);
-  background: transparent;
-
   border: 1px solid transparent;
-  border-radius: 5px;
-
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-soft);
   cursor: pointer;
   text-align: left;
-
-  transition:
-    color 0.18s ease,
-    background 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
+  transition: 0.18s ease;
 }
 
 .mention-item:hover {
-  color: #ffffff;
-
-  background:
-    radial-gradient(circle at 12% 50%, rgba(126, 94, 255, 0.16), transparent 36%),
-    rgba(126, 94, 255, 0.06);
-
-  border-color: rgba(145, 165, 255, 0.18);
-
-  box-shadow:
-    0 0 14px rgba(126, 94, 255, 0.12),
-    inset 0 0 12px rgba(126, 94, 255, 0.03);
-
+  color: var(--editor-accent);
+  background: var(--control-active-bg);
+  border-color: var(--surface-border-strong);
   transform: translateX(2px);
 }
 
 .mention-type {
   min-width: 34px;
-
-  color: rgba(170, 182, 220, 0.64);
-
+  color: var(--text-muted);
   font-size: 0.75rem;
   font-weight: 850;
 }
 
 .mention-name {
   min-width: 0;
-
   color: inherit;
-
   font-size: 0.88rem;
   font-weight: 850;
-
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.editor-page:not(.dark-editor) .mention-panel {
-  color: #12182a;
-
-  background:
-    radial-gradient(circle at 0% 18%, rgba(143, 124, 255, 0.12), transparent 18%),
-    radial-gradient(circle at 100% 0%, rgba(91, 184, 255, 0.12), transparent 18%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(238, 243, 255, 0.88));
-
-  border-color: rgba(105, 128, 220, 0.28);
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.5),
-    0 0 20px rgba(116, 103, 255, 0.1),
-    0 18px 38px rgba(70, 80, 130, 0.14);
-}
-
-.editor-page:not(.dark-editor) .mention-title {
-  color: #141a2f;
-  text-shadow: none;
-}
-
-.editor-page:not(.dark-editor) .mention-empty {
-  color: rgba(55, 65, 95, 0.7);
-
-  background:
-    radial-gradient(circle at 50% 24%, rgba(143, 124, 255, 0.09), transparent 23%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.54), rgba(238, 243, 255, 0.64));
-
-  border-color: rgba(105, 128, 220, 0.16);
-}
-
-.editor-page:not(.dark-editor) .mention-item {
-  color: rgba(40, 48, 74, 0.86);
-}
-
-.editor-page:not(.dark-editor) .mention-item:hover {
-  color: #3f37d8;
-
-  background:
-    radial-gradient(circle at 12% 50%, rgba(143, 124, 255, 0.12), transparent 36%),
-    rgba(143, 124, 255, 0.06);
 }
 
 /* =========================
@@ -4679,17 +3937,18 @@ onBeforeUnmount(() => {
 }
 
 .tag-pill {
-  height: 30px;
-  padding: 0 11px;
+  height: 32px;
+  padding: 0 12px;
   display: inline-flex;
   align-items: center;
   gap: 7px;
   border-radius: 999px;
+  border: 1px solid var(--tag-border);
   background: var(--tag-bg);
   color: var(--tag-text);
-  border: 1px solid var(--tag-border);
   font-size: 0.82rem;
   font-weight: 850;
+  box-shadow: var(--glow-soft);
 }
 
 .remove-tag-btn {
@@ -4698,67 +3957,79 @@ onBeforeUnmount(() => {
   color: inherit;
   cursor: pointer;
   font-size: 1rem;
-  line-height: 1;
   font-weight: 950;
 }
 
-.remove-tag-btn:hover {
-  color: #ffffff;
-}
+.remove-tag-btn:hover { color: var(--editor-danger); }
 
 .tag-input {
-  min-width: 220px;
-  height: 32px;
-  padding: 0 13px;
-  border: 1px dashed var(--tag-input-border);
+  min-width: 240px;
+  height: 36px;
+  padding: 0 16px;
+  border: 1px dashed var(--surface-border-strong);
   border-radius: 999px;
-  background: var(--tag-input-bg);
-  color: var(--tag-input-text);
   outline: none;
+  background: var(--surface-0);
+  color: var(--text-main);
   font-family: inherit;
-  font-size: 0.85rem;
+  font-size: 0.86rem;
+  font-weight: 820;
+  letter-spacing: 0.01em;
+  box-shadow: var(--panel-shadow-soft);
 }
 
 .tag-input::placeholder {
-  color: var(--tag-input-placeholder);
+  color: var(--text-muted);
 }
 
 .tag-input:focus {
-  border-color: var(--tag-input-focus-border);
-  box-shadow: var(--tag-input-focus-shadow);
+  border-color: var(--editor-accent);
+  box-shadow: 0 0 0 3px rgba(120, 108, 255, 0.12), var(--glow-soft);
 }
 
 /* =========================
-   Document Shell - Refined HUD Frame
+   Document shell
 ========================= */
 
 .document-shell {
   position: relative;
   width: 920px;
   min-height: calc(100vh - 300px);
-
-  padding: 56px 50px;
-
+  padding: 56px 52px 72px;
   background: var(--document-bg);
   border: 1px solid var(--document-border);
-  border-radius: 6px;
-
-  box-shadow: var(--document-shadow);
-
+  border-radius: 8px;
+  clip-path: polygon(18px 0, calc(100% - 18px) 0, 100% 18px, 100% calc(100% - 18px), calc(100% - 18px) 100%, 18px 100%, 0 calc(100% - 18px), 0 18px);
+  box-shadow: var(--panel-shadow), var(--glow-soft);
   overflow: hidden;
 }
 
 .document-shell::before {
   content: '';
-
   position: absolute;
-  inset: 12px;
-
-  border: 1px solid var(--document-inner-border);
-  border-radius: 7px;
-
+  inset: 14px;
+  border: 1px solid var(--document-inner);
   pointer-events: none;
   z-index: 0;
+}
+
+.document-shell::after {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    linear-gradient(var(--editor-accent), var(--editor-accent)) left top / 54px 2px no-repeat,
+    linear-gradient(var(--editor-accent), var(--editor-accent)) left top / 2px 54px no-repeat,
+    linear-gradient(var(--editor-accent), var(--editor-accent)) right bottom / 54px 2px no-repeat,
+    linear-gradient(var(--editor-accent), var(--editor-accent)) right bottom / 2px 54px no-repeat,
+    linear-gradient(var(--editor-accent-2), var(--editor-accent-2)) right top / 34px 1px no-repeat,
+    linear-gradient(var(--editor-accent-2), var(--editor-accent-2)) right top / 1px 34px no-repeat,
+    linear-gradient(var(--editor-accent-2), var(--editor-accent-2)) left bottom / 34px 1px no-repeat,
+    linear-gradient(var(--editor-accent-2), var(--editor-accent-2)) left bottom / 1px 34px no-repeat;
+  opacity: 0.44;
+  filter: drop-shadow(0 0 10px rgba(120, 108, 255, 0.28));
 }
 
 .tiptap-content {
@@ -4768,84 +4039,33 @@ onBeforeUnmount(() => {
 
 .tiptap-content :deep(.ProseMirror) {
   position: relative;
-
-  min-height: 220px;
-  padding-bottom: 0;
-
+  min-height: 240px;
   outline: none;
   color: var(--document-text);
   font-size: 18px;
   line-height: 1.85;
 }
 
-.tiptap-content :deep(.ProseMirror)::before,
-.tiptap-content :deep(.ProseMirror)::after {
-  content: '';
-
-  position: absolute;
-
-  width: 48px;
-  height: 48px;
-
-  pointer-events: none;
-  z-index: 3;
-}
-
 .tiptap-content :deep(.ProseMirror p) {
   margin: 0 0 1rem;
 }
 
-.tiptap-content :deep(.ProseMirror h1) {
-  margin: 1.5rem 0 1rem;
-  color: var(--document-heading);
-  font-size: 2.25rem;
-  line-height: 1;
-  font-weight: 950;
-  letter-spacing: -0.035em;
-}
-
-.tiptap-content :deep(.ProseMirror h2) {
-  margin: 1.4rem 0 0.8rem;
-  color: var(--document-heading);
-  font-size: 1.65rem;
-  line-height: 1;
-  font-weight: 900;
-  letter-spacing: -0.02em;
-}
-
-.tiptap-content :deep(.ProseMirror h3) {
-  margin: 1.2rem 0 0.75rem;
-  color: var(--document-heading);
-  font-size: 1.35rem;
-  line-height: 1;
-  font-weight: 900;
-}
-
-.tiptap-content :deep(.ProseMirror h4) {
-  margin: 1.1rem 0 0.7rem;
-  color: var(--document-heading);
-  font-size: 1.18rem;
-  line-height: 1;
-  font-weight: 850;
-}
-
-.tiptap-content :deep(.ProseMirror h5) {
-  margin: 1rem 0 0.6rem;
-  color: var(--document-heading);
-  font-size: 1rem;
-  line-height: 1;
-  font-weight: 850;
-}
-
+.tiptap-content :deep(.ProseMirror h1),
+.tiptap-content :deep(.ProseMirror h2),
+.tiptap-content :deep(.ProseMirror h3),
+.tiptap-content :deep(.ProseMirror h4),
+.tiptap-content :deep(.ProseMirror h5),
 .tiptap-content :deep(.ProseMirror h6) {
-  margin: 0.9rem 0 0.55rem;
   color: var(--document-heading);
-  font-size: 0.88rem;
-  line-height: 1;
-  font-weight: 900;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-weight: 950;
 }
+
+.tiptap-content :deep(.ProseMirror h1) { margin: 1.5rem 0 1rem; font-size: 2.25rem; line-height: 1.08; letter-spacing: -0.035em; }
+.tiptap-content :deep(.ProseMirror h2) { margin: 1.35rem 0 0.85rem; font-size: 1.68rem; line-height: 1.12; letter-spacing: -0.02em; }
+.tiptap-content :deep(.ProseMirror h3) { margin: 1.2rem 0 0.75rem; font-size: 1.36rem; line-height: 1.18; }
+.tiptap-content :deep(.ProseMirror h4) { margin: 1.1rem 0 0.7rem; font-size: 1.18rem; line-height: 1.2; }
+.tiptap-content :deep(.ProseMirror h5) { margin: 1rem 0 0.6rem; font-size: 1rem; line-height: 1.2; }
+.tiptap-content :deep(.ProseMirror h6) { margin: 0.9rem 0 0.55rem; font-size: 0.88rem; line-height: 1.2; letter-spacing: 0.06em; text-transform: uppercase; }
 
 .tiptap-content :deep(.ProseMirror ul),
 .tiptap-content :deep(.ProseMirror ol) {
@@ -4853,9 +4073,7 @@ onBeforeUnmount(() => {
   padding-left: 1.55rem;
 }
 
-.tiptap-content :deep(.ProseMirror li) {
-  margin: 0.35rem 0;
-}
+.tiptap-content :deep(.ProseMirror li) { margin: 0.35rem 0; }
 
 .tiptap-content :deep(.nova-link),
 .tiptap-content :deep(.ProseMirror a) {
@@ -4871,7 +4089,7 @@ onBeforeUnmount(() => {
 }
 
 /* =========================
-   Resizable Media Node
+   Media nodes
 ========================= */
 
 .tiptap-content :deep(.nova-media-node) {
@@ -4885,7 +4103,7 @@ onBeforeUnmount(() => {
 }
 
 .tiptap-content :deep(.nova-media-node.is-selected) {
-  outline: 2px solid var(--media-accent-outline);
+  outline: 2px solid rgba(120, 108, 255, 0.56);
   outline-offset: 5px;
 }
 
@@ -4899,18 +4117,11 @@ onBeforeUnmount(() => {
   object-fit: contain;
   user-select: none;
   -webkit-user-drag: none;
-  box-shadow:
-    0 12px 30px rgba(31, 36, 48, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  box-shadow: 0 14px 36px rgba(10, 16, 32, 0.14);
 }
 
-.tiptap-content :deep(.nova-resizable-image) {
-  width: 100%;
-}
-
-.tiptap-content :deep(.nova-editor-image) {
-  margin: 18px 0;
-}
+.tiptap-content :deep(.nova-resizable-image) { width: 100%; }
+.tiptap-content :deep(.nova-editor-image) { margin: 18px 0; }
 
 .tiptap-content :deep(.nova-resizable-video),
 .tiptap-content :deep(.nova-video-wrapper) {
@@ -4920,66 +4131,125 @@ onBeforeUnmount(() => {
   overflow: hidden;
   border-radius: 16px;
   border: 1px solid var(--document-border);
-  background: #0c0f18;
-  box-shadow:
-    0 16px 36px rgba(31, 36, 48, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  background: #050714;
+  box-shadow: 0 16px 38px rgba(10, 16, 32, 0.18);
 }
 
-.tiptap-content :deep(.nova-resizable-video) {
-  width: 100%;
-}
-
-.tiptap-content :deep(.nova-video-wrapper) {
-  margin: 22px 0;
-}
-
-.tiptap-content :deep(.nova-video-frame) {
-  width: 100%;
-  height: 100%;
-  display: block;
-  border: none;
-}
+.tiptap-content :deep(.nova-resizable-video) { width: 100%; }
+.tiptap-content :deep(.nova-video-wrapper) { margin: 22px 0; }
+.tiptap-content :deep(.nova-video-frame) { width: 100%; height: 100%; display: block; border: none; }
 
 .tiptap-content :deep(.media-resize-dot) {
   position: absolute;
   right: -10px;
   bottom: -10px;
   z-index: 20;
-
   width: 18px;
   height: 18px;
   padding: 0;
-
   border-radius: 999px;
-  border: 3px solid var(--media-dot-border);
-  background: var(--media-accent);
-
+  border: 3px solid var(--surface-2);
+  background: var(--editor-accent);
   cursor: nwse-resize;
-
-  box-shadow:
-    0 0 0 1px var(--media-accent-shadow),
-    0 0 16px var(--media-accent-shadow),
-    0 8px 18px rgba(31, 36, 48, 0.25);
+  box-shadow: 0 0 0 1px rgba(120, 108, 255, 0.36), 0 0 18px rgba(120, 108, 255, 0.36);
 }
 
-.tiptap-content :deep(.media-resize-dot:hover) {
-  transform: scale(1.08);
-  background: var(--media-accent-hover);
-  box-shadow:
-    0 0 0 1px var(--media-accent-shadow),
-    0 0 22px var(--media-accent-shadow),
-    0 10px 22px rgba(31, 36, 48, 0.28);
-}
-
-:global(body.is-resizing-media) {
-  cursor: nwse-resize !important;
-  user-select: none !important;
-}
-
+:global(body.is-resizing-media),
 :global(body.is-resizing-media *) {
   cursor: nwse-resize !important;
   user-select: none !important;
+}
+
+/* =========================
+   Selection bubble
+========================= */
+
+.selection-bubble-menu {
+  position: fixed;
+  z-index: 99999;
+  width: fit-content;
+  max-width: calc(100vw - 32px);
+  padding: 7px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid var(--surface-border-strong);
+  border-radius: 14px;
+  background: var(--surface-0);
+  color: var(--text-main);
+  box-shadow: var(--panel-shadow), var(--glow-soft);
+}
+
+.bubble-btn {
+  position: relative;
+  width: 34px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--text-soft);
+  cursor: pointer;
+  font-size: 0.88rem;
+  font-weight: 900;
+}
+
+.bubble-btn:hover,
+.bubble-btn.active {
+  background: var(--control-bg-hover);
+  border-color: var(--surface-border-strong);
+  color: var(--editor-accent);
+}
+
+.bubble-btn i,
+.bubble-btn span { color: inherit; }
+
+.bubble-select {
+  height: 32px;
+  padding: 0 9px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.bubble-select.font { width: 118px; }
+.bubble-select.size { width: 72px; }
+
+.bubble-color-palette {
+  position: absolute;
+  top: 44px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100000;
+  width: 330px;
+}
+
+.bubble-text-align-menu,
+.bubble-line-height-menu {
+  top: 44px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100000;
+}
+
+.bubble-text-align-menu {
+  width: 214px;
+  padding: 9px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.bubble-line-height-menu {
+  width: 210px;
+  padding: 10px 0;
+}
+
+.bubble-text-align-btn,
+.bubble-line-height-btn {
+  width: 36px;
+  min-width: 36px;
 }
 
 /* =========================
@@ -4993,33 +4263,31 @@ onBeforeUnmount(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--modal-mask-bg);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: var(--modal-mask);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .link-modal {
   width: min(440px, 92vw);
   padding: 28px;
-  border-radius: 24px;
-  border: 1px solid var(--modal-border);
+  border-radius: 18px;
+  border: 1px solid var(--surface-border-strong);
   background: var(--modal-bg);
-  color: var(--modal-text);
-  box-shadow:
-    0 24px 70px rgba(25, 32, 48, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  color: var(--text-main);
+  box-shadow: var(--panel-shadow), var(--glow-soft);
 }
 
 .link-modal h3 {
   margin: 0 0 8px;
-  color: var(--modal-title);
+  color: var(--text-main);
   font-size: 1.45rem;
   font-weight: 950;
 }
 
 .modal-hint {
   margin: 0 0 22px;
-  color: var(--modal-muted);
+  color: var(--text-muted);
   font-size: 0.88rem;
   line-height: 1.65;
 }
@@ -5027,7 +4295,7 @@ onBeforeUnmount(() => {
 .link-modal label {
   display: block;
   margin: 14px 0 8px;
-  color: var(--modal-title);
+  color: var(--text-main);
   font-weight: 850;
 }
 
@@ -5035,22 +4303,11 @@ onBeforeUnmount(() => {
   width: 100%;
   height: 42px;
   padding: 0 12px;
-  border: 1px solid var(--modal-input-border);
-  border-radius: 8px;
-  background: var(--modal-input-bg);
-  color: var(--modal-input-text);
-  outline: none;
-  font-family: inherit;
-  font-weight: 800;
+  font-size: 0.92rem;
 }
 
 .modal-input::placeholder {
-  color: var(--modal-input-placeholder);
-}
-
-.modal-input:focus {
-  border-color: var(--modal-input-focus-border);
-  box-shadow: var(--modal-input-focus-shadow);
+  color: var(--text-muted);
 }
 
 .modal-actions {
@@ -5063,438 +4320,69 @@ onBeforeUnmount(() => {
 .confirm-btn {
   flex: 1;
   height: 44px;
-  border-radius: 8px;
+  border-radius: 9px;
   cursor: pointer;
   font-family: inherit;
   font-weight: 950;
 }
 
 .cancel-btn {
-  background: var(--cancel-btn-bg);
-  color: var(--cancel-btn-text);
-  border: 1px solid var(--cancel-btn-border);
+  background: var(--control-bg);
+  color: var(--control-text);
+  border: 1px solid var(--control-border);
 }
 
 .cancel-btn:hover {
-  background: var(--cancel-btn-hover-bg);
+  background: var(--control-bg-hover);
+  border-color: var(--control-border-hover);
 }
 
 .confirm-btn {
-  background: var(--confirm-btn-bg);
-  color: var(--confirm-btn-text);
-  border: 1px solid var(--confirm-btn-border);
-  box-shadow: var(--confirm-btn-shadow);
+  background: linear-gradient(135deg, var(--editor-accent), #5d52e8);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: var(--glow-strong);
 }
 
 .confirm-btn:hover {
-  background: var(--confirm-btn-hover-bg);
-  box-shadow: var(--confirm-btn-hover-shadow);
-  filter: none;
+  filter: brightness(1.06);
+  box-shadow: 0 0 0 5px rgba(120, 108, 255, 0.14), var(--glow-strong);
 }
 
 /* =========================
-   Selection Bubble Menu
+   Tippy / Slash command
 ========================= */
 
-.selection-bubble-menu {
-  position: fixed;
-  z-index: 99999;
-
-  width: fit-content;
-  max-width: calc(100vw - 32px);
-  padding: 7px;
-
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-
-  border-radius: 16px;
-  border: 1px solid var(--floating-border);
-  background: var(--floating-bg);
-  color: var(--floating-text);
-  box-shadow: var(--floating-shadow);
-
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-}
-
-.bubble-btn {
-  position: relative;
-
-  width: 34px;
-  height: 32px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 1px solid transparent;
-  border-radius: 9px;
-  background: transparent;
-  color: var(--floating-text);
-
-  cursor: pointer;
-  font-family: inherit;
-  font-size: 0.88rem;
-  font-weight: 900;
-
-  opacity: 1;
-}
-
-.bubble-btn i,
-.bubble-btn svg,
-.bubble-btn span {
-  color: inherit;
-}
-
-.bubble-btn:hover,
-.bubble-btn.active {
-  background: var(--floating-hover-bg);
-  border-color: var(--floating-active-border);
-  color: var(--floating-active-text);
-}
-
-.bubble-btn:disabled {
-  color: var(--floating-muted);
-  opacity: 1;
-  background: transparent;
-  border-color: transparent;
-  cursor: not-allowed;
-}
-
-.bubble-btn.link:hover {
-  background: var(--editor-accent-soft);
-  border-color: var(--editor-accent-border);
-}
-
-.bubble-divider {
-  width: 1px;
-  height: 24px;
-  margin: 0 3px;
-  background: var(--toolbar-divider);
-}
-
-.bubble-select {
-  height: 32px;
-  padding: 0 9px;
-
-  border: 1px solid var(--toolbar-select-border);
-  border-radius: 9px;
-  background: var(--toolbar-select-bg);
-  color: var(--toolbar-select-text);
-
-  outline: none;
-  font-family: inherit;
-  font-size: 0.8rem;
-  font-weight: 850;
-  cursor: pointer;
-}
-
-.bubble-select.font {
-  width: 118px;
-}
-
-.bubble-select.size {
-  width: 72px;
-}
-
-.bubble-select:hover,
-.bubble-select:focus {
-  border-color: var(--editor-accent);
-  box-shadow: 0 0 0 3px var(--editor-accent-soft);
-}
-
-.bubble-color-icon,
-.bubble-marker-icon-wrap {
-  position: relative;
-  width: 28px;
-  height: 32px;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  color: var(--floating-text);
-  font-size: 1rem;
-  font-weight: 950;
-}
-
-.bubble-marker-icon-wrap {
-  height: 28px;
-}
-
-.bubble-marker-icon {
-  width: 34px;
-  object-fit: contain;
-  display: block;
-  pointer-events: none;
-  filter: saturate(0.82);
-}
-
-.bubble-color-line {
-  position: absolute;
-  left: 3px;
-  right: 3px;
-  bottom: 1px;
-
-  height: 4px;
-  border-radius: 999px;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.34),
-    0 1px 3px rgba(0, 0, 0, 0.16);
-}
-
-.bubble-marker-icon-wrap .bubble-color-line {
-  left: 4px;
-  right: 4px;
-  bottom: -1px;
-}
-
-.bubble-color-palette {
-  position: absolute;
-  top: 44px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100000;
-  width: 330px;
-}
-
-.bubble-text-align-tool,
-.bubble-line-height-tool {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-}
-
-.bubble-text-align-btn {
-  width: 36px;
-  min-width: 36px;
-}
-
-.bubble-text-align-btn i {
-  font-size: 0.95rem;
-}
-
-.bubble-text-align-menu,
-.bubble-line-height-menu {
-  position: absolute;
-  top: 44px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100000;
-
-  border-radius: 14px;
-  border: 1px solid var(--floating-border);
-  background: var(--floating-bg);
-  color: var(--floating-text);
-  box-shadow: var(--floating-shadow);
-
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-.bubble-text-align-menu {
-  width: 214px;
-  padding: 9px;
-
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
-}
-
-.bubble-line-height-btn {
-  width: 38px;
-  min-width: 38px;
-}
-
-.bubble-line-height-menu {
-  width: 210px;
-  padding: 10px 0;
-}
-
-/* =========================================================
-   Tag Input - Sci-Fi Style
-   新增標籤輸入框樣式
-   放在 EditorView.vue <style scoped> 最下面
-========================================================= */
-
-.tag-input {
-  min-width: 245px;
-  height: 40px;
-
-  padding: 0 18px 0 20px;
-
-  color: rgba(232, 236, 255, 0.88);
-
-  background:
-    radial-gradient(circle at 18% 0%, rgba(143, 124, 255, 0.12), transparent 48%),
-    linear-gradient(180deg, rgba(8, 12, 30, 0.76), rgba(4, 8, 22, 0.88)) !important;
-
-  border: 1px dashed rgba(160, 140, 255, 0.42) !important;
-  border-radius: 999px;
-
-  outline: none;
-
-  font-family: inherit;
-  font-size: 0.9rem;
-  font-weight: 850;
-  letter-spacing: 0.02em;
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.018),
-    inset 0 0 18px rgba(126, 94, 255, 0.035),
-    0 0 14px rgba(126, 94, 255, 0.08);
-
-  transition:
-    color 0.18s ease,
-    background 0.18s ease,
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
-}
-
-.tag-input::placeholder {
-  color: rgba(198, 190, 235, 0.56);
-}
-
-.tag-input:hover {
-  border-color: rgba(180, 160, 255, 0.58) !important;
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.022),
-    inset 0 0 20px rgba(126, 94, 255, 0.045),
-    0 0 18px rgba(126, 94, 255, 0.12);
-}
-
-.tag-input:focus {
-  color: #ffffff;
-
-  border-color: rgba(190, 170, 255, 0.86) !important;
-
-  background:
-    radial-gradient(circle at 18% 0%, rgba(165, 140, 255, 0.18), transparent 50%),
-    linear-gradient(180deg, rgba(10, 14, 36, 0.9), rgba(5, 9, 25, 0.96)) !important;
-
-  box-shadow:
-    0 0 0 3px rgba(126, 94, 255, 0.14),
-    0 0 24px rgba(126, 94, 255, 0.22),
-    inset 0 0 18px rgba(165, 140, 255, 0.05);
-}
-
-/* 淺色模式下的新標籤輸入框 */
-.editor-page:not(.dark-editor) .tag-input {
-  color: #35405f;
-
-  background:
-    radial-gradient(circle at 18% 0%, rgba(143, 124, 255, 0.12), transparent 48%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(238, 243, 255, 0.88)) !important;
-
-  border-color: rgba(120, 110, 220, 0.32) !important;
-
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.55),
-    0 0 14px rgba(143, 124, 255, 0.08);
-}
-
-.editor-page:not(.dark-editor) .tag-input::placeholder {
-  color: rgba(75, 85, 120, 0.52);
-}
-
-.editor-page:not(.dark-editor) .tag-input:focus {
-  color: #1f2450;
-
-  background:
-    radial-gradient(circle at 18% 0%, rgba(143, 124, 255, 0.16), transparent 50%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(242, 245, 255, 0.96)) !important;
-
-  border-color: rgba(120, 110, 220, 0.66) !important;
-
-  box-shadow:
-    0 0 0 3px rgba(143, 124, 255, 0.12),
-    0 0 22px rgba(143, 124, 255, 0.16),
-    inset 0 0 16px rgba(143, 124, 255, 0.04);
-}
-
-/* =========================
-   Tippy / Slash Command
-========================= */
-
-:global(.tippy-box) {
-  max-width: none !important;
-}
-
-:global(.tippy-content) {
-  padding: 0 !important;
-}
-
-:global(.tippy-box[data-theme~='light']) {
-  background: transparent !important;
-}
+:global(.tippy-box) { max-width: none !important; }
+:global(.tippy-content) { padding: 0 !important; }
+:global(.tippy-box[data-theme~='light']) { background: transparent !important; }
 
 /* =========================
    Responsive
 ========================= */
 
 @media (max-width: 1280px) {
-  .editor-toolbar {
-    padding: 10px 32px;
-    flex-wrap: wrap;
-    overflow: visible;
-  }
-
-  .toolbar-select {
-    min-width: 92px;
-  }
-
-  .font-select {
-    min-width: 170px;
-  }
-
-  .heading-select {
-    min-width: 120px;
-  }
-
-  .size-select {
-    width: 76px;
-    min-width: 76px;
-  }
+  .editor-toolbar { padding: 10px 32px; }
+  .font-select { min-width: 170px; }
+  .heading-select { min-width: 120px; }
+  .size-select { width: 76px; min-width: 76px; }
 }
 
 @media (max-width: 1100px) {
   .editor-main {
     grid-template-columns: 1fr;
+    gap: 28px;
     padding: 40px 24px 40px;
-    min-height: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
   }
 
-  .mention-panel {
-    order: 2;
-  }
-
-  .editor-content-column {
-    order: 1;
-  }
-
-  .document-shell {
-    width: 100%;
-    padding: 50px 50px 80px;
-    min-height: auto;
-  }
+  .mention-panel { order: 2; position: relative; top: auto; }
+  .editor-content-column { order: 1; }
+  .document-shell { width: 100%; min-height: auto; padding: 50px 48px 76px; }
 }
 
 @media (max-width: 760px) {
-  .editor-tabs-row {
-    padding: 6px 14px 0;
-  }
-
-  .editor-tabs-row::after {
-    left: 14px;
-    right: 14px;
-  }
+  .editor-tabs-row { padding: 6px 14px 0; }
+  .editor-tabs-row::after { left: 14px; right: 14px; }
 
   .editor-tabs-row :deep(.tab),
   .editor-tabs-row :deep(.editor-tab),
@@ -5507,62 +4395,184 @@ onBeforeUnmount(() => {
   }
 
   .editor-header {
-    position: relative;
-    top: auto;
     height: auto;
     min-height: 64px;
     flex: 0 0 auto;
-
     padding: 12px 18px;
     align-items: flex-start;
     gap: 12px;
   }
 
-  .header-left {
-    flex-wrap: wrap;
-  }
-
-  .title-slot {
-    width: 220px;
-    min-width: 180px;
-  }
-
-  .toolbar-area {
-    position: relative;
-    top: auto;
-  }
+  .header-left { flex-wrap: wrap; }
+  .header-right { margin-left: auto; }
+  .title-slot { width: 220px; min-width: 180px; }
+  .doc-title-input { font-size: 1.16rem; }
 
   .editor-toolbar {
     padding: 8px 18px;
-    overflow: visible;
-    flex-wrap: wrap;
-    align-items: center;
     gap: 8px;
   }
 
+  .editor-main {
+    padding: 28px 16px 34px;
+  }
+
   .document-shell {
-    padding: 34px 30px 64px;
-    min-height: auto;
+    padding: 34px 28px 64px;
+  }
+
+  .document-shell::before,
+  .document-shell::after {
+    inset: 10px;
   }
 
   .tiptap-content :deep(.ProseMirror) {
     min-height: 180px;
-    padding-bottom: 0;
     font-size: 16px;
   }
 
-  .tiptap-content::before,
-  .tiptap-content::after,
-  .tiptap-content :deep(.ProseMirror)::before,
-  .tiptap-content :deep(.ProseMirror)::after {
-    display: none;
+  .selection-bubble-menu {
+    max-width: calc(100vw - 16px);
+    overflow-x: auto;
   }
 
-  .tiptap-content :deep(.media-resize-dot) {
+  .color-palette,
+  .bubble-color-palette {
+    width: 304px;
+  }
+
+  .palette-grid {
+    grid-template-columns: repeat(10, 22px);
+    gap: 6px;
+  }
+
+  .palette-color-dot {
     width: 22px;
     height: 22px;
-    right: -11px;
-    bottom: -11px;
   }
+}
+
+/* =========================================================
+   Force Remove Global Fog Overlay
+   強制移除淺色模式整頁霧層
+========================================================= */
+
+:global(html),
+:global(body),
+:global(#app) {
+  opacity: 1 !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.editor-page,
+.editor-page::before,
+.editor-page::after,
+.editor-page > * {
+  opacity: 1 !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 淺色模式先完全關掉背景網格，確認霧感是不是背景層造成 */
+.editor-page:not(.dark-editor)::before,
+.editor-page:not(.dark-editor)::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* 淺色模式主體強制實色 */
+.editor-page:not(.dark-editor) {
+  background: #f6f8ff !important;
+  color: #172033 !important;
+}
+
+/* 所有主要容器強制不要透明 */
+.editor-page:not(.dark-editor) .editor-tabs-row,
+.editor-page:not(.dark-editor) .editor-header,
+.editor-page:not(.dark-editor) .toolbar-area,
+.editor-page:not(.dark-editor) .editor-toolbar,
+.editor-page:not(.dark-editor) .mention-panel,
+.editor-page:not(.dark-editor) .document-shell,
+.editor-page:not(.dark-editor) .tag-input,
+.editor-page:not(.dark-editor) .tag-pill {
+  opacity: 1 !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* 文字強制加深 */
+.editor-page:not(.dark-editor) .doc-title-input,
+.editor-page:not(.dark-editor) .back-btn,
+.editor-page:not(.dark-editor) .toolbar-btn,
+.editor-page:not(.dark-editor) .toolbar-select,
+.editor-page:not(.dark-editor) .save-status,
+.editor-page:not(.dark-editor) .mention-title,
+.editor-page:not(.dark-editor) .mention-empty,
+.editor-page:not(.dark-editor) .tag-input,
+.editor-page:not(.dark-editor) .tag-pill,
+.editor-page:not(.dark-editor) .tiptap-content :deep(.ProseMirror),
+.editor-page:not(.dark-editor) .tiptap-content :deep(.ProseMirror *) {
+  opacity: 1 !important;
+  filter: none !important;
+  color: #1a2235 !important;
+}
+
+/* 標題特別加深 */
+.editor-page:not(.dark-editor) .tiptap-content :deep(.ProseMirror h1),
+.editor-page:not(.dark-editor) .tiptap-content :deep(.ProseMirror h2),
+.editor-page:not(.dark-editor) .tiptap-content :deep(.ProseMirror h3),
+.editor-page:not(.dark-editor) .tiptap-content :deep(.ProseMirror h4),
+.editor-page:not(.dark-editor) .tiptap-content :deep(.ProseMirror h5),
+.editor-page:not(.dark-editor) .tiptap-content :deep(.ProseMirror h6) {
+  color: #111827 !important;
+}
+
+/* 文件框直接改白底，排除透明霧感 */
+.editor-page:not(.dark-editor) .document-shell {
+  background: #ffffff !important;
+  border: 1px solid rgba(143, 124, 255, 0.28) !important;
+  box-shadow:
+    0 18px 46px rgba(70, 80, 130, 0.12) !important;
+}
+
+/* 提及區直接改白底 */
+.editor-page:not(.dark-editor) .mention-panel {
+  background: #ffffff !important;
+  border: 1px solid rgba(143, 124, 255, 0.22) !important;
+  box-shadow:
+    0 16px 36px rgba(70, 80, 130, 0.1) !important;
+}
+
+.editor-page:not(.dark-editor) .mention-panel::before,
+.editor-page:not(.dark-editor) .document-shell::before {
+  opacity: 0.18 !important;
+}
+
+.editor-page:not(.dark-editor) .tiptap-content :deep(.nova-link),
+.editor-page:not(.dark-editor) .tiptap-content :deep(.ProseMirror a) {
+  color: #2563eb !important;
+  text-decoration-color: rgba(37, 99, 235, 0.65) !important;
+}
+
+/* =========================================================
+   Selection Bubble Fix
+   修正選取文字懸浮工具列被文件框 clip-path 裁切
+========================================================= */
+
+.selection-bubble-menu {
+  position: fixed !important;
+  z-index: 2147483647 !important;
+  overflow: visible !important;
+}
+
+.selection-bubble-menu .color-palette,
+.selection-bubble-menu .bubble-color-palette,
+.selection-bubble-menu .bubble-text-align-menu,
+.selection-bubble-menu .bubble-line-height-menu {
+  z-index: 2147483647 !important;
 }
 </style>

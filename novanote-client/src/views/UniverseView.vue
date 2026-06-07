@@ -1576,7 +1576,7 @@ onBeforeUnmount(() => {
   padding: 26px 26px 24px;
 
   transform-origin: top right;
-  transform: scale(0.5);
+  transform: scale(0.55);
 
   color: #e5e8ff;
 
