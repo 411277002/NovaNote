@@ -5,13 +5,10 @@ import { noteAPI, planetAPI } from '../api'
 import { useEditorTabsStore } from './editorTabs'
 
 export const useNotesStore = defineStore('notes', () => {
-  // --- 狀態 State ---
   const allNotes = ref([])
   const planets = ref([])
   const loading = ref(false)
   const error = ref(null)
-
-  // --- 計算屬性 Getters ---
 
   // 漂浮筆記：沒有歸屬星球的筆記
   const floatingNotes = computed(() => {

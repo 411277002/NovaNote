@@ -1,9 +1,10 @@
 import axios from 'axios';
 
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3000/api'
+
 // 建立 Axios 實例
 const api = axios.create({
-  // 指向你的後端 API 地址
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
+  baseURL: API_BASE,
   headers: {
     'Content-Type': 'application/json'
   }
