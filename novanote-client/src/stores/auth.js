@@ -4,66 +4,89 @@ import api from '../services/api';
 
 export const useAuthStore = defineStore('auth', () => {
   // --- 狀態 (State) ---
-  
-  // 嘗試從 localStorage 恢復 token 和用戶資訊
+
   const token = ref(localStorage.getItem('token') || null);
-  const user = ref(JSON.parse(localStorage.getItem('user')) || null);
+
+  const savedUser = localStorage.getItem('user');
+
+  let parsedUser = null;
+
+  if (savedUser) {
+    try {
+      parsedUser = JSON.parse(savedUser);
+    } catch (err) {
+      console.warn('localStorage user 資料格式錯誤，已清除', err);
+      localStorage.removeItem('user');
+    }
+  }
+
+  const user = ref(parsedUser);
 
   // --- 計算屬性 (Getters) ---
   const isLoggedIn = computed(() => !!token.value);
 
   // --- 行動 (Actions) ---
 
-  // 1. 登入邏輯
+  // 1. 登入
   const login = async (credentials) => {
     try {
       const res = await api.post('/auth/login', credentials);
-      
-      // 儲存到變數
+
       token.value = res.data.token;
       user.value = res.data.user;
 
-      // 持久化儲存到瀏覽器 (這樣重新整理才不會消失)
       localStorage.setItem('token', token.value);
       localStorage.setItem('user', JSON.stringify(user.value));
 
-      // 設定 API 的全域 Header，讓之後的請求都帶著 Token
-      api.defaults.headers.common['Authorization'] = `Bearer ${token.value}`;
-      
+      api.defaults.headers.common['Authorization'] =
+        `Bearer ${token.value}`;
+
       return res.data;
     } catch (err) {
-      const errorMsg = err.response?.data?.msg || '登入失敗，請檢查網路';
-      console.error("登入報錯詳細資訊:", errorMsg);
+      const errorMsg =
+        err.response?.data?.error ||
+        err.response?.data?.msg ||
+        '登入失敗，請檢查網路';
+
+      console.error('登入報錯詳細資訊:', errorMsg);
+
       throw new Error(errorMsg);
     }
   };
 
-  // 2. 註冊邏輯
+  // 2. 註冊
   const register = async (userData) => {
     try {
       const res = await api.post('/auth/register', userData);
       return res.data;
     } catch (err) {
-      console.error("註冊失敗:", err.response?.data?.msg || err.message);
+      console.error(
+        '註冊失敗:',
+        err.response?.data?.error ||
+        err.response?.data?.msg ||
+        err.message
+      );
+
       throw err;
     }
   };
 
-  // 3. 登出邏輯
+  // 3. 登出
   const logout = () => {
     token.value = null;
     user.value = null;
+
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-    
-    // 清除 API 的 Header
+
     delete api.defaults.headers.common['Authorization'];
   };
 
-  // 4. 初始化檢查 (當 App 啟動時執行)
+  // 4. App 啟動時恢復登入狀態
   const initAuth = () => {
     if (token.value) {
-      api.defaults.headers.common['Authorization'] = `Bearer ${token.value}`;
+      api.defaults.headers.common['Authorization'] =
+        `Bearer ${token.value}`;
     }
   };
 
