@@ -90,3 +90,4 @@ temp
 # =========================
 *.pem
 **/*.pem
+!novanote-server/config/ca.pem
