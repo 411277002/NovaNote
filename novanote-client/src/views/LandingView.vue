@@ -1,57 +1,46 @@
 <template>
-  <div
-    class="landing-container"
-    :style="{ '--landing-bg-image': `url(${landingBg})` }"
-  >
-    <!-- 背景圖層 -->
-    <div class="landing-bg"></div>
-
-    <!-- 額外粒子層：讓背景更有宇宙漂浮感 -->
-    <div class="particle-field">
+  <div class="landing-container" :style="{ '--landing-bg-image': `url(${landingBg})` }">
+    <div class="landing-bg" aria-hidden="true"></div>
+    <div class="particle-field" aria-hidden="true">
       <div class="particles layer-1"></div>
       <div class="particles layer-2"></div>
       <div class="particles layer-3"></div>
     </div>
+    <div class="hud-overlay" aria-hidden="true"><div class="center-glow"></div></div>
+    <div class="vignette-layer" aria-hidden="true"></div>
 
-    <!-- 掃描 / HUD 光線 -->
-    <div class="hud-overlay">
-      <div class="center-glow"></div>
-    </div>
-
-    <!-- 暗角，讓文字更清楚 -->
-    <div class="vignette-layer"></div>
-
-    <main class="hero-section">
-      <div class="hero-content">
-        <div class="brand-header">
-          <h1 class="main-title">NOVANOTE</h1>
-        </div>
-
-        <p class="hero-tagline">MAPPING THE GALAXY OF YOUR THOUGHTS</p>
-
-        <div class="cta-wrapper">
-          <button class="launch-btn" @click="showAuth = true">
-            <div class="btn-scanner"></div>
-            <span class="btn-text">LAUNCH INTERFACE</span>
-          </button>
-
-          <p class="btn-hint">CLICK TO ACCESS THE GALAXY</p>
-        </div>
-
-        <div class="footer-metadata">
-          <div class="meta-item">VER: 3.0.415</div>
-          <div class="meta-item">ENCRYPTION: AES-256</div>
-          <div class="meta-item">COORD: 22.62, 120.30</div>
-        </div>
+    <header class="site-header">
+      <a class="brand-lockup" href="/" aria-label="NovaNote 首頁">
+        <span class="brand-orbit" aria-hidden="true"><span></span></span>
+        <span>NovaNote</span>
+      </a>
+      <nav class="main-nav" aria-label="主要導覽">
+        <a href="#product">Product</a>
+        <a href="#features">Features</a>
+        <a href="#about">About</a>
+      </nav>
+      <div class="header-actions">
+        <button class="sign-in-link" type="button" @click="openAuth('register')">Sign In</button>
+        <button class="header-cta" type="button" @click="openAuth('login')">Get Started</button>
       </div>
+    </header>
+
+    <main id="product" class="cover-main">
+      <section class="cover-copy">
+        <p class="eyebrow">IDEAS ORBIT FURTHER</p>
+        <h1><span>Nova</span>Note</h1>
+        <p class="cover-subtitle">Spatial Knowledge, Beautifully Organized.</p>
+        <p class="cover-description">NovaNote helps you capture ideas, connect knowledge,<br class="desktop-break" /> and see the bigger picture — in a space designed<br class="desktop-break" /> for deeper thinking.</p>
+        <button class="cover-cta" type="button" @click="openAuth('login')">
+          <span>Get Started</span><span class="cta-arrow" aria-hidden="true">→</span>
+        </button>
+      </section>
+
+      <ParticleGlobe class="planet-stage" />
     </main>
 
     <transition name="modal-fade">
-      <AuthModal
-        v-if="showAuth"
-        @close="showAuth = false"
-        class="auth-modal-overlay"
-      />
+      <AuthModal v-if="showAuth" :initial-mode="authMode" @close="showAuth = false" class="auth-modal-overlay" />
     </transition>
   </div>
 </template>
@@ -61,12 +50,19 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
 import AuthModal from '../components/auth/AuthModal.vue'
+import ParticleGlobe from '../components/landing/ParticleGlobe.vue'
 
 import landingBg from '../assets/Home.png'
 
 const router = useRouter()
 const authStore = useAuthStore()
 const showAuth = ref(false)
+const authMode = ref('login')
+
+const openAuth = (mode) => {
+  authMode.value = mode
+  showAuth.value = true
+}
 
 onMounted(() => {
   if (authStore.isLoggedIn) {
@@ -76,7 +72,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@500;600;700&family=Noto+Sans+TC:wght@500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Orbitron:wght@500;600;700;800;900&family=Rajdhani:wght@500;600;700&family=Noto+Sans+TC:wght@500;700;900&display=swap');
 /* =========================
    Base
 ========================= */
@@ -775,4 +771,35 @@ onMounted(() => {
     animation: none !important;
   }
 }
+
+/* Cover page layout */
+.landing-container { width: 100%; min-height: 100vh; height: 100svh; justify-content: flex-start; background: #070d1b; }
+.landing-bg { filter: brightness(.42) contrast(1.12) saturate(.78); }
+.landing-bg::before { background: linear-gradient(90deg, rgba(5,10,23,.9) 0%, rgba(5,10,23,.62) 48%, rgba(5,10,23,.28) 100%), linear-gradient(180deg,rgba(5,10,23,.28),transparent 48%,rgba(5,10,23,.42)); }
+.site-header { position: absolute; z-index: 20; inset: 0 3.2% auto; height: 74px; display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; border-bottom: 1px solid rgba(207,218,233,.12); color: #aab4c5; }
+.brand-lockup { display: inline-flex; align-items: center; gap: 12px; width: max-content; color: #e6e1d1; text-decoration: none; font-family: Georgia,serif; font-size: 20px; letter-spacing: .12em; }
+.brand-orbit { position: relative; width: 34px; height: 34px; border: 1px solid #d9c785; border-radius: 50%; transform: rotate(-25deg); }
+.brand-orbit::after { content: ''; position: absolute; inset: 10px -5px; border: 1px solid rgba(217,199,133,.78); border-radius: 50%; }
+.brand-orbit span { position:absolute; left:4px; top:6px; width:4px; height:4px; border-radius:50%; background:#edda9d; box-shadow:0 0 7px #edda9d; }
+.main-nav,.header-actions { display:flex; align-items:center; justify-content:center; gap: clamp(22px,4vw,58px); }
+.main-nav a,.sign-in-link { color:#aab4c5; text-decoration:none; font: 14px 'Rajdhani','Noto Sans TC',sans-serif; letter-spacing:.04em; transition:color .2s ease; }
+.main-nav a:hover,.sign-in-link:hover { color:#f0dfa5; }
+.header-actions { justify-content:flex-end; gap:28px; }
+.sign-in-link { border:0; background:none; cursor:pointer; }
+.header-cta { min-width:150px; height:42px; border:1px solid rgba(220,202,143,.78); border-radius:999px; background:rgba(10,17,32,.36); color:#e7dba9; font:14px 'Rajdhani','Noto Sans TC',sans-serif; letter-spacing:.06em; cursor:pointer; transition:background .2s ease,transform .2s ease; }
+.header-cta:hover { background:rgba(220,202,143,.1); transform:translateY(-1px); }
+.cover-main { position:relative; z-index:5; width:min(1320px,100%); min-height:100%; margin:0 auto; padding:74px clamp(34px,5.4vw,84px) 40px; display:grid; grid-template-columns:minmax(400px,.95fr) minmax(420px,1.05fr); align-items:center; }
+.cover-copy { position:relative; z-index:3; padding-top:22px; }
+.eyebrow { margin:0 0 20px; color:#d5c996; font:600 12px 'Rajdhani','Noto Sans TC',sans-serif; letter-spacing:.52em; }
+.cover-copy h1 { margin:0 0 7px -4px; color:#eee9db; font:italic 500 clamp(76px,10vw,148px)/.95 'Cormorant Garamond',Georgia,serif; letter-spacing:-.085em; white-space:nowrap; text-shadow:0 6px 35px rgba(0,0,0,.2); }
+.cover-copy h1 span { color:#d9c78f; }
+.cover-subtitle { margin:18px 0 18px; color:#e2e4e8; font:clamp(19px,2.2vw,28px) 'Rajdhani','Noto Sans TC',sans-serif; letter-spacing:-.025em; }
+.cover-description { margin:0; color:#9ca8ba; font:16px/1.55 'Rajdhani','Noto Sans TC',sans-serif; letter-spacing:.01em; }
+.cover-cta { display:inline-flex; align-items:center; gap:17px; min-width:178px; height:48px; margin-top:28px; padding:0 25px; border:1px solid rgba(239,222,159,.82); border-radius:999px; background:linear-gradient(120deg,#d8c783,#f0dfa0); color:#10182a; font:600 15px 'Rajdhani','Noto Sans TC',sans-serif; cursor:pointer; box-shadow:0 8px 28px rgba(207,185,111,.16); transition:transform .2s ease,box-shadow .2s ease; }
+.cover-cta:hover { transform:translateY(-2px); box-shadow:0 11px 32px rgba(207,185,111,.25); }
+.cta-arrow { font-size:21px; line-height:1; }
+.planet-stage { position:relative; width:min(46vw,590px); aspect-ratio:1; justify-self:center; perspective:1000px; isolation:isolate; }
+@media (max-width:900px) { .site-header { inset-inline:4%; grid-template-columns:1fr auto; }.main-nav { display:none; }.cover-main { grid-template-columns:1fr 1fr; padding-inline:5%; }.cover-copy h1 { font-size:clamp(68px,10vw,108px); }.planet-stage { width:min(48vw,460px); } }
+@media (max-width:640px) { .landing-container { min-height:100svh; height:auto; overflow-x:hidden; overflow-y:auto; }.site-header { position:relative; inset:auto; flex:none; height:66px; grid-template-columns:1fr auto; padding:0 2px; }.brand-lockup { font-size:17px; }.header-actions { gap:14px; }.header-cta { min-width:112px; height:38px; }.cover-main { height:calc(100svh - 66px); min-height:0; grid-template-columns:1fr; grid-template-rows:auto auto; gap:0; padding:5vh 8vw 2vh; align-content:start; overflow-y:auto; }.cover-copy { padding:0; }.eyebrow { font-size:10px; letter-spacing:.38em; }.cover-copy h1 { font-size:clamp(68px,18vw,108px); }.cover-subtitle { max-width:360px; font-size:20px; }.cover-description { max-width:440px; font-size:15px; }.desktop-break { display:none; }.cover-cta { margin-top:22px; }.planet-stage { width:min(64vw,300px); margin:8px auto 0; flex-shrink:0; }.landing-bg { background-position:58% center; }.footer-metadata { display:none; } }
+@media (prefers-reduced-motion: reduce) { .landing-bg,.layer-1,.layer-2,.layer-3,.center-glow { animation:none !important; } }
 </style>

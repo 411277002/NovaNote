@@ -468,11 +468,11 @@ onBeforeUnmount(() => {
 
   color: var(--profile-text);
   background:
-    linear-gradient(rgba(143, 124, 255, 0.026) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(143, 124, 255, 0.026) 1px, transparent 1px),
+    linear-gradient(rgba(var(--accent-rgb), 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--accent-rgb), 0.026) 1px, transparent 1px),
     radial-gradient(circle at 12% 8%, var(--profile-bg-radial-1), transparent 28%),
     radial-gradient(circle at 96% 14%, var(--profile-bg-radial-2), transparent 30%),
-    radial-gradient(circle at 52% 86%, rgba(143, 124, 255, 0.06), transparent 35%),
+    radial-gradient(circle at 52% 86%, rgba(var(--accent-rgb), 0.06), transparent 35%),
     var(--profile-bg);
 
   background-size:
@@ -530,7 +530,7 @@ onBeforeUnmount(() => {
 
   text-shadow:
     0 0 12px rgba(255, 255, 255, 0.16),
-    0 0 28px rgba(143, 124, 255, 0.18);
+    0 0 28px rgba(var(--accent-rgb), 0.18);
 }
 
 .trash-subtitle {
@@ -641,8 +641,8 @@ onBeforeUnmount(() => {
 
   background-image:
     radial-gradient(circle, rgba(255, 255, 255, 0.16) 1px, transparent 1.5px),
-    linear-gradient(rgba(143, 124, 255, 0.024) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(143, 124, 255, 0.024) 1px, transparent 1px);
+    linear-gradient(rgba(var(--accent-rgb), 0.024) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--accent-rgb), 0.024) 1px, transparent 1px);
 
   background-size:
     92px 92px,
@@ -667,7 +667,7 @@ onBeforeUnmount(() => {
   border-right: 2px solid var(--profile-accent-border);
 
   filter:
-    drop-shadow(0 0 8px rgba(143, 124, 255, 0.42))
+    drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.42))
     drop-shadow(0 0 16px rgba(81, 186, 252, 0.16));
 
   pointer-events: none;
@@ -711,7 +711,7 @@ onBeforeUnmount(() => {
 
   text-shadow:
     0 0 12px rgba(255, 255, 255, 0.16),
-    0 0 24px rgba(143, 124, 255, 0.16);
+    0 0 24px rgba(var(--accent-rgb), 0.16);
 }
 
 .section-count {
@@ -758,7 +758,7 @@ onBeforeUnmount(() => {
 
 .empty-state i {
   color: var(--profile-accent);
-  filter: drop-shadow(0 0 8px rgba(143, 124, 255, 0.45));
+  filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.45));
 }
 
 /* =========================
@@ -801,10 +801,18 @@ onBeforeUnmount(() => {
     background 0.18s ease;
 }
 
-:global(html[data-theme='light']) .trash-card {
+:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .trash-card {
   background:
     radial-gradient(circle at 88% 12%, var(--profile-accent-soft), transparent 30%),
-    linear-gradient(145deg, rgba(255, 255, 255, 0.94), rgba(248, 250, 252, 0.98));
+    linear-gradient(145deg, rgba(236, 239, 244, 0.96), rgba(229, 233, 240, 0.98));
+}
+
+:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .trash-card::before {
+  border-color: rgba(76, 86, 106, 0.08);
+}
+
+:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .item-title {
+  text-shadow: 0 1px 1px rgba(46, 52, 64, 0.04);
 }
 
 .trash-card::before {
@@ -813,7 +821,7 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: 7px;
 
-  border: 1px solid rgba(180, 165, 255, 0.09);
+  border: 1px solid rgba(var(--accent-soft-rgb), 0.09);
   border-radius: 4px;
 
   pointer-events: none;
@@ -871,7 +879,7 @@ onBeforeUnmount(() => {
   text-overflow: ellipsis;
   white-space: nowrap;
 
-  text-shadow: 0 0 12px rgba(143, 124, 255, 0.14);
+  text-shadow: 0 0 12px rgba(var(--accent-rgb), 0.14);
 }
 
 .trash-preview {
@@ -955,7 +963,7 @@ onBeforeUnmount(() => {
   box-shadow:
     inset -12px -12px 18px rgba(0, 0, 0, 0.38),
     inset 6px 6px 12px rgba(255, 255, 255, 0.24),
-    0 0 24px rgba(143, 124, 255, 0.22);
+    0 0 24px rgba(var(--accent-rgb), 0.22);
 }
 
 .planet-dot::after {
@@ -1053,7 +1061,7 @@ onBeforeUnmount(() => {
 
   border-color: var(--profile-accent-border);
 
-  box-shadow: 0 10px 24px rgba(143, 124, 255, 0.22);
+  box-shadow: 0 10px 24px rgba(var(--accent-rgb), 0.22);
 }
 
 .restore-btn:hover {
@@ -1062,7 +1070,7 @@ onBeforeUnmount(() => {
   background: var(--profile-button-bg-hover);
   border-color: var(--profile-accent-border);
 
-  box-shadow: 0 14px 30px rgba(143, 124, 255, 0.26);
+  box-shadow: 0 14px 30px rgba(var(--accent-rgb), 0.26);
 }
 
 .delete-btn {
@@ -1101,7 +1109,7 @@ onBeforeUnmount(() => {
 
   box-shadow:
     0 22px 60px rgba(0, 0, 0, 0.38),
-    0 0 24px rgba(143, 124, 255, 0.14),
+    0 0 24px rgba(var(--accent-rgb), 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 
   backdrop-filter: blur(14px);
@@ -1227,4 +1235,13 @@ onBeforeUnmount(() => {
     padding: 20px 16px;
   }
 }
+/* NovaNote profile-aligned Nord surfaces */
+.trash-page{--radius-box:.5rem;--radius-field:.25rem;--radius-selector:1rem;--profile-bg:#0a1026;--profile-panel-bg:rgba(20,31,57,.78);--profile-panel-bg-soft:rgba(30,44,72,.62);--profile-panel-border:rgba(136,192,208,.16);--profile-text:#eceff4;--profile-heading:#eceff4;--profile-muted:#aab7ca;--profile-accent:#88c0d0;--accent-color:#88c0d0;--accent-rgb:136,192,208;background:radial-gradient(ellipse at 78% 8%,rgba(37,74,122,.18),transparent 34rem),linear-gradient(135deg,#0a1026,#050816 78%)}
+.trash-title{text-shadow:none}.trash-section{border:1px solid var(--profile-panel-border);border-radius:var(--radius-box);background:rgba(20,31,57,.72);box-shadow:0 14px 34px rgba(0,0,0,.16);backdrop-filter:blur(14px)}.trash-section::before,.trash-section::after{display:none}
+.back-universe-btn,.trash-card,.trash-context-menu{border-radius:var(--radius-box);clip-path:none}.back-universe-btn{border-color:var(--profile-panel-border);background:rgba(30,44,72,.62);box-shadow:none}.back-universe-btn:hover{border-color:rgba(136,192,208,.34);background:rgba(94,129,172,.18);box-shadow:none}
+.trash-card{border:1px solid var(--profile-panel-border);background:rgba(30,44,72,.55);box-shadow:none}.trash-card::before,.trash-card::after{display:none}.trash-card:hover{border-color:rgba(136,192,208,.34);background:rgba(30,44,72,.78);box-shadow:0 10px 26px rgba(0,0,0,.16);transform:translateY(-2px)}
+.tag-pill,.section-count{border-radius:var(--radius-selector)}.restore-btn,.delete-btn,.menu-option{border-radius:var(--radius-field);clip-path:none}.trash-context-menu{border:1px solid var(--profile-panel-border);background:rgba(20,31,57,.96);box-shadow:0 18px 42px rgba(0,0,0,.28);backdrop-filter:blur(16px)}
+:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .trash-page{--profile-bg:#eceff4;--profile-panel-bg:rgba(229,233,240,.9);--profile-panel-bg-soft:rgba(229,233,240,.84);--profile-panel-border:rgba(76,86,106,.15);--profile-text:#2e3440;--profile-heading:#2e3440;--profile-muted:#4c566a;--profile-accent:#5e81ac;--accent-color:#5e81ac;--accent-rgb:94,129,172;background:radial-gradient(ellipse at 78% 8%,rgba(136,192,208,.16),transparent 34rem),linear-gradient(135deg,#eceff4,#e5e9f0 78%)}
+:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .trash-section,:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .trash-card,:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .trash-context-menu{background:rgba(229,233,240,.9);box-shadow:0 8px 22px rgba(46,52,64,.06)}:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .trash-card:hover{background:#e5e9f0}
+
 </style>

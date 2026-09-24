@@ -1,32 +1,24 @@
 <template>
   <div
     class="universe-container"
-    :style="{ '--universe-bg-image': `url(${universeBg})` }"
     @pointerdown.capture="onUniversePointerDown"
     @pointerup.capture="onUniversePointerUp"
   >
+    <UniverseBackground />
+
     <SidebarPanel
       v-model:search-query="searchQuery"
-      v-model:collapsed="isSidebarCollapsed"
       @mousedown.stop
       @select-planet="focusPlanetFromSidebar"
       @select-note="focusNoteFromSidebar"
+      @create-note="handleCreateNote"
+      @open-profile="handleOpenProfile"
+      @open-trash="handleOpenTrashFromMenu"
+      @open-star-overview="handleOpenStarOverviewFromMenu"
+      @toggle-theme="toggleTheme"
     />
 
-    <div
-      v-if="isSidebarCollapsed"
-      class="floating-brand"
-      @mousedown.stop
-    >
-      <img
-        :src="logoDark"
-        alt="NovaNote Logo"
-        class="floating-brand-logo"
-      />
-      <span class="floating-brand-name">NovaNote</span>
-    </div>
-
-    <nav class="universe-nav" @mousedown.stop>
+    <!-- <nav class="universe-nav" @mousedown.stop>
       <div class="nav-placeholder"></div>
 
       <div class="nav-actions" @click.stop>
@@ -117,7 +109,7 @@
           </transition>
         </div>
       </div>
-    </nav>
+    </nav> -->
 
     <SpaceCanvas
       ref="canvasRef"
@@ -150,11 +142,11 @@
       />
     </SpaceCanvas>
 
-    <FabButton
+    <!-- <FabButton
       @mousedown.stop
       @create-note="handleCreateNote"
       @create-planet="showPlanetModal = true"
-    />
+    /> -->
 
     <div
       v-if="showMiniMapPanel"
@@ -268,8 +260,7 @@ import { usePlanetsStore } from '../stores/planets'
 import { useLinksStore } from '../stores/links'
 import { useEditorTabsStore } from '../stores/editorTabs'
 
-import logoDark from '../assets/logo-dark.png'
-import universeBg from '../assets/Universe.png'
+import UniverseBackground from '../components/universe/UniverseBackground.vue'
 
 import SidebarPanel from '../components/sidebar/SidebarPanel.vue'
 import SpaceCanvas from '../components/universe/SpaceCanvas.vue'
@@ -295,7 +286,6 @@ const editorTabsStore = useEditorTabsStore()
 ========================= */
 
 const searchQuery = ref('')
-const isSidebarCollapsed = ref(false)
 
 const canvasRef = ref(null)
 const currentScale = ref(1)
@@ -599,7 +589,6 @@ const isKeepHighlightTarget = (target) => {
     target.closest('.related-highlight') ||
     target.closest('.sidebar-panel') ||
     target.closest('.SidebarPanel') ||
-    target.closest('.floating-brand') ||
     target.closest('.universe-nav') ||
     target.closest('.modal-overlay') ||
     target.closest('.planet-overlay') ||
@@ -726,6 +715,13 @@ const handleOpenMiniMapFromMenu = () => {
 const handleOpenStarOverviewFromMenu = () => {
   showUserMenu.value = false
   router.push('/star-overview')
+}
+
+const toggleTheme = () => {
+  const nextTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light'
+  localStorage.setItem('nova-theme', nextTheme)
+  document.documentElement.setAttribute('data-theme', nextTheme)
+  document.body.setAttribute('data-theme', nextTheme)
 }
 
 const handleAutoArrangeFromMenu = async () => {
@@ -1290,9 +1286,9 @@ watch(
 ========================= */
 
 onMounted(async () => {
-  localStorage.setItem('nova-theme', 'dark')
-  document.documentElement.setAttribute('data-theme', 'dark')
-  document.body.setAttribute('data-theme', 'dark')
+  const savedTheme = localStorage.getItem('nova-theme') || 'dark'
+  document.documentElement.setAttribute('data-theme', savedTheme)
+  document.body.setAttribute('data-theme', savedTheme)
 
   await loadUniverseData()
 
@@ -1310,19 +1306,15 @@ onBeforeUnmount(() => {
   width: 100vw;
   height: 100vh;
 
-  background:
-    linear-gradient(
-      rgba(2, 4, 14, 0.18),
-      rgba(2, 4, 14, 0.18)
-    ),
-    var(--universe-bg-image);
-
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-
   overflow: hidden;
   position: relative;
+  isolation: isolate;
+  background: radial-gradient(
+    circle at 50% 52%,
+    rgba(20, 43, 82, 0.3) 0%,
+    rgba(10, 16, 38, 0.18) 38%,
+    #050816 75%
+  );
   font-family: 'Inter', 'Noto Sans TC', sans-serif;
   color: var(--text-color);
 }
@@ -1987,33 +1979,6 @@ onBeforeUnmount(() => {
 .user-menu-fade-leave-to {
   opacity: 0;
   transform: translateY(-10px) scale(0.78);
-}
-
-.floating-brand {
-  position: fixed;
-  left: 15px;
-  z-index: 190;
-  display: flex;
-  align-items: center;
-  padding: 8px 16px 8px 10px;
-  border-radius: 999px;
-  pointer-events: auto;
-  animation: brandIn 0.25s ease;
-}
-
-.floating-brand-logo {
-  width: 100px;
-  object-fit: contain;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.floating-brand-name {
-  font-size: 1.25rem;
-  font-weight: 900;
-  letter-spacing: 0.4px;
-  color: #f5f7ff;
-  white-space: nowrap;
 }
 
 /* 畫布節點高亮 */

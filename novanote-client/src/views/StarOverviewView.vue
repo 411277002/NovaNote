@@ -629,11 +629,11 @@ onMounted(async () => {
   color: var(--star-text);
 
   background:
-    linear-gradient(rgba(143, 124, 255, 0.026) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(143, 124, 255, 0.026) 1px, transparent 1px),
+    linear-gradient(rgba(var(--accent-rgb), 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--accent-rgb), 0.026) 1px, transparent 1px),
     radial-gradient(circle at 12% 8%, var(--star-bg-radial-1), transparent 28%),
     radial-gradient(circle at 96% 14%, var(--star-bg-radial-2), transparent 30%),
-    radial-gradient(circle at 52% 86%, rgba(143, 124, 255, 0.06), transparent 35%),
+    radial-gradient(circle at 52% 86%, rgba(var(--accent-rgb), 0.06), transparent 35%),
     var(--star-bg);
 
   background-size:
@@ -648,13 +648,13 @@ onMounted(async () => {
   overflow-x: hidden;
 }
 
-:global(html[data-theme='light']) .star-overview-page {
+:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .star-overview-page {
   background:
-    linear-gradient(rgba(143, 124, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(143, 124, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(rgba(129, 161, 193, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(129, 161, 193, 0.025) 1px, transparent 1px),
     radial-gradient(circle at 12% 8%, var(--star-bg-radial-1), transparent 28%),
     radial-gradient(circle at 96% 14%, var(--star-bg-radial-2), transparent 30%),
-    radial-gradient(circle at 52% 86%, rgba(143, 124, 255, 0.045), transparent 35%),
+    radial-gradient(circle at 52% 86%, rgba(129, 161, 193, 0.045), transparent 35%),
     var(--star-bg);
 }
 
@@ -702,7 +702,7 @@ onMounted(async () => {
 
   text-shadow:
     0 0 12px rgba(255, 255, 255, 0.16),
-    0 0 28px rgba(143, 124, 255, 0.18);
+    0 0 28px rgba(var(--accent-rgb), 0.18);
 }
 
 .back-btn {
@@ -791,8 +791,8 @@ onMounted(async () => {
 
   background-image:
     radial-gradient(circle, rgba(255, 255, 255, 0.16) 1px, transparent 1.5px),
-    linear-gradient(rgba(143, 124, 255, 0.024) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(143, 124, 255, 0.024) 1px, transparent 1px);
+    linear-gradient(rgba(var(--accent-rgb), 0.024) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--accent-rgb), 0.024) 1px, transparent 1px);
 
   background-size:
     92px 92px,
@@ -817,7 +817,7 @@ onMounted(async () => {
   border-right: 2px solid var(--star-accent-border);
 
   filter:
-    drop-shadow(0 0 8px rgba(143, 124, 255, 0.42))
+    drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.42))
     drop-shadow(0 0 16px rgba(81, 186, 252, 0.16));
 
   pointer-events: none;
@@ -857,7 +857,7 @@ onMounted(async () => {
 
   text-shadow:
     0 0 12px rgba(255, 255, 255, 0.16),
-    0 0 24px rgba(143, 124, 255, 0.16);
+    0 0 24px rgba(var(--accent-rgb), 0.16);
 }
 
 /* =========================
@@ -926,7 +926,7 @@ onMounted(async () => {
   transform: translateY(-3px);
   border-color: var(--star-accent-border);
   box-shadow:
-    0 0 24px rgba(143, 124, 255, 0.16),
+    0 0 24px rgba(var(--accent-rgb), 0.16),
     0 14px 32px rgba(0, 0, 0, 0.22);
 }
 
@@ -943,14 +943,14 @@ onMounted(async () => {
   color: var(--star-accent);
   background:
     radial-gradient(circle at 50% 22%, var(--accent-soft), transparent 58%),
-    rgba(143, 124, 255, 0.12);
+    rgba(var(--accent-rgb), 0.12);
 
   border: 1px solid var(--star-accent-border);
   border-radius: 8px;
 
   box-shadow:
-    0 0 18px rgba(143, 124, 255, 0.22),
-    inset 0 0 14px rgba(143, 124, 255, 0.08);
+    0 0 18px rgba(var(--accent-rgb), 0.22),
+    inset 0 0 14px rgba(var(--accent-rgb), 0.08);
 }
 
 .stat-card p {
@@ -971,7 +971,7 @@ onMounted(async () => {
   font-weight: 900;
   line-height: 1;
 
-  text-shadow: 0 0 16px rgba(143, 124, 255, 0.18);
+  text-shadow: 0 0 16px rgba(var(--accent-rgb), 0.18);
 }
 
 /* =========================
@@ -1034,7 +1034,7 @@ onMounted(async () => {
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.035),
     0 0 22px rgba(81, 186, 252, 0.12),
-    inset 0 0 24px rgba(143, 124, 255, 0.06);
+    inset 0 0 24px rgba(var(--accent-rgb), 0.06);
 
   overflow: hidden;
 }
@@ -1103,7 +1103,7 @@ onMounted(async () => {
   transform: translateY(-50%);
   pointer-events: none;
 
-  filter: drop-shadow(0 0 8px rgba(143, 124, 255, 0.72));
+  filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.72));
 }
 
 .timeline-summary-bar {
@@ -1129,7 +1129,7 @@ onMounted(async () => {
 .accent-number {
   color: var(--star-accent);
   text-shadow:
-    0 0 10px rgba(143, 124, 255, 0.62),
+    0 0 10px rgba(var(--accent-rgb), 0.62),
     0 0 22px rgba(81, 186, 252, 0.16);
 }
 
@@ -1154,7 +1154,7 @@ onMounted(async () => {
 .timeline-tip i {
   color: var(--star-accent);
   font-size: 1.05rem;
-  filter: drop-shadow(0 0 8px rgba(143, 124, 255, 0.6));
+  filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.6));
 }
 
 /* =========================
@@ -1180,7 +1180,7 @@ onMounted(async () => {
     inset 0 0 34px rgba(81, 186, 252, 0.05);
 }
 
-:global(html[data-theme='light']) .timeline-map-frame {
+:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .timeline-map-frame {
   background:
     linear-gradient(135deg, rgba(81, 186, 252, 0.08), transparent 18%),
     linear-gradient(315deg, var(--accent-soft), transparent 18%),
@@ -1207,7 +1207,7 @@ onMounted(async () => {
   height: 38px;
 
   border-color: var(--star-accent-border);
-  filter: drop-shadow(0 0 8px rgba(143, 124, 255, 0.5));
+  filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.5));
 
   pointer-events: none;
 }
@@ -1248,7 +1248,7 @@ onMounted(async () => {
 
   background:
     radial-gradient(circle at 56% 52%, var(--accent-soft), transparent 24%),
-    radial-gradient(circle at 36% 64%, rgba(143, 124, 255, 0.1), transparent 18%),
+    radial-gradient(circle at 36% 64%, rgba(var(--accent-rgb), 0.1), transparent 18%),
     radial-gradient(circle at 50% 50%, rgba(81, 186, 252, 0.07), transparent 46%),
     linear-gradient(rgba(81, 186, 252, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(81, 186, 252, 0.03) 1px, transparent 1px),
@@ -1268,7 +1268,7 @@ onMounted(async () => {
   overflow: hidden;
 }
 
-:global(html[data-theme='light']) .timeline-map {
+:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .timeline-map {
   background:
     radial-gradient(circle at 56% 52%, var(--accent-soft), transparent 24%),
     radial-gradient(circle at 50% 50%, rgba(81, 186, 252, 0.07), transparent 46%),
@@ -1307,7 +1307,7 @@ onMounted(async () => {
   height: 220px;
 
   background:
-    radial-gradient(circle, rgba(143, 124, 255, 0.16), transparent 64%);
+    radial-gradient(circle, rgba(var(--accent-rgb), 0.16), transparent 64%);
 
   filter: blur(8px);
   opacity: 0.48;
@@ -1370,10 +1370,10 @@ onMounted(async () => {
 }
 
 .timeline-line.active {
-  stroke: rgba(143, 124, 255, 0.95);
+  stroke: rgba(var(--accent-rgb), 0.95);
   opacity: 0.95;
   filter:
-    drop-shadow(0 0 6px rgba(143, 124, 255, 0.8))
+    drop-shadow(0 0 6px rgba(var(--accent-rgb), 0.8))
     drop-shadow(0 0 14px rgba(81, 186, 252, 0.28));
 }
 
@@ -1443,11 +1443,11 @@ onMounted(async () => {
   border-radius: 50%;
 
   background:
-    radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.94), rgba(205, 196, 255, 0.48) 38%, rgba(92, 78, 148, 0.72) 70%);
+    radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.94), rgba(var(--accent-pale-rgb), 0.48) 38%, rgba(92, 78, 148, 0.72) 70%);
 
   box-shadow:
     inset -2px -2px 6px rgba(0, 0, 0, 0.34),
-    0 0 7px rgba(143, 124, 255, 0.2);
+    0 0 7px rgba(var(--accent-rgb), 0.2);
 }
 
 .timeline-node.floating-note .node-core {
@@ -1456,10 +1456,10 @@ onMounted(async () => {
   border-radius: 3px;
 
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(143, 124, 255, 0.74) 45%, rgba(90, 75, 220, 0.86));
+    linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(var(--accent-rgb), 0.74) 45%, rgba(var(--accent-strong-rgb), 0.86));
 
   box-shadow:
-    0 0 9px rgba(143, 124, 255, 0.28),
+    0 0 9px rgba(var(--accent-rgb), 0.28),
     inset 0 0 5px rgba(255, 255, 255, 0.16);
 
   transform: rotate(45deg);
@@ -1469,12 +1469,12 @@ onMounted(async () => {
   inset: 6px;
 
   background:
-    radial-gradient(circle at 35% 30%, #ffffff 0%, #f7f4ff 26%, var(--star-accent) 56%, #5a43e8 100%);
+    radial-gradient(circle at 35% 30%, var(--accent-pale-surface, #ffffff) 0%, var(--accent-pale-surface, #f7f4ff) 26%, var(--star-accent) 56%, var(--accent-strong-color, #5a43e8) 100%);
 
   box-shadow:
     0 0 10px rgba(255, 255, 255, 0.82),
-    0 0 24px rgba(143, 124, 255, 0.95),
-    0 0 52px rgba(143, 124, 255, 0.58),
+    0 0 24px rgba(var(--accent-rgb), 0.95),
+    0 0 52px rgba(var(--accent-rgb), 0.58),
     0 0 76px rgba(81, 186, 252, 0.18);
 }
 
@@ -1482,12 +1482,12 @@ onMounted(async () => {
   inset: 6px;
 
   background:
-    linear-gradient(135deg, #ffffff 0%, #d8d0ff 28%, var(--star-accent) 58%, #6d55ff 100%);
+    linear-gradient(135deg, var(--accent-pale-surface, #ffffff) 0%, var(--accent-pale-color, #d8d0ff) 28%, var(--star-accent) 58%, var(--accent-strong-color-2, #6d55ff) 100%);
 
   box-shadow:
     0 0 8px rgba(255, 255, 255, 0.72),
-    0 0 18px rgba(143, 124, 255, 0.86),
-    0 0 38px rgba(143, 124, 255, 0.46);
+    0 0 18px rgba(var(--accent-rgb), 0.86),
+    0 0 38px rgba(var(--accent-rgb), 0.46);
 
   transform: rotate(45deg);
 }
@@ -1507,7 +1507,7 @@ onMounted(async () => {
   opacity: 1;
 
   background:
-    radial-gradient(circle, rgba(143, 124, 255, 0.34) 0%, rgba(143, 124, 255, 0.12) 30%, transparent 68%);
+    radial-gradient(circle, rgba(var(--accent-rgb), 0.34) 0%, rgba(var(--accent-rgb), 0.12) 30%, transparent 68%);
 
   animation: nodePulse 2.8s ease-in-out infinite;
 }
@@ -1518,7 +1518,7 @@ onMounted(async () => {
 
   position: absolute;
 
-  border: 1px solid rgba(143, 124, 255, 0.34);
+  border: 1px solid rgba(var(--accent-rgb), 0.34);
   border-radius: 50%;
 }
 
@@ -1557,16 +1557,16 @@ onMounted(async () => {
   font-weight: 850;
 
   box-shadow:
-    0 0 12px rgba(143, 124, 255, 0.2),
-    inset 0 0 10px rgba(143, 124, 255, 0.08);
+    0 0 12px rgba(var(--accent-rgb), 0.2),
+    inset 0 0 10px rgba(var(--accent-rgb), 0.08);
 }
 
 .node-child-badge.current {
   color: var(--accent-text);
   border-color: var(--star-accent-border);
   box-shadow:
-    0 0 12px rgba(143, 124, 255, 0.6),
-    0 0 24px rgba(143, 124, 255, 0.3);
+    0 0 12px rgba(var(--accent-rgb), 0.6),
+    0 0 24px rgba(var(--accent-rgb), 0.3);
 }
 
 /* =========================
@@ -1596,7 +1596,7 @@ onMounted(async () => {
   line-height: 1.7;
 }
 
-:global(html[data-theme='light']) .timeline-empty {
+:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .timeline-empty {
   background:
     radial-gradient(circle at 50% 30%, var(--accent-soft), transparent 42%),
     rgba(255, 255, 255, 0.72);
@@ -1605,7 +1605,7 @@ onMounted(async () => {
 .timeline-empty i {
   color: var(--star-accent);
   font-size: 1.5rem;
-  filter: drop-shadow(0 0 10px rgba(143, 124, 255, 0.55));
+  filter: drop-shadow(0 0 10px rgba(var(--accent-rgb), 0.55));
 }
 
 /* =========================
@@ -1645,7 +1645,7 @@ onMounted(async () => {
   color: var(--star-heading);
   background:
     radial-gradient(circle at 50% 20%, var(--accent-soft), transparent 62%),
-    rgba(143, 124, 255, 0.14);
+    rgba(var(--accent-rgb), 0.14);
 
   border: 1px solid var(--star-accent-border);
   border-radius: 6px;
@@ -1671,7 +1671,7 @@ onMounted(async () => {
   border-radius: 14px;
 
   box-shadow:
-    inset 0 0 20px rgba(143, 124, 255, 0.035),
+    inset 0 0 20px rgba(var(--accent-rgb), 0.035),
     0 10px 22px rgba(0, 0, 0, 0.12);
 }
 
@@ -1732,7 +1732,7 @@ onMounted(async () => {
   color: var(--star-accent);
   background:
     radial-gradient(circle at 50% 30%, var(--accent-soft), transparent 58%),
-    rgba(143, 124, 255, 0.08);
+    rgba(var(--accent-rgb), 0.08);
 
   border: 1px solid var(--star-accent-border);
   border-radius: 10px;
@@ -1817,7 +1817,7 @@ onMounted(async () => {
 .timeline-new-item:hover {
   transform: translateY(-2px);
   border-color: var(--star-accent-border);
-  box-shadow: 0 0 20px rgba(143, 124, 255, 0.14);
+  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.14);
 }
 
 .timeline-new-item.planet,
@@ -1842,7 +1842,7 @@ onMounted(async () => {
   color: var(--star-accent);
   background:
     radial-gradient(circle at 50% 30%, var(--accent-soft), transparent 58%),
-    rgba(143, 124, 255, 0.08);
+    rgba(var(--accent-rgb), 0.08);
 
   border: 1px solid var(--star-accent-border);
   border-radius: 12px;
@@ -1937,7 +1937,7 @@ onMounted(async () => {
   border-radius: 8px;
 
   box-shadow:
-    0 0 26px rgba(143, 124, 255, 0.18),
+    0 0 26px rgba(var(--accent-rgb), 0.18),
     var(--star-shadow-lg);
 
   font-weight: 850;
@@ -2123,4 +2123,14 @@ onMounted(async () => {
     font-size: 0.8rem;
   }
 }
+/* NovaNote profile-aligned Nord surfaces */
+.star-overview-page{--radius-box:.5rem;--radius-field:.25rem;--radius-selector:1rem;--accent-color:#88c0d0;--accent-color-hover:#a4d6e1;--accent-rgb:136,192,208;--accent-soft:rgba(136,192,208,.12);--accent-border:rgba(136,192,208,.2);--profile-bg:#0a1026;--profile-panel-bg:rgba(20,31,57,.78);--profile-panel-bg-soft:rgba(30,44,72,.62);--profile-panel-border:rgba(136,192,208,.16);--profile-text:#eceff4;--profile-heading:#eceff4;--profile-muted:#aab7ca;--profile-muted-soft:#8291a9;background:radial-gradient(ellipse at 78% 8%,rgba(37,74,122,.18),transparent 34rem),linear-gradient(135deg,#0a1026,#050816 78%)}
+.star-header h1{text-shadow:none}.star-panel,.timeline-panel{border:1px solid var(--profile-panel-border);border-radius:var(--radius-box);background:rgba(20,31,57,.76);box-shadow:0 14px 34px rgba(0,0,0,.18);backdrop-filter:blur(16px)}
+.star-panel::before,.star-panel::after{display:none}.stat-card{border:1px solid var(--profile-panel-border);border-radius:var(--radius-box);background:rgba(30,44,72,.58);box-shadow:none}.stat-card::before,.stat-card::after{display:none}.stat-card:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.15)}
+.back-btn,.timeline-select-shell,.timeline-new-group,.timeline-new-item,.timeline-tip,.timeline-summary-bar{border-radius:var(--radius-field)}.back-btn,.timeline-select-shell,.timeline-new-group,.timeline-new-item{border-color:var(--profile-panel-border);background:rgba(30,44,72,.58);box-shadow:none}.back-btn:hover,.timeline-new-item:hover{border-color:rgba(136,192,208,.38);background:rgba(94,129,172,.2)}
+.timeline-map-frame{border-color:rgba(136,192,208,.14);border-radius:var(--radius-box);background:rgba(10,16,38,.3);box-shadow:none}.timeline-map-frame-corner{display:none}.timeline-map{border-radius:var(--radius-box);background:radial-gradient(ellipse at center,rgba(20,43,82,.28),rgba(10,16,38,.54))}
+.timeline-orbit{border-color:rgba(129,161,193,.13)}.timeline-line{stroke:rgba(129,161,193,.34)}.timeline-line.active{stroke:#88c0d0}.timeline-node.current .node-pulse{box-shadow:0 0 0 5px rgba(136,192,208,.1)}.timeline-new-group-icon{border-radius:var(--radius-selector)}
+:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .star-overview-page{--profile-bg:#eceff4;--profile-panel-bg:rgba(229,233,240,.9);--profile-panel-bg-soft:rgba(229,233,240,.84);--profile-panel-border:rgba(76,86,106,.15);--profile-text:#2e3440;--profile-heading:#2e3440;--profile-muted:#4c566a;--profile-muted-soft:#707d91;--accent-color:#5e81ac;--accent-rgb:94,129,172;background:radial-gradient(ellipse at 78% 8%,rgba(136,192,208,.16),transparent 34rem),linear-gradient(135deg,#eceff4,#e5e9f0 78%)}
+:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .star-panel,:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .timeline-panel,:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .stat-card,:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .timeline-new-group,:global(html:is([data-theme='light'], [data-theme='novanote-nord-light'])) .timeline-new-item{background:rgba(229,233,240,.88);box-shadow:0 8px 22px rgba(46,52,64,.05)}
+
 </style>

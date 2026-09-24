@@ -6,18 +6,6 @@
     @mousedown.self="startPan"
     @wheel="handleWheel"
   >
-    <div class="nebula-container" :style="nebulaStyle">
-      <div class="nebula blue"></div>
-      <div class="nebula purple"></div>
-      <div class="nebula pink"></div>
-    </div>
-
-    <div class="stars-parallax" :style="parallaxStyle">
-      <div class="star-layer tiny"></div>
-      <div class="star-layer medium"></div>
-      <div class="star-layer large"></div>
-    </div>
-
     <!-- 連結線圖層 -->
     <canvas ref="linkCanvasRef" class="link-canvas"></canvas>
 
@@ -83,18 +71,6 @@ const canvasStyle = computed(() => ({
   transition: isDragging.value
     ? 'none'
     : 'transform 0.22s cubic-bezier(0.22, 1, 0.36, 1)'
-}))
-
-const parallaxStyle = computed(() => ({
-  transform: `translate(${offset.x * 0.15}px, ${offset.y * 0.15}px) scale(${
-    1 + (scale.value - 1) * 0.3
-  })`,
-  transition: isDragging.value ? 'none' : 'transform 0.2s linear'
-}))
-
-const nebulaStyle = computed(() => ({
-  transform: `translate(${offset.x * 0.05}px, ${offset.y * 0.05}px)`,
-  transition: isDragging.value ? 'none' : 'transform 0.5s ease-out'
 }))
 
 const clamp = (value, min, max) => {
@@ -545,6 +521,7 @@ defineExpose({
   height: 100vh;
   overflow: hidden;
   position: relative;
+  z-index: 1;
   cursor: grab;
 
   background: transparent;
@@ -553,11 +530,6 @@ defineExpose({
 .space-canvas-viewport:active,
 .space-canvas-viewport.is-panning {
   cursor: grabbing;
-}
-
-.space-canvas-viewport.node-dragging .nebula,
-.space-canvas-viewport.node-dragging .star-layer {
-  animation-play-state: paused !important;
 }
 
 .space-canvas-viewport.node-dragging .link-canvas {
@@ -576,83 +548,6 @@ defineExpose({
   mask-image: radial-gradient(circle at center, black 0%, transparent 75%);
   opacity: 0.25;
   z-index: 2;
-}
-
-/* 星雲 */
-.nebula-container {
-  position: absolute;
-  inset: -50%;
-  width: 200%;
-  height: 200%;
-  pointer-events: none;
-  filter: blur(90px);
-  opacity: 0.58;
-  z-index: 1;
-}
-
-.nebula {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.55;
-}
-
-.nebula.blue {
-  width: 680px;
-  height: 680px;
-  background: radial-gradient(circle, rgba(56, 118, 255, 0.55), transparent 68%);
-  top: 18%;
-  left: 9%;
-  animation: float 22s infinite alternate;
-}
-
-.nebula.purple {
-  display: none;
-}
-
-.nebula.pink {
-  display: none;
-}
-
-/* 星星 */
-.stars-parallax {
-  position: absolute;
-  inset: -100%;
-  width: 300%;
-  height: 300%;
-  pointer-events: none;
-  z-index: 3;
-}
-
-.star-layer {
-  position: absolute;
-  inset: 0;
-  background: transparent;
-}
-
-.star-layer.tiny {
-  background-image:
-    radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.85) 100%, transparent),
-    radial-gradient(1px 1px at 65% 70%, rgba(255,255,255,0.6) 100%, transparent),
-    radial-gradient(1px 1px at 30% 80%, rgba(255,255,255,0.5) 100%, transparent);
-  background-size: 180px 180px;
-  opacity: 0.34;
-}
-
-.star-layer.medium {
-  background-image:
-    radial-gradient(1.5px 1.5px at 50% 50%, rgba(255,255,255,0.9) 100%, transparent),
-    radial-gradient(1.5px 1.5px at 20% 75%, rgba(180,190,255,0.9) 100%, transparent);
-  background-size: 340px 340px;
-  opacity: 0.48;
-  animation: twinkle 4.5s infinite ease-in-out;
-}
-
-.star-layer.large {
-  background-image:
-    radial-gradient(2px 2px at 80% 10%, rgba(124,140,255,0.9) 100%, transparent),
-    radial-gradient(2px 2px at 18% 66%, rgba(255,255,255,0.7) 100%, transparent);
-  background-size: 520px 520px;
-  opacity: 0.25;
 }
 
 /* 連結線圖層 */

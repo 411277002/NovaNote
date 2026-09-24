@@ -104,16 +104,19 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .slash-menu {
+  --radius-box: 0.5rem;
+  --radius-field: 0.25rem;
+  --radius-selector: 1rem;
   width: 300px;
   max-height: 360px;
   padding: 8px;
 
   overflow-y: auto;
 
-  border-radius: 10px;
+  border-radius: var(--radius-box);
   border: 1px solid var(--slash-border, rgba(160, 170, 190, 0.24));
 
-  background: var(--slash-bg, #ffffff);
+  background: var(--slash-bg, #e5e9f0);
 
   box-shadow:
     var(--slash-shadow, 0 18px 44px rgba(30, 40, 60, 0.18)),
@@ -135,7 +138,7 @@ onBeforeUnmount(() => {
   padding: 10px;
 
   border: 1px solid transparent;
-  border-radius: 12px;
+  border-radius: var(--radius-field);
 
   background: transparent;
   color: var(--slash-item-text, #1f2430);
@@ -166,7 +169,7 @@ onBeforeUnmount(() => {
 
   flex-shrink: 0;
 
-  border-radius: 12px;
+  border-radius: var(--radius-selector);
 
   background: var(--slash-icon-bg, #e9f2ff);
   color: var(--slash-icon-color, #2f74c0);
@@ -241,21 +244,21 @@ onBeforeUnmount(() => {
 
 .slash-menu.dark,
 .slash-menu.theme-dark {
-  --slash-bg: rgba(18, 20, 32, 0.98);
-  --slash-border: rgba(255, 255, 255, 0.12);
-  --slash-shadow: 0 18px 50px rgba(0, 0, 0, 0.5);
-  --slash-inner-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --slash-bg: #3b4252;
+  --slash-border: rgba(216, 222, 233, 0.12);
+  --slash-shadow: 0 18px 42px rgba(15, 19, 28, 0.32);
+  --slash-inner-shadow: inset 0 1px 0 rgba(236, 239, 244, 0.04);
 
-  --slash-item-text: #f5f7ff;
-  --slash-item-hover-bg: rgba(126, 94, 255, 0.18);
-  --slash-item-hover-border: rgba(165, 140, 255, 0.42);
+  --slash-item-text: #eceff4;
+  --slash-item-hover-bg: rgba(136, 192, 208, 0.1);
+  --slash-item-hover-border: rgba(136, 192, 208, 0.24);
 
-  --slash-icon-bg: rgba(126, 94, 255, 0.18);
-  --slash-icon-color: #cfc4ff;
+  --slash-icon-bg: rgba(94, 129, 172, 0.24);
+  --slash-icon-color: #88c0d0;
 
-  --slash-title-color: #f7f8ff;
-  --slash-desc-color: #a6aec4;
-  --slash-empty-color: #a6aec4;
+  --slash-title-color: #eceff4;
+  --slash-desc-color: #8b96a8;
+  --slash-empty-color: #8b96a8;
 
   --slash-scrollbar: rgba(160, 175, 210, 0.24);
   --slash-scrollbar-hover: rgba(160, 175, 210, 0.42);
@@ -263,21 +266,21 @@ onBeforeUnmount(() => {
 
 .slash-menu.light,
 .slash-menu.theme-light {
-  --slash-bg: rgba(255, 255, 255, 0.98);
-  --slash-border: rgba(160, 170, 190, 0.24);
-  --slash-shadow: 0 18px 44px rgba(30, 40, 60, 0.18);
-  --slash-inner-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+  --slash-bg: rgba(229, 233, 240, 0.98);
+  --slash-border: rgba(76, 86, 106, 0.14);
+  --slash-shadow: 0 8px 24px rgba(46, 52, 64, 0.1);
+  --slash-inner-shadow: inset 0 1px 0 rgba(236, 239, 244, 0.72);
 
-  --slash-item-text: #1f2430;
-  --slash-item-hover-bg: #eef5ff;
-  --slash-item-hover-border: #cfe2ff;
+  --slash-item-text: #2e3440;
+  --slash-item-hover-bg: rgba(94, 129, 172, 0.1);
+  --slash-item-hover-border: rgba(94, 129, 172, 0.22);
 
-  --slash-icon-bg: #e9f2ff;
-  --slash-icon-color: #2f74c0;
+  --slash-icon-bg: rgba(94, 129, 172, 0.14);
+  --slash-icon-color: #5e81ac;
 
-  --slash-title-color: #151922;
-  --slash-desc-color: #7d8495;
-  --slash-empty-color: #8c93a5;
+  --slash-title-color: #2e3440;
+  --slash-desc-color: #4c566a;
+  --slash-empty-color: #7b8494;
 
   --slash-scrollbar: rgba(130, 145, 170, 0.35);
   --slash-scrollbar-hover: rgba(130, 145, 170, 0.55);

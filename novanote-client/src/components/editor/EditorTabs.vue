@@ -62,8 +62,8 @@ const closeTab = (tab) => {
   display: flex;
   align-items: center;
 
-  background: var(--editor-header-bg);
-  border-bottom: 1px solid var(--border-color);
+  background: var(--color-base-200, var(--editor-header-bg));
+  border-bottom: 1px solid var(--surface-border, var(--border-color));
 
   padding: 6px 48px 5px;
 
@@ -76,8 +76,8 @@ const closeTab = (tab) => {
   min-width: 0;
 
   display: flex;
-  align-items: center;
-  gap: 8px;
+  align-items: flex-end;
+  gap: 7px;
 
   overflow-x: auto;
   overflow-y: hidden;
@@ -86,6 +86,7 @@ const closeTab = (tab) => {
 }
 
 .editor-tab {
+  position: relative;
   height: 28px;
   min-width: 88px;
   max-width: 180px;
@@ -96,11 +97,12 @@ const closeTab = (tab) => {
 
   padding: 0 8px 0 10px;
 
-  border: 1px solid var(--border-color);
-  border-radius: 999px;
+  border: 1px solid rgba(216, 222, 233, 0.1);
+  border-bottom-color: rgba(15, 19, 28, 0.14);
+  border-radius: 12px 12px 8px 8px;
 
-  background: var(--button-bg);
-  color: var(--text-color);
+  background: var(--color-base-300, var(--button-bg));
+  color: var(--color-base-content, var(--text-color));
 
   cursor: pointer;
   font-family: inherit;
@@ -108,6 +110,9 @@ const closeTab = (tab) => {
   font-size: 0.82rem;
 
   flex-shrink: 0;
+  box-shadow:
+    inset 0 1px 0 rgba(236, 239, 244, 0.07),
+    0 2px 5px rgba(15, 19, 28, 0.14);
 
   transition:
     background 0.2s ease,
@@ -117,19 +122,25 @@ const closeTab = (tab) => {
 }
 
 .editor-tab:hover {
-  transform: translateY(-1px);
-  background: var(--button-hover-bg);
-  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  background: var(--color-neutral, var(--button-hover-bg));
+  border-color: rgba(136, 192, 208, 0.24);
+  box-shadow:
+    inset 0 1px 0 rgba(236, 239, 244, 0.08),
+    0 4px 8px rgba(15, 19, 28, 0.18);
 }
 
 .editor-tab.active {
-  background: var(--accent-soft);
-  border-color: var(--accent-color);
-  color: var(--heading-color);
-
+  z-index: 2;
+  height: 31px;
+  transform: translateY(0);
+  background: var(--color-base-100, #2e3440);
+  border-color: rgba(136, 192, 208, 0.25);
+  border-bottom-color: var(--color-base-100, #2e3440);
+  color: var(--color-base-content, var(--heading-color));
   box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.06),
-    0 0 14px var(--accent-soft);
+    inset 0 1px 0 rgba(236, 239, 244, 0.08),
+    0 4px 9px rgba(15, 19, 28, 0.24);
 }
 
 .tab-dot {
@@ -139,8 +150,8 @@ const closeTab = (tab) => {
   border-radius: 50%;
   flex-shrink: 0;
 
-  background: var(--accent-color);
-  box-shadow: 0 0 8px var(--accent-color);
+  background: var(--color-primary, var(--accent-color));
+  box-shadow: none;
 }
 
 .tab-title {
@@ -162,7 +173,7 @@ const closeTab = (tab) => {
   align-items: center;
   justify-content: center;
 
-  border-radius: 50%;
+  border-radius: var(--radius-field);
 
   color: var(--muted-text);
   font-size: 1rem;
@@ -176,8 +187,13 @@ const closeTab = (tab) => {
 }
 
 .tab-close:hover {
-  background: var(--danger-bg);
-  color: var(--danger-color);
+  background: rgba(216, 222, 233, 0.12);
+  color: var(--color-base-content, var(--danger-color));
+}
+
+.editor-tab:focus-visible {
+  outline: 2px solid rgba(136, 192, 208, 0.55);
+  outline-offset: 2px;
 }
 
 .editor-tabs-scroll::-webkit-scrollbar {

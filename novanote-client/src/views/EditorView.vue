@@ -2,6 +2,7 @@
   <div
     class="editor-page"
     :class="{ 'dark-editor': currentTheme === 'dark' }"
+    :data-theme="currentTheme === 'dark' ? 'novanote-nord-dark' : 'novanote-nord-light'"
   >
     <EditorTabs
       class="editor-tabs-row"
@@ -2919,6 +2920,9 @@ onBeforeUnmount(() => {
 }
 
 .editor-page {
+  --radius-box: 0.5rem;
+  --radius-field: 0.25rem;
+  --radius-selector: 1rem;
   width: 100vw;
   height: 100vh;
   min-height: 100vh;
@@ -2928,55 +2932,55 @@ onBeforeUnmount(() => {
   overflow: hidden;
   font-family: 'Inter', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
 
-  --editor-accent: #786cff;
+  --editor-accent: #88c0d0;
   --editor-accent-2: #41c7ff;
-  --editor-accent-3: #9f7cff;
+  --editor-accent-3: #8fbcbb;
   --editor-danger: #ff6b9a;
 
   --page-bg:
-    radial-gradient(circle at 12% 8%, rgba(120, 108, 255, 0.14), transparent 31%),
-    radial-gradient(circle at 82% 18%, rgba(65, 199, 255, 0.1), transparent 32%),
+    radial-gradient(circle at 12% 8%, rgba(136, 192, 208, 0.14), transparent 31%),
+    radial-gradient(circle at 82% 18%, rgba(136, 192, 208, 0.1), transparent 32%),
     radial-gradient(circle at 62% 90%, rgba(159, 124, 255, 0.08), transparent 34%),
     linear-gradient(180deg, #f7f8ff 0%, #eef3ff 48%, #e8eeff 100%);
   --page-text: #182038;
 
-  --surface-0: rgba(255, 255, 255, 0.98);
-  --surface-1: rgba(248, 250, 255, 0.98);
-  --surface-2: #ffffff;
-  --surface-muted: #eef3ff;
-  --surface-border: rgba(116, 132, 210, 0.26);
-  --surface-border-strong: rgba(120, 108, 255, 0.38);
-  --surface-line: rgba(80, 102, 170, 0.14);
+  --surface-0: rgba(229, 233, 240, 0.88);
+  --surface-1: rgba(229, 233, 240, 0.76);
+  --surface-2: #eceff4;
+  --surface-muted: rgba(216, 222, 233, 0.46);
+  --surface-border: rgba(76, 86, 106, 0.12);
+  --surface-border-strong: rgba(94, 129, 172, 0.28);
+  --surface-line: rgba(76, 86, 106, 0.08);
 
-  --text-main: #151c32;
-  --text-soft: #3d4868;
-  --text-muted: #7d89a6;
-  --text-inverse: #ffffff;
+  --text-main: #2e3440;
+  --text-soft: #3b4252;
+  --text-muted: #7b8494;
+  --text-inverse: #eceff4;
 
-  --glow-soft: 0 0 22px rgba(120, 108, 255, 0.12);
-  --glow-strong: 0 0 28px rgba(120, 108, 255, 0.22);
-  --panel-shadow: 0 20px 50px rgba(54, 66, 120, 0.14);
-  --panel-shadow-soft: 0 12px 30px rgba(54, 66, 120, 0.1);
+  --glow-soft: 0 0 0 transparent;
+  --glow-strong: 0 0 0 transparent;
+  --panel-shadow: 0 6px 20px rgba(46, 52, 64, 0.06);
+  --panel-shadow-soft: 0 3px 12px rgba(46, 52, 64, 0.045);
 
-  --control-bg: #ffffff;
-  --control-bg-hover: #f3f6ff;
-  --control-border: rgba(116, 132, 210, 0.3);
-  --control-border-hover: rgba(120, 108, 255, 0.52);
-  --control-text: #26304e;
-  --control-active-bg: linear-gradient(135deg, rgba(120, 108, 255, 0.14), rgba(65, 199, 255, 0.08));
-  --control-active-text: #5147d9;
+  --control-bg: #e5e9f0;
+  --control-bg-hover: #d8dee9;
+  --control-border: rgba(76, 86, 106, 0.14);
+  --control-border-hover: rgba(94, 129, 172, 0.34);
+  --control-text: #2e3440;
+  --control-active-bg: rgba(94, 129, 172, 0.14);
+  --control-active-text: #2e3440;
 
-  --document-bg: #ffffff;
-  --document-text: #111827;
-  --document-heading: #0c1224;
-  --document-border: rgba(120, 108, 255, 0.34);
-  --document-inner: rgba(120, 108, 255, 0.13);
+  --document-bg: #eceff4;
+  --document-text: #2e3440;
+  --document-heading: #2e3440;
+  --document-border: rgba(76, 86, 106, 0.12);
+  --document-inner: transparent;
 
-  --tag-bg: linear-gradient(135deg, rgba(120, 108, 255, 0.1), rgba(65, 199, 255, 0.08));
-  --tag-border: rgba(120, 108, 255, 0.28);
-  --tag-text: #5047c9;
+  --tag-bg: rgba(94, 129, 172, 0.1);
+  --tag-border: rgba(94, 129, 172, 0.22);
+  --tag-text: #3b4252;
 
-  --modal-bg: #ffffff;
+  --modal-bg: #e5e9f0;
   --modal-mask: rgba(14, 18, 32, 0.38);
 
   background: var(--page-bg);
@@ -2989,13 +2993,13 @@ onBeforeUnmount(() => {
 :global(#app[data-theme='dark']) .editor-page,
 :global(.dark) .editor-page,
 :global(.dark-mode) .editor-page {
-  --editor-accent: #8f7cff;
+  --editor-accent: #88c0d0;
   --editor-accent-2: #51bafc;
   --editor-accent-3: #b79dff;
 
   --page-bg:
-    radial-gradient(circle at 13% 10%, rgba(143, 124, 255, 0.18), transparent 30%),
-    radial-gradient(circle at 82% 16%, rgba(81, 186, 252, 0.12), transparent 30%),
+    radial-gradient(circle at 13% 10%, rgba(136, 192, 208, 0.18), transparent 30%),
+    radial-gradient(circle at 82% 16%, rgba(129, 161, 193, 0.12), transparent 30%),
     radial-gradient(circle at 58% 86%, rgba(45, 212, 191, 0.07), transparent 34%),
     linear-gradient(180deg, #050714 0%, #080c20 48%, #050714 100%);
   --page-text: #f5f7ff;
@@ -3004,8 +3008,8 @@ onBeforeUnmount(() => {
   --surface-1: rgba(14, 18, 42, 0.94);
   --surface-2: rgba(8, 12, 31, 0.98);
   --surface-muted: rgba(255, 255, 255, 0.045);
-  --surface-border: rgba(165, 150, 245, 0.2);
-  --surface-border-strong: rgba(165, 140, 255, 0.46);
+  --surface-border: rgba(136, 192, 208, 0.2);
+  --surface-border-strong: rgba(136, 192, 208, 0.46);
   --surface-line: rgba(232, 238, 255, 0.09);
 
   --text-main: #f5f7ff;
@@ -3013,27 +3017,27 @@ onBeforeUnmount(() => {
   --text-muted: rgba(222, 228, 255, 0.62);
   --text-inverse: #050714;
 
-  --glow-soft: 0 0 22px rgba(143, 124, 255, 0.14);
-  --glow-strong: 0 0 32px rgba(143, 124, 255, 0.32);
+  --glow-soft: 0 0 22px rgba(136, 192, 208, 0.14);
+  --glow-strong: 0 0 32px rgba(136, 192, 208, 0.32);
   --panel-shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
   --panel-shadow-soft: 0 14px 38px rgba(0, 0, 0, 0.28);
 
   --control-bg: rgba(255, 255, 255, 0.055);
-  --control-bg-hover: rgba(143, 124, 255, 0.13);
-  --control-border: rgba(165, 150, 245, 0.22);
-  --control-border-hover: rgba(190, 175, 255, 0.55);
+  --control-bg-hover: rgba(136, 192, 208, 0.13);
+  --control-border: rgba(136, 192, 208, 0.22);
+  --control-border-hover: rgba(136, 192, 208, 0.55);
   --control-text: #f4f1ff;
-  --control-active-bg: linear-gradient(135deg, rgba(143, 124, 255, 0.26), rgba(81, 186, 252, 0.08));
+  --control-active-bg: linear-gradient(135deg, rgba(136, 192, 208, 0.26), rgba(129, 161, 193, 0.08));
   --control-active-text: #ded6ff;
 
   --document-bg: linear-gradient(180deg, rgba(8, 12, 31, 0.96), rgba(5, 8, 22, 0.98));
   --document-text: #f5f7ff;
   --document-heading: #ffffff;
-  --document-border: rgba(126, 146, 255, 0.3);
-  --document-inner: rgba(190, 198, 255, 0.1);
+  --document-border: rgba(136, 192, 208, 0.3);
+  --document-inner: rgba(216, 222, 233, 0.1);
 
-  --tag-bg: linear-gradient(135deg, rgba(143, 124, 255, 0.24), rgba(81, 186, 252, 0.08));
-  --tag-border: rgba(165, 140, 255, 0.42);
+  --tag-bg: linear-gradient(135deg, rgba(136, 192, 208, 0.24), rgba(129, 161, 193, 0.08));
+  --tag-border: rgba(136, 192, 208, 0.42);
   --tag-text: #d8ceff;
 
   --modal-bg: linear-gradient(180deg, rgba(18, 22, 48, 0.98), rgba(8, 11, 28, 0.98));
@@ -3047,17 +3051,17 @@ onBeforeUnmount(() => {
   z-index: 0;
   pointer-events: none;
   background:
-    linear-gradient(rgba(120, 108, 255, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(120, 108, 255, 0.045) 1px, transparent 1px),
-    radial-gradient(circle, rgba(120, 108, 255, 0.24) 1px, transparent 1.5px);
+    linear-gradient(rgba(136, 192, 208, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(136, 192, 208, 0.045) 1px, transparent 1px),
+    radial-gradient(circle, rgba(136, 192, 208, 0.24) 1px, transparent 1.5px);
   background-size: 44px 44px, 44px 44px, 96px 96px;
   opacity: 0.45;
 }
 
 .editor-page.dark-editor::before {
   background:
-    linear-gradient(rgba(165, 140, 255, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(165, 140, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(rgba(136, 192, 208, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(136, 192, 208, 0.028) 1px, transparent 1px),
     radial-gradient(circle, rgba(255, 255, 255, 0.12) 1px, transparent 1.5px);
   background-size: 44px 44px, 44px 44px, 98px 98px;
   opacity: 0.62;
@@ -3134,7 +3138,7 @@ onBeforeUnmount(() => {
   gap: 8px;
   padding: 0 12px;
   border: 1px solid var(--surface-border);
-  border-radius: 8px;
+  border-radius: var(--radius-field);
   clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%, 0 8px);
   background: var(--control-bg);
   color: var(--text-soft);
@@ -3163,12 +3167,12 @@ onBeforeUnmount(() => {
 .editor-tabs-row :deep(.tab-item.active),
 .editor-tabs-row :deep(.tab-button.active),
 .editor-tabs-row :deep(button[role='tab'][aria-selected='true']) {
-  color: #ffffff !important;
-  border-color: rgba(165, 140, 255, 0.82) !important;
+  color: #eceff4 !important;
+  border-color: rgba(136, 192, 208, 0.82) !important;
   background:
     radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.2), transparent 48%),
-    linear-gradient(135deg, rgba(120, 108, 255, 0.98), rgba(65, 86, 230, 0.94)) !important;
-  box-shadow: 0 0 0 1px rgba(180, 165, 255, 0.24), 0 0 20px rgba(120, 108, 255, 0.34) !important;
+    linear-gradient(135deg, rgba(136, 192, 208, 0.98), rgba(94, 129, 172, 0.94)) !important;
+  box-shadow: 0 0 0 1px rgba(136, 192, 208, 0.24), 0 0 20px rgba(136, 192, 208, 0.34) !important;
 }
 
 .editor-tabs-row :deep(.tab-title),
@@ -3195,7 +3199,7 @@ onBeforeUnmount(() => {
   justify-content: center;
   margin-left: auto;
   border: 1px solid transparent;
-  border-radius: 5px;
+  border-radius: var(--radius-field);
   background: transparent;
   color: currentColor;
   cursor: pointer;
@@ -3219,7 +3223,7 @@ onBeforeUnmount(() => {
   min-width: 42px;
   height: 32px;
   border: 1px solid var(--surface-border-strong);
-  border-radius: 8px;
+  border-radius: var(--radius-field);
   clip-path: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 0 100%, 0 8px);
   background: var(--control-bg);
   color: var(--editor-accent);
@@ -3278,7 +3282,7 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   border: 1px solid var(--control-border);
-  border-radius: 10px;
+  border-radius: var(--radius-field);
   background: var(--control-bg);
   color: var(--control-text);
   cursor: pointer;
@@ -3326,7 +3330,7 @@ onBeforeUnmount(() => {
   height: 42px;
   padding: 0 12px;
   border: 1px solid transparent;
-  border-radius: 10px;
+  border-radius: var(--radius-field);
   outline: none;
   background: transparent;
   color: var(--text-main);
@@ -3344,11 +3348,11 @@ onBeforeUnmount(() => {
 .doc-title-input.editing {
   background: var(--surface-muted);
   border-color: var(--surface-border-strong);
-  box-shadow: 0 0 0 4px rgba(120, 108, 255, 0.11);
+  box-shadow: 0 0 0 4px rgba(136, 192, 208, 0.11);
 }
 
 .editor-page.dark-editor .doc-title-input {
-  text-shadow: 0 0 16px rgba(143, 124, 255, 0.2);
+  text-shadow: 0 0 16px rgba(136, 192, 208, 0.2);
 }
 
 .save-status {
@@ -3369,6 +3373,7 @@ onBeforeUnmount(() => {
 .toolbar-area {
   z-index: 2400;
   flex: 0 0 auto;
+  border-radius: var(--radius-box);
   background: var(--surface-0);
   border-bottom: 1px solid var(--surface-border);
   box-shadow: var(--panel-shadow-soft);
@@ -3426,8 +3431,7 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   gap: 7px;
-  border: 1px solid transparent;
-  border-radius: 9px;
+  border: none;
   background: transparent;
   color: var(--control-text);
   cursor: pointer;
@@ -3465,7 +3469,7 @@ onBeforeUnmount(() => {
 .bubble-select,
 .modal-input {
   border: 1px solid var(--control-border);
-  border-radius: 9px;
+  border-radius: var(--radius-field);
   background: var(--control-bg);
   color: var(--control-text);
   outline: none;
@@ -3487,7 +3491,7 @@ onBeforeUnmount(() => {
 .bubble-select:focus,
 .modal-input:focus {
   border-color: var(--control-border-hover);
-  box-shadow: 0 0 0 3px rgba(120, 108, 255, 0.12);
+  box-shadow: 0 0 0 3px rgba(136, 192, 208, 0.12);
 }
 
 .toolbar-select option,
@@ -3544,7 +3548,7 @@ onBeforeUnmount(() => {
   position: absolute;
   z-index: 99999;
   border: 1px solid var(--surface-border-strong);
-  border-radius: 14px;
+  border-radius: var(--radius-box);
   background: var(--surface-0);
   color: var(--text-main);
   box-shadow: var(--panel-shadow), var(--glow-soft);
@@ -3564,7 +3568,7 @@ onBeforeUnmount(() => {
 .bubble-text-align-menu-item {
   height: 42px;
   border: 1px solid transparent;
-  border-radius: 10px;
+  border-radius: var(--radius-field);
   background: transparent;
   color: var(--text-soft);
   cursor: pointer;
@@ -3708,7 +3712,7 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 12px;
   border: none;
-  border-radius: 9px;
+  border-radius: var(--radius-field);
   background: transparent;
   color: var(--text-soft);
   cursor: pointer;
@@ -3740,14 +3744,14 @@ onBeforeUnmount(() => {
   width: 24px;
   height: 24px;
   padding: 0;
-  border-radius: 50%;
+  border-radius: var(--radius-selector);
   border: 1px solid rgba(0, 0, 0, 0.16);
   cursor: pointer;
 }
 
 .palette-color-dot:hover {
   transform: scale(1.13);
-  box-shadow: 0 0 0 3px rgba(120, 108, 255, 0.16);
+  box-shadow: 0 0 0 3px rgba(136, 192, 208, 0.16);
 }
 
 .palette-color-dot.active {
@@ -3773,7 +3777,7 @@ onBeforeUnmount(() => {
 .custom-picker-btn {
   width: 30px;
   height: 30px;
-  border-radius: 999px;
+  border-radius: var(--radius-selector);
   border: 1px solid var(--control-border);
   background: var(--control-bg);
   color: var(--control-text);
@@ -3828,7 +3832,7 @@ onBeforeUnmount(() => {
   color: var(--text-main);
   background: var(--surface-0);
   border: 1px solid var(--surface-border-strong);
-  border-radius: 8px;
+  border-radius: var(--radius-box);
   clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px), 0 14px);
   box-shadow: var(--panel-shadow), var(--glow-soft);
   overflow: hidden;
@@ -3874,12 +3878,12 @@ onBeforeUnmount(() => {
   padding: 20px 16px;
   color: var(--text-muted);
   text-align: center;
-  font-size: 0.88rem;
-  font-weight: 760;
+  font-size: 0.7rem;
+  font-weight: 700;
   line-height: 1.8;
   background: var(--surface-muted);
   border: 1px solid var(--surface-line);
-  border-radius: 6px;
+  border-radius: var(--radius-box);
 }
 
 .mention-item {
@@ -3889,7 +3893,7 @@ onBeforeUnmount(() => {
   gap: 9px;
   padding: 10px 8px;
   border: 1px solid transparent;
-  border-radius: 6px;
+  border-radius: var(--radius-field);
   background: transparent;
   color: var(--text-soft);
   cursor: pointer;
@@ -3942,7 +3946,7 @@ onBeforeUnmount(() => {
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  border-radius: 999px;
+  border-radius: var(--radius-selector);
   border: 1px solid var(--tag-border);
   background: var(--tag-bg);
   color: var(--tag-text);
@@ -3967,7 +3971,7 @@ onBeforeUnmount(() => {
   height: 36px;
   padding: 0 16px;
   border: 1px dashed var(--surface-border-strong);
-  border-radius: 999px;
+  border-radius: var(--radius-field);
   outline: none;
   background: var(--surface-0);
   color: var(--text-main);
@@ -3984,7 +3988,7 @@ onBeforeUnmount(() => {
 
 .tag-input:focus {
   border-color: var(--editor-accent);
-  box-shadow: 0 0 0 3px rgba(120, 108, 255, 0.12), var(--glow-soft);
+  box-shadow: 0 0 0 3px rgba(136, 192, 208, 0.12), var(--glow-soft);
 }
 
 /* =========================
@@ -3998,7 +4002,7 @@ onBeforeUnmount(() => {
   padding: 56px 52px 72px;
   background: var(--document-bg);
   border: 1px solid var(--document-border);
-  border-radius: 8px;
+  border-radius: var(--radius-box);
   clip-path: polygon(18px 0, calc(100% - 18px) 0, 100% 18px, 100% calc(100% - 18px), calc(100% - 18px) 100%, 18px 100%, 0 calc(100% - 18px), 0 18px);
   box-shadow: var(--panel-shadow), var(--glow-soft);
   overflow: hidden;
@@ -4029,7 +4033,7 @@ onBeforeUnmount(() => {
     linear-gradient(var(--editor-accent-2), var(--editor-accent-2)) left bottom / 34px 1px no-repeat,
     linear-gradient(var(--editor-accent-2), var(--editor-accent-2)) left bottom / 1px 34px no-repeat;
   opacity: 0.44;
-  filter: drop-shadow(0 0 10px rgba(120, 108, 255, 0.28));
+  filter: drop-shadow(0 0 10px rgba(136, 192, 208, 0.28));
 }
 
 .tiptap-content {
@@ -4085,7 +4089,7 @@ onBeforeUnmount(() => {
 
 .tiptap-content :deep(.ProseMirror mark) {
   padding: 0.08em 0.16em;
-  border-radius: 4px;
+  border-radius: var(--radius-field);
 }
 
 /* =========================
@@ -4098,12 +4102,12 @@ onBeforeUnmount(() => {
   width: fit-content;
   max-width: 100%;
   margin: 18px 0;
-  border-radius: 14px;
+  border-radius: var(--radius-box);
   line-height: 0;
 }
 
 .tiptap-content :deep(.nova-media-node.is-selected) {
-  outline: 2px solid rgba(120, 108, 255, 0.56);
+  outline: 2px solid rgba(136, 192, 208, 0.56);
   outline-offset: 5px;
 }
 
@@ -4112,7 +4116,7 @@ onBeforeUnmount(() => {
   display: block;
   max-width: 100%;
   height: auto;
-  border-radius: 14px;
+  border-radius: var(--radius-box);
   border: 1px solid var(--document-border);
   object-fit: contain;
   user-select: none;
@@ -4129,7 +4133,7 @@ onBeforeUnmount(() => {
   max-width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: var(--radius-box);
   border: 1px solid var(--document-border);
   background: #050714;
   box-shadow: 0 16px 38px rgba(10, 16, 32, 0.18);
@@ -4147,11 +4151,11 @@ onBeforeUnmount(() => {
   width: 18px;
   height: 18px;
   padding: 0;
-  border-radius: 999px;
+  border-radius: var(--radius-selector);
   border: 3px solid var(--surface-2);
   background: var(--editor-accent);
   cursor: nwse-resize;
-  box-shadow: 0 0 0 1px rgba(120, 108, 255, 0.36), 0 0 18px rgba(120, 108, 255, 0.36);
+  box-shadow: 0 0 0 1px rgba(136, 192, 208, 0.36), 0 0 18px rgba(136, 192, 208, 0.36);
 }
 
 :global(body.is-resizing-media),
@@ -4174,7 +4178,7 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 4px;
   border: 1px solid var(--surface-border-strong);
-  border-radius: 14px;
+  border-radius: var(--radius-box);
   background: var(--surface-0);
   color: var(--text-main);
   box-shadow: var(--panel-shadow), var(--glow-soft);
@@ -4188,7 +4192,7 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   border: 1px solid transparent;
-  border-radius: 9px;
+  border-radius: var(--radius-field);
   background: transparent;
   color: var(--text-soft);
   cursor: pointer;
@@ -4271,7 +4275,7 @@ onBeforeUnmount(() => {
 .link-modal {
   width: min(440px, 92vw);
   padding: 28px;
-  border-radius: 18px;
+  border-radius: var(--radius-box);
   border: 1px solid var(--surface-border-strong);
   background: var(--modal-bg);
   color: var(--text-main);
@@ -4320,7 +4324,7 @@ onBeforeUnmount(() => {
 .confirm-btn {
   flex: 1;
   height: 44px;
-  border-radius: 9px;
+  border-radius: var(--radius-field);
   cursor: pointer;
   font-family: inherit;
   font-weight: 950;
@@ -4346,7 +4350,7 @@ onBeforeUnmount(() => {
 
 .confirm-btn:hover {
   filter: brightness(1.06);
-  box-shadow: 0 0 0 5px rgba(120, 108, 255, 0.14), var(--glow-strong);
+  box-shadow: 0 0 0 5px rgba(136, 192, 208, 0.14), var(--glow-strong);
 }
 
 /* =========================
@@ -4533,16 +4537,16 @@ onBeforeUnmount(() => {
 
 /* 文件框直接改白底，排除透明霧感 */
 .editor-page:not(.dark-editor) .document-shell {
-  background: #ffffff !important;
-  border: 1px solid rgba(143, 124, 255, 0.28) !important;
+  background: #eceff4 !important;
+  border: 1px solid rgba(136, 192, 208, 0.28) !important;
   box-shadow:
     0 18px 46px rgba(70, 80, 130, 0.12) !important;
 }
 
 /* 提及區直接改白底 */
 .editor-page:not(.dark-editor) .mention-panel {
-  background: #ffffff !important;
-  border: 1px solid rgba(143, 124, 255, 0.22) !important;
+  background: rgba(229, 233, 240, 0.88) !important;
+  border: 1px solid rgba(136, 192, 208, 0.22) !important;
   box-shadow:
     0 16px 36px rgba(70, 80, 130, 0.1) !important;
 }
@@ -4574,5 +4578,489 @@ onBeforeUnmount(() => {
 .selection-bubble-menu .bubble-text-align-menu,
 .selection-bubble-menu .bubble-line-height-menu {
   z-index: 2147483647 !important;
+}
+
+/* Editor-only Nord Dark theme. Values come from the shared semantic palette. */
+.editor-page[data-theme='novanote-nord-dark'] {
+  --editor-accent: var(--color-primary);
+  --editor-accent-2: var(--color-secondary);
+  --editor-accent-3: var(--color-accent);
+  --editor-danger: var(--color-error);
+
+  --page-bg: linear-gradient(135deg, var(--color-base-100), #242933);
+  --page-text: var(--color-base-content);
+  --surface-0: rgba(59, 66, 82, 0.72);
+  --surface-1: rgba(59, 66, 82, 0.48);
+  --surface-2: var(--color-base-300);
+  --surface-muted: rgba(59, 66, 82, 0.28);
+  --surface-border: rgba(216, 222, 233, 0.1);
+  --surface-border-strong: rgba(136, 192, 208, 0.3);
+  --surface-line: rgba(129, 161, 193, 0.08);
+
+  --text-main: var(--color-base-content);
+  --text-soft: #d8dee9;
+  --text-muted: #8b96a8;
+  --text-inverse: var(--color-base-100);
+
+  --glow-soft: 0 0 0 transparent;
+  --glow-strong: 0 0 0 transparent;
+  --panel-shadow: 0 16px 38px rgba(15, 19, 28, 0.2);
+  --panel-shadow-soft: 0 8px 20px rgba(15, 19, 28, 0.16);
+
+  --control-bg: var(--color-base-200);
+  --control-bg-hover: var(--color-base-300);
+  --control-border: rgba(216, 222, 233, 0.1);
+  --control-border-hover: rgba(136, 192, 208, 0.3);
+  --control-text: #d8dee9;
+  --control-active-bg: rgba(94, 129, 172, 0.42);
+  --control-active-text: var(--color-base-content);
+
+  --document-bg: rgba(46, 52, 64, 0.82);
+  --document-text: var(--color-base-content);
+  --document-heading: #eceff4;
+  --document-border: rgba(136, 192, 208, 0.18);
+  --document-inner: transparent;
+
+  --tag-bg: rgba(59, 66, 82, 0.28);
+  --tag-border: rgba(136, 192, 208, 0.35);
+  --tag-text: #d8dee9;
+
+  --modal-bg: var(--color-base-200);
+  --modal-mask: rgba(15, 19, 28, 0.58);
+
+  --accent-color: var(--color-primary);
+  --accent-color-hover: var(--color-accent);
+  --accent-text: var(--color-base-100);
+  --accent-soft: rgba(94, 129, 172, 0.24);
+  --accent-border: rgba(136, 192, 208, 0.3);
+  --text-color: #d8dee9;
+  --heading-color: #eceff4;
+  --muted-text: #8b96a8;
+  --disabled-text: rgba(216, 222, 233, 0.38);
+  --border-color: rgba(216, 222, 233, 0.1);
+  --button-bg: var(--color-base-200);
+  --button-hover-bg: var(--color-base-300);
+  --button-border: rgba(216, 222, 233, 0.1);
+  --danger-color: var(--color-error);
+  --danger-bg: rgba(191, 97, 106, 0.18);
+
+  background: var(--page-bg);
+  color: var(--page-text);
+}
+
+.editor-page[data-theme='novanote-nord-dark']::before {
+  background:
+    linear-gradient(rgba(129, 161, 193, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(129, 161, 193, 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: 0.5;
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .editor-tabs-row,
+.editor-page[data-theme='novanote-nord-dark'] .editor-header,
+.editor-page[data-theme='novanote-nord-dark'] .toolbar-area,
+.editor-page[data-theme='novanote-nord-dark'] .editor-toolbar {
+  background: var(--color-base-200);
+  border-color: var(--surface-border);
+  box-shadow: var(--panel-shadow-soft);
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .editor-tabs-row::after,
+.editor-page[data-theme='novanote-nord-dark'] .editor-header::after {
+  display: none;
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .editor-tabs-row :deep(.active),
+.editor-page[data-theme='novanote-nord-dark'] .editor-tabs-row :deep(.is-active),
+.editor-page[data-theme='novanote-nord-dark'] .editor-tabs-row :deep(.router-link-active),
+.editor-page[data-theme='novanote-nord-dark'] .editor-tabs-row :deep(.editor-tab.active),
+.editor-page[data-theme='novanote-nord-dark'] .editor-tabs-row :deep(button[role='tab'][aria-selected='true']) {
+  color: #eceff4 !important;
+  background: #5e81ac !important;
+  border-color: rgba(136, 192, 208, 0.34) !important;
+  box-shadow: none !important;
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .editor-tabs-row :deep(.editor-tab) {
+  position: relative;
+  background: var(--color-base-300);
+  color: #d8dee9;
+  border-color: rgba(216, 222, 233, 0.1);
+  border-bottom-color: rgba(15, 19, 28, 0.14);
+  border-radius: 12px 12px 8px 8px;
+  box-shadow:
+    inset 0 1px 0 rgba(236, 239, 244, 0.07),
+    0 2px 5px rgba(15, 19, 28, 0.14);
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .editor-tabs-row :deep(.editor-tab:hover),
+.editor-page[data-theme='novanote-nord-dark'] .editor-tabs-row :deep(.add-tab:hover) {
+  color: var(--color-primary);
+  background: var(--color-neutral);
+  border-color: rgba(136, 192, 208, 0.24);
+  box-shadow:
+    inset 0 1px 0 rgba(236, 239, 244, 0.08),
+    0 4px 8px rgba(15, 19, 28, 0.18);
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .editor-tabs-row :deep(.editor-tab.active) {
+  z-index: 2;
+  height: 31px;
+  transform: translateY(0);
+  color: var(--color-base-content) !important;
+  background: var(--color-base-100) !important;
+  border-color: rgba(136, 192, 208, 0.25) !important;
+  border-bottom-color: var(--color-base-100) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(236, 239, 244, 0.08),
+    0 4px 9px rgba(15, 19, 28, 0.24) !important;
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .editor-tabs-row :deep(.editor-tab:focus-visible) {
+  outline: 2px solid rgba(136, 192, 208, 0.55);
+  outline-offset: 2px;
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .editor-tabs-row :deep(.tab-dot) {
+  background: var(--color-primary);
+  box-shadow: none;
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .back-btn,
+.editor-page[data-theme='novanote-nord-dark'] .header-toolbar-toggle,
+.editor-page[data-theme='novanote-nord-dark'] .theme-toggle-btn,
+.editor-page[data-theme='novanote-nord-dark'] .toolbar-btn,
+.editor-page[data-theme='novanote-nord-dark'] .toolbar-select {
+  color: #d8dee9;
+  background: var(--color-base-200);
+  border-color: rgba(216, 222, 233, 0.1);
+  box-shadow: none;
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .back-btn:hover,
+.editor-page[data-theme='novanote-nord-dark'] .header-toolbar-toggle:hover,
+.editor-page[data-theme='novanote-nord-dark'] .theme-toggle-btn:hover,
+.editor-page[data-theme='novanote-nord-dark'] .toolbar-btn:hover,
+.editor-page[data-theme='novanote-nord-dark'] .toolbar-select:hover {
+  color: var(--color-primary);
+  background: var(--color-base-300);
+  border-color: rgba(136, 192, 208, 0.3);
+  box-shadow: none;
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .toolbar-btn.active,
+.editor-page[data-theme='novanote-nord-dark'] .header-toolbar-toggle[aria-expanded='true'] {
+  color: #eceff4;
+  background: #5e81ac;
+  border-color: rgba(136, 192, 208, 0.34);
+  box-shadow: none;
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .doc-title-input:focus,
+.editor-page[data-theme='novanote-nord-dark'] .doc-title-input.editing {
+  background: rgba(59, 66, 82, 0.45);
+  border-color: rgba(136, 192, 208, 0.3);
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .mention-panel {
+  background: rgba(59, 66, 82, 0.45);
+  border-color: rgba(129, 161, 193, 0.12);
+  border-radius: var(--radius-box);
+  clip-path: none;
+  box-shadow: var(--panel-shadow-soft);
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .mention-panel::before,
+.editor-page[data-theme='novanote-nord-dark'] .mention-title::after {
+  display: none;
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .mention-item:hover {
+  color: var(--color-primary);
+  background: rgba(136, 192, 208, 0.08);
+  border-color: rgba(136, 192, 208, 0.16);
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .document-shell {
+  background: var(--document-bg);
+  border-color: rgba(136, 192, 208, 0.18);
+  border-radius: var(--radius-box);
+  clip-path: none;
+  box-shadow: var(--panel-shadow);
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .document-shell::before,
+.editor-page[data-theme='novanote-nord-dark'] .document-shell::after {
+  display: none;
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .tag-pill {
+  color: #d8dee9;
+  background: rgba(59, 66, 82, 0.58);
+  border-color: rgba(129, 161, 193, 0.2);
+  box-shadow: none;
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .tag-input {
+  color: #d8dee9;
+  background: rgba(59, 66, 82, 0.28);
+  border-color: rgba(136, 192, 208, 0.35);
+  box-shadow: none;
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .tag-input:focus {
+  border-color: rgba(136, 192, 208, 0.58);
+  box-shadow: none;
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .tiptap-content :deep(.ProseMirror) {
+  color: var(--color-base-content);
+  background: transparent;
+  caret-color: var(--color-primary);
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .tiptap-content :deep(.ProseMirror h1),
+.editor-page[data-theme='novanote-nord-dark'] .tiptap-content :deep(.ProseMirror h2),
+.editor-page[data-theme='novanote-nord-dark'] .tiptap-content :deep(.ProseMirror h3),
+.editor-page[data-theme='novanote-nord-dark'] .tiptap-content :deep(.ProseMirror h4),
+.editor-page[data-theme='novanote-nord-dark'] .tiptap-content :deep(.ProseMirror h5),
+.editor-page[data-theme='novanote-nord-dark'] .tiptap-content :deep(.ProseMirror h6) {
+  color: #eceff4;
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .tiptap-content :deep(.ProseMirror a),
+.editor-page[data-theme='novanote-nord-dark'] .tiptap-content :deep(.nova-link) {
+  color: var(--color-primary);
+  text-decoration-color: rgba(136, 192, 208, 0.45);
+}
+
+.editor-page[data-theme='novanote-nord-dark'] .tiptap-content :deep(.ProseMirror ::selection) {
+  background: rgba(136, 192, 208, 0.22);
+}
+
+/* Light Mode: Nord Light semantic surfaces, keeping the existing layout intact. */
+.editor-page[data-theme='novanote-nord-light'] {
+  --editor-accent: var(--color-primary);
+  --editor-accent-2: var(--color-secondary);
+  --editor-accent-3: var(--color-info);
+  --editor-danger: var(--color-error);
+  --page-bg: linear-gradient(135deg, #eceff4, #e5e9f0);
+  --page-text: #2e3440;
+  --surface-0: rgba(229, 233, 240, 0.88);
+  --surface-1: rgba(229, 233, 240, 0.76);
+  --surface-2: #d8dee9;
+  --surface-muted: rgba(216, 222, 233, 0.46);
+  --surface-border: rgba(76, 86, 106, 0.12);
+  --surface-border-strong: rgba(94, 129, 172, 0.28);
+  --surface-line: rgba(76, 86, 106, 0.08);
+  --text-main: #2e3440;
+  --text-soft: #3b4252;
+  --text-muted: #7b8494;
+  --text-inverse: #eceff4;
+  --glow-soft: 0 0 0 transparent;
+  --glow-strong: 0 0 0 transparent;
+  --panel-shadow: 0 6px 20px rgba(46, 52, 64, 0.06);
+  --panel-shadow-soft: 0 3px 12px rgba(46, 52, 64, 0.045);
+  --control-bg: #e5e9f0;
+  --control-bg-hover: #d8dee9;
+  --control-border: rgba(76, 86, 106, 0.14);
+  --control-border-hover: rgba(94, 129, 172, 0.34);
+  --control-text: #2e3440;
+  --control-active-bg: rgba(94, 129, 172, 0.14);
+  --control-active-text: #2e3440;
+  --document-bg: #eceff4;
+  --document-text: #2e3440;
+  --document-heading: #2e3440;
+  --document-border: rgba(76, 86, 106, 0.12);
+  --document-inner: transparent;
+  --tag-bg: rgba(94, 129, 172, 0.1);
+  --tag-border: rgba(94, 129, 172, 0.22);
+  --tag-text: #3b4252;
+  --modal-bg: #e5e9f0;
+  --modal-mask: rgba(46, 52, 64, 0.32);
+  --accent-color: #5e81ac;
+  --accent-color-hover: #4c6e96;
+  --accent-soft: rgba(94, 129, 172, 0.14);
+  --accent-border: rgba(94, 129, 172, 0.28);
+  --text-color: #3b4252;
+  --heading-color: #2e3440;
+  --muted-text: #7b8494;
+  --disabled-text: rgba(76, 86, 106, 0.4);
+  --border-color: rgba(76, 86, 106, 0.12);
+  --button-bg: #e5e9f0;
+  --button-hover-bg: #d8dee9;
+  --button-border: rgba(76, 86, 106, 0.14);
+  --danger-color: #bf616a;
+  --danger-bg: rgba(191, 97, 106, 0.12);
+  background: var(--page-bg) !important;
+  color: var(--page-text) !important;
+}
+
+.editor-page[data-theme='novanote-nord-light']::before {
+  background:
+    linear-gradient(rgba(129, 161, 193, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(129, 161, 193, 0.045) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: 0.48;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .editor-tabs-row,
+.editor-page[data-theme='novanote-nord-light'] .editor-header,
+.editor-page[data-theme='novanote-nord-light'] .toolbar-area,
+.editor-page[data-theme='novanote-nord-light'] .editor-toolbar {
+  background: rgba(229, 233, 240, 0.88);
+  border-color: rgba(76, 86, 106, 0.12);
+  box-shadow: 0 3px 12px rgba(46, 52, 64, 0.045);
+}
+
+.editor-page[data-theme='novanote-nord-light'] .editor-tabs-row::after,
+.editor-page[data-theme='novanote-nord-light'] .editor-header::after {
+  display: none;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .editor-tabs-row :deep(.editor-tab) {
+  background: #d8dee9;
+  color: #4c566a;
+  border-color: rgba(76, 86, 106, 0.12);
+  border-bottom-color: rgba(76, 86, 106, 0.18);
+  box-shadow:
+    inset 0 1px 0 rgba(236, 239, 244, 0.74),
+    0 2px 5px rgba(46, 52, 64, 0.06);
+}
+
+.editor-page[data-theme='novanote-nord-light'] .editor-tabs-row :deep(.editor-tab:hover) {
+  background: #e5e9f0;
+  border-color: rgba(94, 129, 172, 0.28);
+  box-shadow: 0 3px 8px rgba(46, 52, 64, 0.08);
+}
+
+.editor-page[data-theme='novanote-nord-light'] .editor-tabs-row :deep(.editor-tab.active) {
+  color: #eceff4 !important;
+  background: #5e81ac !important;
+  border-color: rgba(76, 86, 106, 0.16) !important;
+  border-bottom-color: #5e81ac !important;
+  box-shadow: 0 4px 10px rgba(46, 52, 64, 0.12) !important;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .editor-tabs-row :deep(.editor-tab.active .tab-dot) {
+  background: #d4b06a;
+  box-shadow: none;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .back-btn,
+.editor-page[data-theme='novanote-nord-light'] .header-toolbar-toggle,
+.editor-page[data-theme='novanote-nord-light'] .theme-toggle-btn,
+.editor-page[data-theme='novanote-nord-light'] .toolbar-btn,
+.editor-page[data-theme='novanote-nord-light'] .toolbar-select {
+  color: #2e3440;
+  background: #e5e9f0;
+  border-color: #d8dee9;
+  box-shadow: none;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .back-btn:hover,
+.editor-page[data-theme='novanote-nord-light'] .header-toolbar-toggle:hover,
+.editor-page[data-theme='novanote-nord-light'] .theme-toggle-btn:hover,
+.editor-page[data-theme='novanote-nord-light'] .toolbar-btn:hover,
+.editor-page[data-theme='novanote-nord-light'] .toolbar-select:hover {
+  color: #2e3440;
+  background: #d8dee9;
+  border-color: rgba(94, 129, 172, 0.34);
+  box-shadow: none;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .toolbar-btn.active,
+.editor-page[data-theme='novanote-nord-light'] .header-toolbar-toggle[aria-expanded='true'] {
+  color: #eceff4;
+  background: #5e81ac;
+  border-color: rgba(94, 129, 172, 0.34);
+  box-shadow: none;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .confirm-btn {
+  color: #eceff4;
+  background: linear-gradient(135deg, #5e81ac, #81a1c1);
+  border-color: rgba(94, 129, 172, 0.24);
+  box-shadow: none;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .doc-title-input:focus,
+.editor-page[data-theme='novanote-nord-light'] .doc-title-input.editing {
+  background: rgba(216, 222, 233, 0.5);
+  border-color: #81a1c1;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .mention-panel {
+  background: rgba(229, 233, 240, 0.88);
+  border: 1px solid rgba(76, 86, 106, 0.12);
+  border-radius: var(--radius-box);
+  clip-path: none;
+  box-shadow: 0 6px 20px rgba(46, 52, 64, 0.06);
+}
+
+.editor-page[data-theme='novanote-nord-light'] .mention-panel::before,
+.editor-page[data-theme='novanote-nord-light'] .mention-title::after {
+  display: none;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .document-shell {
+  background: #eceff4 !important;
+  border: 1px solid rgba(76, 86, 106, 0.12) !important;
+  border-radius: var(--radius-box);
+  clip-path: none;
+  box-shadow: 0 6px 20px rgba(46, 52, 64, 0.06) !important;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .document-shell::before,
+.editor-page[data-theme='novanote-nord-light'] .document-shell::after {
+  display: none;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .tag-pill {
+  color: #3b4252;
+  background: rgba(94, 129, 172, 0.1);
+  border-color: rgba(94, 129, 172, 0.22);
+  box-shadow: none;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .tag-input {
+  color: #2e3440;
+  background: rgba(236, 239, 244, 0.85);
+  border-color: #d8dee9;
+  box-shadow: none;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .tag-input:focus {
+  border-color: #81a1c1;
+  box-shadow: none;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .tiptap-content :deep(.ProseMirror),
+.editor-page[data-theme='novanote-nord-light'] .tiptap-content :deep(.ProseMirror *) {
+  color: #2e3440 !important;
+  background-color: transparent;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .tiptap-content :deep(.ProseMirror h1),
+.editor-page[data-theme='novanote-nord-light'] .tiptap-content :deep(.ProseMirror h2),
+.editor-page[data-theme='novanote-nord-light'] .tiptap-content :deep(.ProseMirror h3),
+.editor-page[data-theme='novanote-nord-light'] .tiptap-content :deep(.ProseMirror h4),
+.editor-page[data-theme='novanote-nord-light'] .tiptap-content :deep(.ProseMirror h5),
+.editor-page[data-theme='novanote-nord-light'] .tiptap-content :deep(.ProseMirror h6) {
+  color: #2e3440 !important;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .tiptap-content :deep(.ProseMirror a),
+.editor-page[data-theme='novanote-nord-light'] .tiptap-content :deep(.nova-link) {
+  color: #5e81ac !important;
+  text-decoration-color: rgba(94, 129, 172, 0.5) !important;
+}
+
+.editor-page[data-theme='novanote-nord-light'] .tiptap-content :deep(.ProseMirror ::selection) {
+  background: rgba(94, 129, 172, 0.18);
 }
 </style>
